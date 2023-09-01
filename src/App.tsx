@@ -1,9 +1,29 @@
+import React from 'react'
+import { OrbitControls } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
+import { CheckerBoard } from './organisms/CheckerBoard'
+import { Lights } from './organisms/Lights'
+import { PieceRenderer } from './organisms/PieceRenderer'
 import './App.css'
-function App() {
 
-  return (
-    <></>
-  )
+const App: React.FC = () => {
+    return (
+        <div className="App">
+            <Canvas
+                camera={{ fov: 40, position: [0, 500, 300] }}
+                className="main_canvas"
+                style={{
+                    width: '100vw',
+                    height: '100vh',
+                }}
+            >
+                <Lights />
+                <PieceRenderer />
+                <CheckerBoard />
+                <OrbitControls />
+            </Canvas>
+        </div>
+    )
 }
 
 export default App
