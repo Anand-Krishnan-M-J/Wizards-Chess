@@ -10,17 +10,19 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <Canvas
-                camera={{ fov: 40, position: [0, 500, 300] }}
+                camera={{ fov: 40, position: [0, 380, 380] }}
                 className="main_canvas"
                 style={{
                     width: '100vw',
                     height: '100vh',
                 }}
             >
-                <Lights />
-                <PieceRenderer />
-                <CheckerBoard />
                 <OrbitControls />
+                <group>
+                    <Lights />
+                    <PieceRenderer />
+                    <CheckerBoard />
+                </group>
             </Canvas>
         </div>
     )

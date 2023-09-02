@@ -88,19 +88,41 @@ export interface PieceState {
     isPromoted?: boolean
     promotedTo?: PromotionType
 }
-export type InitialState = PieceState[]
+export interface PieceReduxState {
+    pieces: PieceState[]
+    hoveredPiece: null | pieceName
+    selectedPiece: null | pieceName
+    allowedMovesForSelectedPiece: Array<{ col: ColName; row: RowName }>
+}
 
 export interface movePiecePayload {
     col: ColName
     row: RowName
     name: pieceName
 }
+export interface selectPiecePayload {
+    name: pieceName | null
+}
+
+export interface hoverPiecePayload {
+    name: pieceName
+}
 
 export type MovePieceSiceType = Slice<
-    InitialState,
+    PieceReduxState,
     {
+        selectPiece: (
+            state: PieceReduxState,
+            action: PayloadAction<selectPiecePayload>
+        ) => void
+
+        hoverPiece: (
+            state: PieceReduxState,
+            action: PayloadAction<hoverPiecePayload>
+        ) => void
+
         movePiece: (
-            state: InitialState,
+            state: PieceReduxState,
             action: PayloadAction<movePiecePayload>
         ) => void
     }

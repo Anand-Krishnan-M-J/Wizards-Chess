@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #cddefe !important;
+  background: url('./assets/bg.jpg');
 
   padding: 0 !important;
   margin: 0;
@@ -30,9 +30,7 @@ body {
   /* background-color: rgba(255, 255, 255, 0.849); */
 }
 
-canvas {
-  background-color: #cddefe !important;
-}
+
 
 h1 {
   font-size: 3.2em;

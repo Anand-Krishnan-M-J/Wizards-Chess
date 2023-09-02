@@ -18,3 +18,5 @@ export enum ColName {
     G = 'G',
     H = 'H',
 }
+export const rowNames = ['8', '7', '6', '5', '4', '3', '2', '1']
+export const colnames = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']

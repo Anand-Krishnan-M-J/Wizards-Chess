@@ -37,7 +37,10 @@ module.exports = {
         "react/no-unknown-property": [
             "error",
             {
-              "ignore": ["material", "geometry", "position", "intensity", "args", "castShadow"]
+              "ignore": ["material", "geometry", "position", "intensity",
+               "args", "castShadow", "attach", "transparent", "roughness",
+               "metalness"
+            ]
             }
           ],
     }

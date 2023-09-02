@@ -1,5 +1,5 @@
-import { type PieceState } from './pieces/types'
+import { type PieceReduxState } from './pieces/types'
 
 export interface RootState {
-    pieces: PieceState[]
+    pieces: PieceReduxState
 }

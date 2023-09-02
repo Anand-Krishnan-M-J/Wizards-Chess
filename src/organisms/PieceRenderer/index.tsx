@@ -1,34 +1,41 @@
 import React from 'react'
+import { type ThreeEvent } from '@react-three/fiber'
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../store/types'
-import { GetPiece } from './ComponentMapping'
 import { getCordinates } from '../../store/pieces/positionMapping'
-import { movePiece } from '../../store/pieces'
+import { selectPiece } from '../../store/pieces'
 import { type pieceName } from '../../store/pieces/types'
-import { ColName, RowName } from '../../types'
+import { Piece } from '../../atoms/Pieces'
 
 export const PieceRenderer: React.FC = () => {
-    const pieces = useSelector((state: RootState) => state.pieces)
+    const { pieces, selectedPiece } = useSelector(
+        (state: RootState) => state.pieces
+    )
     const dispatch = useDispatch()
-    const handleMove = (name: pieceName) => {
-        dispatch(movePiece({ name, col: ColName.D, row: RowName.four }))
+    const handleSelect = (name: pieceName) => {
+        if (selectedPiece === name) {
+            dispatch(selectPiece({ name: null }))
+        } else {
+            dispatch(selectPiece({ name }))
+        }
     }
-
     return (
         <>
             <group>
                 {pieces.map((piece) => {
-                    const Piece = GetPiece(piece.name)
                     return (
                         <Piece
-                            onClick={() => {
-                                handleMove(piece.name)
+                            onClick={(e: ThreeEvent<MouseEvent>) => {
+                                e.stopPropagation()
+                                handleSelect(piece.name)
                             }}
                             key={piece.name}
                             position={getCordinates(
                                 piece.currentRow,
                                 piece.currentCol
                             )}
+                            type={piece.type}
+                            name={piece.name}
                         />
                     )
                 })}
