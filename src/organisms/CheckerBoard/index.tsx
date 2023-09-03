@@ -3,7 +3,7 @@ import { type Vector3 } from 'three'
 import { CheckerSquare } from '../../atoms/CheckerSquare'
 import { config } from '../../config'
 import { colNames } from '../../constants/pieces'
-import { type RowName, rowNames } from '../../types'
+import { rowNames, type RowName } from '../../types'
 
 export const CheckerBoard: React.FC = () => (
     <group>
@@ -11,7 +11,7 @@ export const CheckerBoard: React.FC = () => (
             colNames.map((colName, col) => {
                 const isDarkSquare = (row + col) % 2 === 1
                 const x = col * config.square.size - config.square.xOffset
-                const z = row * config.square.size - config.square.yOffset
+                const z = config.square.yOffset - row * config.square.size
                 return (
                     <CheckerSquare
                         key={`square-${row}-${col}`}

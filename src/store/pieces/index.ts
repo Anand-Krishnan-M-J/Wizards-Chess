@@ -12,6 +12,7 @@ import {
     getInitialQueenState,
     getInitialRookState,
 } from './initial'
+import { getAllowedMoves } from '../../helpers'
 
 export const intialState: PieceReduxState = {
     // Black and white pieces initial state
@@ -26,6 +27,7 @@ export const intialState: PieceReduxState = {
     hoveredPiece: null,
     selectedPiece: null,
     allowedMovesForSelectedPiece: [],
+    attackablePositions: [],
 }
 
 export const pieceSlice: MovePieceSiceType = createSlice({
@@ -38,20 +40,32 @@ export const pieceSlice: MovePieceSiceType = createSlice({
 
         selectPiece: (state: PieceReduxState, action) => {
             state.selectedPiece = action.payload.name
+            // when a piece is selected update the allowed moves here
+            if (action.payload.name != null) {
+                const { attackablePositionOccupiedByEnemy, allowedMoves } =
+                    getAllowedMoves(
+                        action.payload.pieces as PieceState[],
+                        action.payload.name
+                    )
+                // Update the states
+                state.allowedMovesForSelectedPiece = allowedMoves
+                state.attackablePositions = attackablePositionOccupiedByEnemy
+            } else {
+                state.allowedMovesForSelectedPiece = []
+            }
         },
 
         movePiece: (state: PieceReduxState, action) => {
-            ;(
-                state.pieces.find(
-                    (item) => item.name === action.payload.name
-                ) as PieceState
-            ).currentCol = action.payload.col
+            const pieceToMove = state.pieces.find(
+                (item) => item.name === action.payload.name
+            ) as PieceState
+            pieceToMove.currentCol = action.payload.col
+            pieceToMove.currentRow = action.payload.row
 
-            ;(
-                state.pieces.find(
-                    (item) => item.name === action.payload.name
-                ) as PieceState
-            ).currentRow = action.payload.row
+            // reset allowed pieces and selected piece once move is done
+            state.allowedMovesForSelectedPiece = []
+            state.selectedPiece = null
+            state.attackablePositions = []
         },
     },
 })

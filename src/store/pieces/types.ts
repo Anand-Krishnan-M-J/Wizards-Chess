@@ -9,6 +9,10 @@ export enum pieceTypes {
     bishop = 'bishop',
     knight = 'knight',
 }
+export enum pieceTypeColor {
+    black = 'black',
+    white = 'white',
+}
 export enum pieceName {
     // White
     Pawn2A_W = 'Pawn2A_W',
@@ -93,6 +97,7 @@ export interface PieceReduxState {
     hoveredPiece: null | pieceName
     selectedPiece: null | pieceName
     allowedMovesForSelectedPiece: Array<{ col: ColName; row: RowName }>
+    attackablePositions: Array<{ col: ColName; row: RowName }>
 }
 
 export interface movePiecePayload {
@@ -102,6 +107,7 @@ export interface movePiecePayload {
 }
 export interface selectPiecePayload {
     name: pieceName | null
+    pieces?: PieceState[]
 }
 
 export interface hoverPiecePayload {

@@ -12,11 +12,12 @@ export const PieceRenderer: React.FC = () => {
         (state: RootState) => state.pieces
     )
     const dispatch = useDispatch()
+    // select a piece
     const handleSelect = (name: pieceName) => {
         if (selectedPiece === name) {
             dispatch(selectPiece({ name: null }))
         } else {
-            dispatch(selectPiece({ name }))
+            dispatch(selectPiece({ name, pieces }))
         }
     }
     return (
@@ -34,6 +35,8 @@ export const PieceRenderer: React.FC = () => {
                                 piece.currentRow,
                                 piece.currentCol
                             )}
+                            col={piece.currentCol}
+                            row={piece.currentRow}
                             type={piece.type}
                             name={piece.name}
                         />

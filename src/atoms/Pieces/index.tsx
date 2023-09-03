@@ -35,6 +35,8 @@ export const Piece: React.FC<PieceProps> = ({
     name,
     type,
     position,
+    col,
+    row,
     onClick,
 }: PieceProps) => {
     const geometry = () => {
@@ -66,7 +68,7 @@ export const Piece: React.FC<PieceProps> = ({
 
     const animationProps = useSpring({
         position,
-        config: { duration: 1000 }, // Animation duration in milliseconds
+        config: { duration: 300 }, // Animation duration in milliseconds
     })
 
     const defaultColor = isWhitePiece(name) ? pieceColor.white : pieceColor.grey
@@ -81,16 +83,33 @@ export const Piece: React.FC<PieceProps> = ({
         defaultColor,
         hoverColor
     )
-    const { selectedPiece } = useSelector((state: RootState) => state.pieces)
 
-    const meshColor = selectedPiece === name ? selectedColor : color
+    const { selectedPiece, attackablePositions } = useSelector(
+        (state: RootState) => state.pieces
+    )
+    const currentPosition = `${col}${row}`
+
+    const isAttackable = attackablePositions
+        .map((item) => `${item.col}${item.row}`)
+        .includes(currentPosition)
+
+    let meshColor = color
+
+    if (selectedPiece === name) {
+        meshColor = selectedColor
+    } else {
+        meshColor = color
+    }
+    if (isAttackable) {
+        meshColor = pieceColor.isAttackable
+    }
 
     return (
         <animated.group
             {...animationProps}
             dispose={null}
             rotation={rotation}
-            onClick={onClick}
+            {...(!isAttackable && { onClick })}
         >
             <mesh
                 geometry={geometry()}

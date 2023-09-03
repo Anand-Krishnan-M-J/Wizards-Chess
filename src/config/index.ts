@@ -17,4 +17,6 @@ export enum pieceColor {
 
     blackSelect = '#a5a5a5',
     whiteSelect = '#b2dde8',
+
+    isAttackable = '#FF0000',
 }

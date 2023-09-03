@@ -39,7 +39,7 @@ module.exports = {
             {
               "ignore": ["material", "geometry", "position", "intensity",
                "args", "castShadow", "attach", "transparent", "roughness",
-               "metalness"
+               "metalness", "vertexShader", "fragmentShader", "uniforms"
             ]
             }
           ],
