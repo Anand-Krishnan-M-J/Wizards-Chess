@@ -3,6 +3,7 @@ import {
     type PieceState,
     type PieceReduxState,
     type MovePieceSiceType,
+    pieceTypeColor,
 } from './types'
 import {
     getInitialBishopState,
@@ -28,6 +29,7 @@ export const intialState: PieceReduxState = {
     selectedPiece: null,
     allowedMovesForSelectedPiece: [],
     attackablePositions: [],
+    currentlyMoveOf: pieceTypeColor.white,
 }
 
 export const pieceSlice: MovePieceSiceType = createSlice({
@@ -56,6 +58,17 @@ export const pieceSlice: MovePieceSiceType = createSlice({
         },
 
         movePiece: (state: PieceReduxState, action) => {
+            // When it's a killer move, remove the piece already present there
+            // logic  -> If a piece already exist in the to be moved square, kill it
+            const pieceToKill = state.pieces.find(
+                (piece) =>
+                    piece.currentCol === action.payload.col &&
+                    piece.currentRow === action.payload.row
+            ) as PieceState
+            if (pieceToKill !== undefined) {
+                pieceToKill.kia = true
+            }
+            // Move the piece
             const pieceToMove = state.pieces.find(
                 (item) => item.name === action.payload.name
             ) as PieceState

@@ -81,6 +81,18 @@ const getAttackablePositions = (
     }
 }
 
+export const isSquareOccupied = (
+    col: ColName,
+    row: RowName,
+    pieces: PieceState[]
+) => {
+    return (
+        pieces.find(
+            (item) => item.currentCol === col && item.currentRow === row
+        ) === undefined
+    )
+}
+
 export const getPawnMoves = (
     name: pieceName,
     currentCol: ColName,
@@ -93,15 +105,27 @@ export const getPawnMoves = (
     if (isWhitePiece(name)) {
         // if on row 2, allowed moves will be 2 rows up ahead with in same column
         if (currentRow === RowName.two) {
-            allowedMoves.push({ col: currentCol, row: RowName.three })
-            allowedMoves.push({ col: currentCol, row: RowName.four })
+            if (!isSquareOccupied(currentCol, RowName.three, pieces)) {
+                allowedMoves.push({ col: currentCol, row: RowName.three })
+            }
+            if (!isSquareOccupied(currentCol, RowName.four, pieces)) {
+                allowedMoves.push({ col: currentCol, row: RowName.four })
+            }
         }
         // if on any other row, can move only 1 step ahead
         else {
-            allowedMoves.push({
-                col: currentCol,
-                row: getNextRowName(currentRow, true),
-            })
+            if (
+                !isSquareOccupied(
+                    currentCol,
+                    getNextRowName(currentRow, true),
+                    pieces
+                )
+            ) {
+                allowedMoves.push({
+                    col: currentCol,
+                    row: getNextRowName(currentRow, true),
+                })
+            }
         }
     }
 
@@ -109,13 +133,30 @@ export const getPawnMoves = (
     if (!isWhitePiece(name)) {
         // if on row 2, allowed moves will be 2 rows up ahead with in same column
         if (currentRow === RowName.seven) {
-            allowedMoves.push({ col: currentCol, row: RowName.six })
-            allowedMoves.push({ col: currentCol, row: RowName.five })
-        } else {
-            allowedMoves.push({
-                col: currentCol,
-                row: getNextRowName(currentRow, false),
-            })
+            // Forward move is disabled when a pawn is at front
+            if (!isSquareOccupied(currentCol, RowName.six, pieces)) {
+                allowedMoves.push({ col: currentCol, row: RowName.six })
+            }
+            // Forward move is disabled when a pawn is at front
+            if (!isSquareOccupied(currentCol, RowName.five, pieces)) {
+                allowedMoves.push({ col: currentCol, row: RowName.five })
+            }
+        }
+        // For all other rows
+        else {
+            // Forward move is disabled when a pawn is at front
+            if (
+                !isSquareOccupied(
+                    currentCol,
+                    getNextRowName(currentRow, false),
+                    pieces
+                )
+            ) {
+                allowedMoves.push({
+                    col: currentCol,
+                    row: getNextRowName(currentRow, false),
+                })
+            }
         }
     }
 

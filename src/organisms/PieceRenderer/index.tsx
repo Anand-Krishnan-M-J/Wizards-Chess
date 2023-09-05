@@ -23,25 +23,27 @@ export const PieceRenderer: React.FC = () => {
     return (
         <>
             <group>
-                {pieces.map((piece) => {
-                    return (
-                        <Piece
-                            onClick={(e: ThreeEvent<MouseEvent>) => {
-                                e.stopPropagation()
-                                handleSelect(piece.name)
-                            }}
-                            key={piece.name}
-                            position={getCordinates(
-                                piece.currentRow,
-                                piece.currentCol
-                            )}
-                            col={piece.currentCol}
-                            row={piece.currentRow}
-                            type={piece.type}
-                            name={piece.name}
-                        />
-                    )
-                })}
+                {pieces
+                    .filter((piece) => !piece.kia)
+                    .map((piece) => {
+                        return (
+                            <Piece
+                                onClick={(e: ThreeEvent<MouseEvent>) => {
+                                    e.stopPropagation()
+                                    handleSelect(piece.name)
+                                }}
+                                key={piece.name}
+                                position={getCordinates(
+                                    piece.currentRow,
+                                    piece.currentCol
+                                )}
+                                col={piece.currentCol}
+                                row={piece.currentRow}
+                                type={piece.type}
+                                name={piece.name}
+                            />
+                        )
+                    })}
             </group>
         </>
     )

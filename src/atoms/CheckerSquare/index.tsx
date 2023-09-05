@@ -49,7 +49,14 @@ export const CheckerSquare: React.FC<props> = ({
 
     const handlePawnMove = () => {
         if (allowedPositions.includes(squarePosition)) {
-            dispatch(movePiece({ col, row, name: selectedPiece as pieceName }))
+            dispatch(
+                movePiece({
+                    col,
+                    row,
+                    name: selectedPiece as pieceName,
+                    pieces,
+                })
+            )
         }
     }
 
