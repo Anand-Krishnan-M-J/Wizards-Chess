@@ -1,21 +1,20 @@
 import { isWhitePiece } from '..'
-import { colNames, rowNames } from '../../constants/pieces'
+import { colNames } from '../../constants/pieces'
 import {
     type PieceState,
     type pieceName,
     pieceTypeColor,
 } from '../../store/pieces/types'
 import { type ColName, RowName } from '../../types'
+import {
+    allSquaresOccupiedByEnemy,
+    getColArrayIndex,
+    getRowArrayIndex,
+    isSquareOccupied,
+    rowNamesInBoardOrder,
+} from '../common'
 
-const rowNamesInBoardOrder = [...rowNames].reverse()
-
-const getRowArrayIndex = (row: RowName) => {
-    return rowNamesInBoardOrder.indexOf(row)
-}
-
-const getColArrayIndex = (col: ColName) => {
-    return colNames.indexOf(col)
-}
+export const isPositionIndexInRange = (index: number) => index >= 0 && index < 8
 
 const getNextRowName = (currentRow: RowName, isWhitePiece: boolean) => {
     if (isWhitePiece) {
@@ -23,20 +22,6 @@ const getNextRowName = (currentRow: RowName, isWhitePiece: boolean) => {
     }
     return rowNamesInBoardOrder[getRowArrayIndex(currentRow) - 1]
 }
-
-const allSquaresOccupiedByEnemy = (
-    pieceType: pieceTypeColor,
-    pieces: PieceState[]
-) => {
-    if (pieceType === pieceTypeColor.black) {
-        return pieces.filter((piece) => !isWhitePiece(piece.name))
-    } else {
-        return pieces.filter((piece) => isWhitePiece(piece.name))
-    }
-}
-
-const isPositionIndexInRange = (index: number) => index >= 0 && index < 8
-
 const getAttackablePositions = (
     name: pieceName,
     currentCol: ColName,
@@ -79,18 +64,6 @@ const getAttackablePositions = (
 
         return allowedPosition
     }
-}
-
-export const isSquareOccupied = (
-    col: ColName,
-    row: RowName,
-    pieces: PieceState[]
-) => {
-    return (
-        pieces.find(
-            (item) => item.currentCol === col && item.currentRow === row
-        ) !== undefined
-    )
 }
 
 export const getPawnMoves = (
