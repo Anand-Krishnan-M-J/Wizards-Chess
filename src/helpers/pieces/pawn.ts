@@ -89,7 +89,7 @@ export const isSquareOccupied = (
     return (
         pieces.find(
             (item) => item.currentCol === col && item.currentRow === row
-        ) === undefined
+        ) !== undefined
     )
 }
 
