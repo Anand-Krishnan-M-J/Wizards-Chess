@@ -4,7 +4,8 @@ import {
     type pieceName,
 } from '../store/pieces/types'
 import { type ColName, type RowName } from '../types'
-import { getPawnMoves } from './pieces/pawn'
+import { getPawnMoves } from './pieceRules/pawn'
+import { getRookMoves } from './pieceRules/rook'
 
 export const isWhitePiece = (name: pieceName) => name.split('_')[1] === 'W'
 interface position {
@@ -22,6 +23,8 @@ export const getAllowedMoves = (
     const { currentCol, currentRow, type } = selectedPiece as PieceState
     if (type === pieceTypes.pawn) {
         return getPawnMoves(name, currentCol, currentRow, pieces)
+    } else if (type === pieceTypes.rook) {
+        return getRookMoves(name, currentCol, currentRow, pieces)
     }
     return { allowedMoves: [], attackablePositionOccupiedByEnemy: [] }
 }

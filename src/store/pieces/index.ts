@@ -4,6 +4,7 @@ import {
     type PieceReduxState,
     type MovePieceSiceType,
     pieceTypeColor,
+    type pieceName,
 } from './types'
 import {
     getInitialBishopState,
@@ -14,6 +15,7 @@ import {
     getInitialRookState,
 } from './initial'
 import { getAllowedMoves } from '../../helpers'
+import { type ColName, type RowName } from '../../types'
 
 export const intialState: PieceReduxState = {
     // Black and white pieces initial state
@@ -54,6 +56,7 @@ export const pieceSlice: MovePieceSiceType = createSlice({
                 state.attackablePositions = attackablePositionOccupiedByEnemy
             } else {
                 state.allowedMovesForSelectedPiece = []
+                state.attackablePositions = []
             }
         },
 
@@ -61,16 +64,21 @@ export const pieceSlice: MovePieceSiceType = createSlice({
             // When it's a killer move, remove the piece already present there
             // logic  -> If a piece already exist in the to be moved square, kill it
             const pieceToKill = state.pieces.find(
-                (piece) =>
+                (piece: {
+                    currentCol: ColName
+                    currentRow: RowName
+                    kia: boolean
+                }) =>
                     piece.currentCol === action.payload.col &&
-                    piece.currentRow === action.payload.row
+                    piece.currentRow === action.payload.row &&
+                    !piece.kia
             ) as PieceState
             if (pieceToKill !== undefined) {
                 pieceToKill.kia = true
             }
             // Move the piece
             const pieceToMove = state.pieces.find(
-                (item) => item.name === action.payload.name
+                (item: { name: pieceName }) => item.name === action.payload.name
             ) as PieceState
             pieceToMove.currentCol = action.payload.col
             pieceToMove.currentRow = action.payload.row

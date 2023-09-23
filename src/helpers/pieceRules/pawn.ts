@@ -7,14 +7,13 @@ import {
 } from '../../store/pieces/types'
 import { type ColName, RowName } from '../../types'
 import {
-    allSquaresOccupiedByEnemy,
+    allEnemies,
     getColArrayIndex,
     getRowArrayIndex,
+    isPositionIndexInRange,
     isSquareOccupied,
     rowNamesInBoardOrder,
 } from '../common'
-
-export const isPositionIndexInRange = (index: number) => index >= 0 && index < 8
 
 const getNextRowName = (currentRow: RowName, isWhitePiece: boolean) => {
     if (isWhitePiece) {
@@ -144,10 +143,7 @@ export const getPawnMoves = (
         ? pieceTypeColor.black
         : pieceTypeColor.white
 
-    const attackablePositionOccupiedByEnemy = allSquaresOccupiedByEnemy(
-        pieceColor,
-        pieces
-    )
+    const attackablePositionOccupiedByEnemy = allEnemies(pieceColor, pieces)
         .filter((item) =>
             attackablePositions.includes(`${item.currentCol}${item.currentRow}`)
         )

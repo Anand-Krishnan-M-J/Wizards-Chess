@@ -1,4 +1,9 @@
 module.exports = {
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "env": {
         "browser": true,
         "es2021": true
@@ -30,18 +35,15 @@ module.exports = {
         "react"
     ],
     "rules": {
-        "@typescript-eslint/explicit-function-return-type": [
-            "warn",
-            { "allowExpressions": true }
-        ],
+        "@typescript-eslint/explicit-function-return-type": "off",
         "react/no-unknown-property": [
             "error",
             {
-              "ignore": ["material", "geometry", "position", "intensity",
-               "args", "castShadow", "attach", "transparent", "roughness",
-               "metalness", "vertexShader", "fragmentShader", "uniforms"
-            ]
+                "ignore": ["material", "geometry", "position", "intensity",
+                    "args", "castShadow", "attach", "transparent", "roughness",
+                    "metalness", "vertexShader", "fragmentShader", "uniforms"
+                ]
             }
-          ],
+        ],
     }
 }

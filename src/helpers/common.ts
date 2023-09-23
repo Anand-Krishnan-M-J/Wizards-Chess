@@ -10,7 +10,27 @@ export const isSquareOccupied = (
 ) => {
     return (
         pieces.find(
-            (item) => item.currentCol === col && item.currentRow === row
+            (item) =>
+                item.currentCol === col && item.currentRow === row && !item.kia
+        ) !== undefined
+    )
+}
+
+export const isSquareOccupiedByEnemy = (
+    col: ColName,
+    row: RowName,
+    pieces: PieceState[],
+    enemyType: pieceTypeColor
+) => {
+    return (
+        pieces.find(
+            (item) =>
+                item.currentCol === col &&
+                item.currentRow === row &&
+                !item.kia &&
+                (enemyType === pieceTypeColor.white
+                    ? isWhitePiece(item.name)
+                    : !isWhitePiece(item.name))
         ) !== undefined
     )
 }
@@ -25,13 +45,12 @@ export const getColArrayIndex = (col: ColName) => {
     return colNames.indexOf(col)
 }
 
-export const allSquaresOccupiedByEnemy = (
-    pieceType: pieceTypeColor,
-    pieces: PieceState[]
-) => {
+// pieceType is of enemy's
+export const allEnemies = (pieceType: pieceTypeColor, pieces: PieceState[]) => {
     if (pieceType === pieceTypeColor.black) {
-        return pieces.filter((piece) => !isWhitePiece(piece.name))
+        return pieces.filter((piece) => !isWhitePiece(piece.name) && !piece.kia)
     } else {
-        return pieces.filter((piece) => isWhitePiece(piece.name))
+        return pieces.filter((piece) => isWhitePiece(piece.name) && !piece.kia)
     }
 }
+export const isPositionIndexInRange = (index: number) => index >= 0 && index < 8
