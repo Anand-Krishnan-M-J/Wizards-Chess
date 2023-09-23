@@ -4,6 +4,7 @@ import {
     type pieceName,
 } from '../store/pieces/types'
 import { type ColName, type RowName } from '../types'
+import { getBishopMoves } from './pieceRules/bishop'
 import { getKnightMoves } from './pieceRules/knight'
 import { getPawnMoves } from './pieceRules/pawn'
 import { getRookMoves } from './pieceRules/rook'
@@ -28,6 +29,8 @@ export const getAllowedMoves = (
         return getRookMoves(name, currentCol, currentRow, pieces)
     } else if (type === pieceTypes.knight) {
         return getKnightMoves(name, currentCol, currentRow, pieces)
+    } else if (type === pieceTypes.bishop) {
+        return getBishopMoves(name, currentCol, currentRow, pieces)
     }
     return { allowedMoves: [], attackablePositionOccupiedByEnemy: [] }
 }
