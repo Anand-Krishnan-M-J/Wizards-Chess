@@ -34,6 +34,24 @@ export const isSquareOccupiedByEnemy = (
         ) !== undefined
     )
 }
+export const isSquareOccupiedByFriendly = (
+    col: ColName,
+    row: RowName,
+    pieces: PieceState[],
+    currentPieceType: pieceTypeColor
+) => {
+    return (
+        pieces.find(
+            (item) =>
+                item.currentCol === col &&
+                item.currentRow === row &&
+                !item.kia &&
+                (currentPieceType === pieceTypeColor.white
+                    ? isWhitePiece(item.name)
+                    : !isWhitePiece(item.name))
+        ) !== undefined
+    )
+}
 
 export const rowNamesInBoardOrder = [...rowNames].reverse()
 

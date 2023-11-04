@@ -14,7 +14,7 @@ import {
     getInitialQueenState,
     getInitialRookState,
 } from './initial'
-import { getAllowedMoves } from '../../helpers'
+import { getAllowedMoves, isWhitePiece } from '../../helpers'
 import { type ColName, type RowName } from '../../types'
 
 export const intialState: PieceReduxState = {
@@ -31,7 +31,7 @@ export const intialState: PieceReduxState = {
     selectedPiece: null,
     allowedMovesForSelectedPiece: [],
     attackablePositions: [],
-    currentlyMoveOf: pieceTypeColor.white,
+    currentMoveIsOf: pieceTypeColor.white,
 }
 
 export const pieceSlice: MovePieceSiceType = createSlice({
@@ -63,30 +63,39 @@ export const pieceSlice: MovePieceSiceType = createSlice({
         movePiece: (state: PieceReduxState, action) => {
             // When it's a killer move, remove the piece already present there
             // logic  -> If a piece already exist in the to be moved square, kill it
+            const { col, row, name } = action.payload
             const pieceToKill = state.pieces.find(
                 (piece: {
                     currentCol: ColName
                     currentRow: RowName
                     kia: boolean
                 }) =>
-                    piece.currentCol === action.payload.col &&
-                    piece.currentRow === action.payload.row &&
+                    piece.currentCol === col &&
+                    piece.currentRow === row &&
                     !piece.kia
             ) as PieceState
             if (pieceToKill !== undefined) {
                 pieceToKill.kia = true
+                pieceToKill.currentCol = undefined as unknown as ColName
+                pieceToKill.currentRow = undefined as unknown as RowName
             }
             // Move the piece
             const pieceToMove = state.pieces.find(
-                (item: { name: pieceName }) => item.name === action.payload.name
+                (item: { name: pieceName }) => item.name === name
             ) as PieceState
-            pieceToMove.currentCol = action.payload.col
-            pieceToMove.currentRow = action.payload.row
+            pieceToMove.currentCol = col
+            pieceToMove.currentRow = row
 
             // reset allowed pieces and selected piece once move is done
             state.allowedMovesForSelectedPiece = []
             state.selectedPiece = null
             state.attackablePositions = []
+
+            if (isWhitePiece(action.payload.name)) {
+                state.currentMoveIsOf = pieceTypeColor.black
+            } else {
+                state.currentMoveIsOf = pieceTypeColor.white
+            }
         },
     },
 })

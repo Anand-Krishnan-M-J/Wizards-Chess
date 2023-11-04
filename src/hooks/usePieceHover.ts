@@ -21,7 +21,6 @@ export function usePieceHover(
 
     const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
         e.stopPropagation()
-
         setcolor(defaultColor)
     }
 

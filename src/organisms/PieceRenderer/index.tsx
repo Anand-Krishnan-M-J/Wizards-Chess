@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../store/types'
 import { getCordinates } from '../../store/pieces/positionMapping'
 import { selectPiece } from '../../store/pieces'
-import { type pieceName } from '../../store/pieces/types'
+import { pieceTypeColor, type pieceName } from '../../store/pieces/types'
 import { Piece } from '../../atoms/Pieces'
+import { isWhitePiece } from '../../helpers'
 
 export const PieceRenderer: React.FC = () => {
-    const { pieces, selectedPiece } = useSelector(
+    const { pieces, selectedPiece, currentMoveIsOf } = useSelector(
         (state: RootState) => state.pieces
     )
     const dispatch = useDispatch()
@@ -30,7 +31,17 @@ export const PieceRenderer: React.FC = () => {
                             <Piece
                                 onClick={(e: ThreeEvent<MouseEvent>) => {
                                     e.stopPropagation()
-                                    handleSelect(piece.name)
+                                    // Disable enemy move, when it's not their move
+                                    const shouldEnableClick =
+                                        (isWhitePiece(piece.name) &&
+                                            currentMoveIsOf ===
+                                                pieceTypeColor.white) ||
+                                        (!isWhitePiece(piece.name) &&
+                                            currentMoveIsOf ===
+                                                pieceTypeColor.black)
+                                    if (shouldEnableClick) {
+                                        handleSelect(piece.name)
+                                    }
                                 }}
                                 key={piece.name}
                                 position={getCordinates(

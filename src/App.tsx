@@ -10,7 +10,7 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <Canvas
-                camera={{ fov: 40, position: [0, 450, 340] }}
+                camera={{ fov: 40, position: [0, 330, 380] }}
                 className="main_canvas"
                 style={{
                     width: '100vw',

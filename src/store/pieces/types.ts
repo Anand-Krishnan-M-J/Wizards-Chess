@@ -98,7 +98,7 @@ export interface PieceReduxState {
     selectedPiece: null | pieceName
     allowedMovesForSelectedPiece: Array<{ col: ColName; row: RowName }>
     attackablePositions: Array<{ col: ColName; row: RowName }>
-    currentlyMoveOf: pieceTypeColor
+    currentMoveIsOf: pieceTypeColor
 }
 
 export interface movePiecePayload {
