@@ -1,0 +1,71 @@
+@import '../../styles/colors.module.scss';
+
+.button {
+    &__container {
+        width: 250px;
+        height: 50px;
+        cursor: pointer;
+        perspective: 500px;
+        -webkit-perspective: 500px;
+        margin: 3rem auto 5rem auto;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+        transition: 0.25s;
+        -webkit-transition: 0.25s;
+    }
+}
+
+.button__content:hover {
+    transform: rotateX(-90deg);
+}
+
+.span {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    border: 2px solid $primary-font-color;
+    line-height: 50px;
+    font-size: 17px;
+    text-align: center;
+    left: 0;
+
+    color: #fafafa;
+    font-weight: bold;
+    text-shadow: 1px 1px #1f272b;
+    border: 1px solid #1c252b;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: #232B30;
+    /* old browsers */
+    background: -moz-linear-gradient(top, #3D4850 3%, #313d45 4%, #232B30 100%);
+    /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(3%, #3D4850), color-stop(4%, #313d45), color-stop(100%, #232B30));
+    /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D4850', endColorstr='#232B30', GradientType=0);
+    /* ie */
+    box-shadow: 1px 1px 1rem rgb(0, 0, 0);
+    /* CSS3 */
+    -moz-box-shadow: 1px 1px 1rem rgba(0, 0, 0, 0.2);
+    /* Firefox */
+    -webkit-box-shadow: 1px 1px 1rem rgba(0, 0, 0, 0.2);
+    /* Safari, Chrome */
+
+    &__1 {
+        transform: translate3d(0, 0, 25px);
+        -webkit-transform: translate3d(0, 0, 25px);
+    }
+
+    &__2 {
+        transform: rotateX(90deg) translate3d(0, 0, 25px);
+        -webkit-transform: rotateX(90deg) translate3d(0, 0, 25px);
+    }
+}

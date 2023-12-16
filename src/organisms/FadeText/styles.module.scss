@@ -1,0 +1,29 @@
+// FadeInText.scss
+
+.fade-in-text {
+    display: inline-block;
+    font-size: xx-large;
+    font-weight: 600;
+
+    .fade-in-char {
+        opacity: 0;
+        display: inline-block;
+        animation: fadeIn 0.5s ease-in-out forwards;
+
+        @for $i from 1 through 100 {
+            &:nth-child(#{$i}) {
+                animation-delay: $i * 0.1s;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

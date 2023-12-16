@@ -1,0 +1,20 @@
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0 auto;
+  text-align: center;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+}
+
+body {
+  margin: 0px;
+  color: #383838;
+  font-size: 18px;
+  font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
+  font-weight: 300;
+}

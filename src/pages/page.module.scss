@@ -1,0 +1,19 @@
+@import '../styles/colors.module.scss';
+
+.parallax {
+    background: url('/images/lakeView.jpg') repeat fixed 100%;
+    background-size: cover;
+    color: aliceblue;
+    height: 85vh;
+}
+
+.parallax-1 {
+    background: url('/images/hogwards.png') repeat fixed 100%;
+    background-size: cover;
+    color: aliceblue;
+}
+
+.parallax-inner {
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
