@@ -7,7 +7,9 @@ import ravenclaw from "../../../assets/houses/rav.jpg"
 import { ImageCard } from "../../card"
 import { CustomButton } from "@/atoms/Button"
 import { Button3D } from "@/atoms/3DButton"
+import { SideDrawer } from "@/organisms/Drawer"
 import styles from "./styles.module.scss"
+import { useState } from "react"
 
 const houses = [
     { name: "Ravenclaw", src: ravenclaw, description: "Or yet in wise old Ravenclaw, if you've a ready mind, where those of wit an learning, will always find their kind" },
@@ -17,27 +19,39 @@ const houses = [
 ]
 
 
-export const StartGame = () => (
-    <div className={styles.intro__description}>
-        <div className={styles.intro__content}>
-            <h2 className={styles.intro__content__title}>{messages.welcomeTitle}</h2>
-            <p className={styles.intro__content__description}>{messages.welcomeDescription}</p>
-            <div className={styles.intro__instruction__text}>
-                <p>{messages.howToPlay}</p>
-                <CustomButton className={styles.intro__button}>{messages.readInstructions}</CustomButton>
+export const StartGame = () => {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+    const toggleDrawerOpen = (isOpen: boolean) => {
+        setIsDrawerOpen(isOpen)
+    }
+    return (
+        <div className={styles.intro__description}>
+            <div className={styles.intro__content}>
+                <h2 className={styles.intro__content__title}>{messages.welcomeTitle}</h2>
+                <p className={styles.intro__content__description}>{messages.welcomeDescription}</p>
+                <div className={styles.intro__instruction__text}>
+                    <p>{messages.howToPlay}</p>
+                    <CustomButton className={styles.intro__button}>{messages.readInstructions}</CustomButton>
+                </div>
+                <CustomEndLine />
             </div>
-            <CustomEndLine />
-        </div>
-        <div className={styles.house__content}>
-            <h2 className={styles.intro__content__title}>{messages.chooseYourHouse}</h2>
-            <div className={styles.house__image__wrapper}>
-                {
-                    houses.map((item) => <div key={item.name} className={styles.house__image}>
-                        <ImageCard src={item.src} name={item.name} description={item.description} isSelected />
-                    </div>)
-                }
+            <div className={styles.house__content}>
+                <h2 className={styles.intro__content__title}>{messages.chooseYourHouse}</h2>
+                <div className={styles.house__image__wrapper}>
+                    {
+                        houses.map((item) => <div key={item.name} className={styles.house__image}>
+                            <ImageCard src={item.src} name={item.name} description={item.description} isSelected />
+                        </div>)
+                    }
+                </div>
+                <Button3D
+                    onClick={() => {
+                        setIsDrawerOpen(true)
+                    }}
+                    mainText={messages.openGamePortal}
+                    toggleText={messages.alohomora} />
             </div>
-            <Button3D mainText={messages.openGamePortal} toggleText={messages.alohomora} />
+            <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} />
         </div>
-    </div>
-)
+    )
+}

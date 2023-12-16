@@ -1,0 +1,67 @@
+@import '../../styles/colors.module.scss';
+/* Add slide animation */
+@mixin slideInRight {
+    animation: slideInRightAnimation 0.3s ease-in-out;
+}
+
+.side-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)), url(../../assets/dark_wall.png);
+    box-shadow: -1rem 0 2rem rgb(0, 0, 0);
+    transition: right 0.5s ease-in-out;
+    border-left: solid 0.1rem #000000;
+    border-right: solid 0.1rem #24241d;
+    border-top-left-radius: 2rem;
+    overflow: hidden;
+
+    &.open {
+        right: 0;
+        @include slideInRight;
+    }
+
+    .toggle-button {
+        position: absolute;
+        z-index: 100;
+        top: 1.5rem;
+        right: 0.5rem;
+        cursor: pointer;
+        background-color: #00000000;
+        padding:0rem 0rem 2rem 2rem;
+    }
+
+    .drawer {
+        &__content{
+            padding: 20px;
+        }
+        &__sub__content{
+            width: 700px;
+            max-width: 100%;
+            margin: auto;
+        }
+        &__title{
+            color: $primary-font-color;
+            margin-bottom: 2rem;
+            margin-top: 3rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        width: 55%;
+    }
+}
+
+@keyframes slideInRightAnimation {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}

@@ -1,0 +1,25 @@
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    position: absolute;
+    right: 0rem;
+    top: 3rem;
+    z-index: 1;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    visibility: hidden;
+    opacity: 0;
+    width: 200px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tooltip.active {
+    visibility: visible;
+    opacity: 1;
+}

@@ -10,5 +10,10 @@ export const messages = {
     alohomora: "Alohomora !",
     mainHeading: "Wizard's Chess",
     instructions: "INSTRUCTIONS",
-    connectWithMe: "Connect With Me"
+    connectWithMe: "Connect With Me",
+    close: "Close",
+    register: "Connect with you opponent",
+    name: "Name",
+    namePlaceHolder: "Enter your name",
+    nameInfo: "This name will be displayed on your opponent's game window"
 }
