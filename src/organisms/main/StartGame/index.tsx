@@ -20,7 +20,7 @@ const houses = [
 
 
 export const StartGame = () => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawerOpen = (isOpen: boolean) => {
         setIsDrawerOpen(isOpen)
     }
