@@ -1,8 +1,9 @@
+@import '../../styles/colors.module.scss';
 .button {
     outline: 0;
     padding: 5px 12px;
     display: block;
-    color: #9fa8b0;
+    color: $primary-font-color;
     font-weight: bold;
     text-shadow: 1px 1px #1f272b;
     border: 1px solid #1c252b;

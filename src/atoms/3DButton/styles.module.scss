@@ -33,12 +33,12 @@
     box-sizing: border-box;
     border: 2px solid $primary-font-color;
     line-height: 50px;
-    font-size: 17px;
+    font-size: 1.5;
     text-align: center;
     left: 0;
 
-    color: #fafafa;
-    font-weight: bold;
+    color: $primary-font-color;
+    font-weight: 600;
     text-shadow: 1px 1px #1f272b;
     border: 1px solid #1c252b;
     border-radius: 3px;

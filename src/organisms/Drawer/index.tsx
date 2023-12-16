@@ -6,6 +6,8 @@ import { CustomInputField } from '@/atoms/InputField';
 import { CustomHr } from '@/atoms';
 import close from "../../assets/close.png"
 import styles from './styles.module.scss';
+import Link from 'next/link';
+import { CustomButton } from '@/atoms/Button';
 
 interface SideDrawerProps {
     isDrawerOpen: boolean,
@@ -40,6 +42,11 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
                 </h3>
                 <div className={styles.drawer__sub__content}>
                     <CustomInputField label={messages.name} placeholder={messages.namePlaceHolder} toolTipText={messages.nameInfo} />
+                    <CustomButton className={styles.drawer__start__button}>
+                        <Link href="/game" className={styles.drawer__start__link}>
+                            {messages.startGame}
+                        </Link>
+                    </CustomButton>
                 </div>
             </div>
         </div>
