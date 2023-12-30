@@ -15,5 +15,10 @@ export const messages = {
     register: "Connect with you opponent",
     name: "Name",
     namePlaceHolder: "Enter your name",
-    nameInfo: "This name will be displayed on your opponent's game window"
+    nameInfo: "This name will be displayed on your opponent's game window",
+    gameCode: "Game Code",
+    gameCodePlaceholder: "Enter Game Code",
+    gameCodeInfo: "Use the game code that your opponent shared",
+    startNewGame: "Start a new game",
+    startNewGameInfo:"Select this if you donot have a game code already"
 }

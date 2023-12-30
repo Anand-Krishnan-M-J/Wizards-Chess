@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix" :"next lint --fix"
   },
   "dependencies": {
     "@react-spring/three": "^9.7.3",
@@ -14,6 +15,7 @@
     "@react-three/fiber": "^8.13.7",
     "@reduxjs/toolkit": "^1.9.5",
     "@vercel/analytics": "^1.0.2",
+    "firebase": "^8.2.10",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",

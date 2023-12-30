@@ -1,0 +1,24 @@
+@import '../../styles/colors.module.scss';
+
+.checkbox{
+    &__wrapper{
+        width: 600px;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        margin: 1rem 0rem;
+    }
+    &__label{
+        margin: 0rem 1rem;
+        color: $primary-font-color;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+    }
+    &__input{
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+    
+}
