@@ -12,7 +12,7 @@ interface CustomInputFieldProps {
     disabled?: boolean;
     error?: string;
 }
-
+// eslint-disable-next-line react/display-name
 export const CustomInputField = React.forwardRef<HTMLInputElement, CustomInputFieldProps>((
     { label, placeholder, toolTipText, disabled, error }, ref) => {
     const [inputValue, setInputValue] = useState('');
