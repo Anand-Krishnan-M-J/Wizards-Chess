@@ -1,11 +1,13 @@
 import React from 'react'
-import { config } from '../../config'
-import { type props } from './types'
+import { updateGameStateFirebaseRequest } from '@/store/firebase'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../store/types'
 import { type pieceName, type PieceState } from '../../store/pieces/types'
-import { vertexShader, fragmentShader } from './shader'
+import { config } from '../../config'
 import { movePiece } from '../../store/pieces'
+import { type props } from './types'
+import { vertexShader, fragmentShader } from './shader'
 
 const thickness = 10
 
@@ -20,6 +22,7 @@ export const CheckerSquare: React.FC<props> = ({
     const { selectedPiece, pieces, allowedMovesForSelectedPiece } = useSelector(
         (state: RootState) => state.pieces
     )
+    const state = useSelector((state: RootState) => state)
 
     // Highlight selected square
     let isSelectedPiece = false
@@ -47,7 +50,7 @@ export const CheckerSquare: React.FC<props> = ({
 
     const enableShader = isAllowedSquare || isSelectedPiece
 
-    const handlePawnMove = () => {
+    const handlePieceMove = () => {
         if (allowedPositions.includes(squarePosition)) {
             dispatch(
                 movePiece({
@@ -57,11 +60,12 @@ export const CheckerSquare: React.FC<props> = ({
                     pieces,
                 })
             )
+            dispatch(updateGameStateFirebaseRequest({gameState:state.pieces}))
         }
     }
 
     return (
-        <mesh position={position} onClick={handlePawnMove}>
+        <mesh position={position} onClick={handlePieceMove}>
             <boxGeometry
                 args={[config.square.size, thickness, config.square.size]}
             />

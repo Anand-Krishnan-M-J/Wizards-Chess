@@ -1,5 +1,3 @@
-// CheckboxComponent.tsx
-
 import React from 'react';
 import { Tooltip } from '../Tooltip';
 import Image from 'next/image';
@@ -23,7 +21,7 @@ export const CheckboxComponent: React.FC<CheckboxComponentProps> = ({
     return (
         <div className={styles.checkbox__wrapper}>
             <input
-            id="chooseGameType"
+                id="chooseGameType"
                 type="checkbox"
                 checked={isChecked}
                 onChange={handleCheckboxChange}
@@ -33,7 +31,7 @@ export const CheckboxComponent: React.FC<CheckboxComponentProps> = ({
                 {label}
             </label>
             <Tooltip text={toolTipText}>
-                <Image src={info} width={30} alt='information' />
+                <Image src={info} width={20} alt='information' />
             </Tooltip>
         </div>
     );

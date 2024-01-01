@@ -1,17 +1,20 @@
-// CustomInputField.tsx
 import React, { useState } from 'react';
+import { joinClass } from '@/helpers/general';
 import Image from 'next/image';
+import { Tooltip } from '../Tooltip';
 import info from "../../assets/info.png"
 import styles from './styles.module.scss';
-import { Tooltip } from '../Tooltip';
 
 interface CustomInputFieldProps {
     label: string;
     placeholder: string;
     toolTipText?: string;
+    disabled?: boolean;
+    error?: string;
 }
 
-export const CustomInputField: React.FC<CustomInputFieldProps> = ({ label, placeholder, toolTipText }) => {
+export const CustomInputField = React.forwardRef<HTMLInputElement, CustomInputFieldProps>((
+    { label, placeholder, toolTipText, disabled, error }, ref) => {
     const [inputValue, setInputValue] = useState('');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,20 +23,26 @@ export const CustomInputField: React.FC<CustomInputFieldProps> = ({ label, place
 
     return (
         <div className={styles.custom__input__container}>
-            <label className={styles.custom__input__label}>{label}</label>
-            <div className={styles.custom__input__wrapper}>
+            <div className={styles.custom__input__label__wrapper}>
+                <label className={styles.custom__input__label}>{label}</label>
+                {
+                    toolTipText &&
+                    <Tooltip text={toolTipText}><Image src={info} width={20} alt='information' /></Tooltip>
+                }
+            </div>
+            <div className={joinClass(styles.custom__input__wrapper)}>
                 <input
+                    ref={ref}
+                    disabled={disabled}
                     type="text"
-                    className={styles.custom__input}
+                    className={joinClass(styles.custom__input, disabled ? styles.custom__input__disabled : "")}
                     placeholder={placeholder}
                     value={inputValue}
                     onChange={handleInputChange}
                 />
-                {
-                    toolTipText &&
-                    <Tooltip text={toolTipText}><Image src={info} width={30} alt='information' /></Tooltip>
-                }
+                <p className={styles.custom__input__error}>{error}</p>
             </div>
+
         </div>
     );
-};
+});

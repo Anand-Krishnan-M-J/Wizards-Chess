@@ -26,10 +26,7 @@ export const Test = () => {
   const callIdRef = useRef<HTMLInputElement>(null)
   const [firestore, setFirestore] = useState<firebase.firestore.Firestore>();
   const [peerConnection, setPeerConnection] = useState<RTCPeerConnection>();
-  const [dataChannel, setDataChannel] = useState<RTCDataChannel | null>(null)
   const [callId, setCallId] = useState<string>("");
-
-  const [message, setMessage] = useState("")
 
   useEffect(() => {
     setFirestore(firebase.firestore());
@@ -50,30 +47,6 @@ export const Test = () => {
       maxPacketLifeTime: 3000, // Adjust the maximum packet life time in milliseconds
     });
     setPeerConnection(pc);
-    setDataChannel(channel);
-
-
-    channel.onopen = (event) => {
-      console.log('Data channel is open');
-    };
-    channel.onclose = (event) => {
-      console.log('Data channel is closed');
-    };
-
-    channel.onerror = (error) => {
-      console.error('Data channel error:', error);
-    };
-
-    channel.onbufferedamountlow = () => {
-      console.log('Buffered amount is low');
-    };
-
-    channel.onmessage = (event) => {
-      // Handle incoming messages
-      const receivedMessage = event.data;
-      console.log('Received message:', receivedMessage);
-      setMessage(receivedMessage);
-    };
 
     const initializeVideoCall = async () => {
       try {
@@ -156,7 +129,7 @@ export const Test = () => {
 
     }
   }
-
+  
 
   const onAnswer = async () => {
     if (firestore) {

@@ -1,3 +1,5 @@
+import { useContext } from "react"
+import { DrawerContext, DrawerContextProps } from "@/pages/_app"
 import { CustomEndLine } from "@/atoms/endLine"
 import { messages } from "@/constants/messages"
 import griffindor from "../../../assets/houses/grif.jpg"
@@ -7,9 +9,7 @@ import ravenclaw from "../../../assets/houses/rav.jpg"
 import { ImageCard } from "../../card"
 import { CustomButton } from "@/atoms/Button"
 import { Button3D } from "@/atoms/3DButton"
-import { SideDrawer } from "@/organisms/Drawer"
 import styles from "./styles.module.scss"
-import { useState } from "react"
 
 const houses = [
     { name: "Ravenclaw", src: ravenclaw, description: "Or yet in wise old Ravenclaw, if you've a ready mind, where those of wit an learning, will always find their kind" },
@@ -20,10 +20,8 @@ const houses = [
 
 
 export const StartGame = () => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const toggleDrawerOpen = (isOpen: boolean) => {
-        setIsDrawerOpen(isOpen)
-    }
+
+    const context = useContext<DrawerContextProps|undefined>(DrawerContext);
     return (
         <div className={styles.intro__description}>
             <div className={styles.intro__content}>
@@ -46,12 +44,11 @@ export const StartGame = () => {
                 </div>
                 <Button3D
                     onClick={() => {
-                        setIsDrawerOpen(true)
+                        context?.toggleDrawerOpen(true)
                     }}
                     mainText={messages.openGamePortal}
                     toggleText={messages.alohomora} />
             </div>
-            <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} />
         </div>
     )
 }

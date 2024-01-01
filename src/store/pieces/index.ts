@@ -1,3 +1,4 @@
+import firebase from "firebase/app";
 import { createSlice } from '@reduxjs/toolkit'
 import {
     type PieceState,

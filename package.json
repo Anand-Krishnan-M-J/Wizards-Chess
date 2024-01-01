@@ -21,7 +21,8 @@
     "react-dom": "^18",
     "react-redux": "^8.1.2",
     "sass": "^1.69.5",
-    "three": "^0.155.0"
+    "three": "^0.155.0",
+    "redux-saga": "^1.2.3"
   },
   "devDependencies": {
     "@fontsource/cinzel-decorative": "^5.0.18",

@@ -20,5 +20,13 @@ export const messages = {
     gameCodePlaceholder: "Enter Game Code",
     gameCodeInfo: "Use the game code that your opponent shared",
     startNewGame: "Start a new game",
-    startNewGameInfo:"Select this if you donot have a game code already"
+    startNewGameInfo: "Select this if you donot have a game code already",
+    generateCode: "Generate new game code",
+    connectWithOpponent: "Connect with opponent",
+    waitingToEstablishConnection: "Waiting for opponent to join  . . . . . . .",
+    connectionEstablishedSuccessfully: "Connection establised successfully",
+    nameEmptyError: "Enter name to continue",
+    gameCodeEmptyError: "Enter game code to continue",
+    somethingWentWrong:"Something went wrong, please try again later",
+    checkGameCode:"Please re-check game code"
 }

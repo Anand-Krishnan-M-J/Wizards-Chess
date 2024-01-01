@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { CheckerBoard } from '../../organisms/CheckerBoard'
 import { Lights } from '../../organisms/Lights'
 import { PieceRenderer } from '../../organisms/PieceRenderer'
-
 import { Provider } from 'react-redux'
-import { Analytics } from '@vercel/analytics/react'
 import { store } from '../../store/index'
+import { DrawerContext, DrawerContextProps } from '../_app'
 
 const App: React.FC = () => {
+    const context = useContext<DrawerContextProps | undefined>(DrawerContext);
+    useEffect(() => {
+        context?.toggleDrawerOpen(false)
+    }, [])
     return (
         <Provider store={store}>
 

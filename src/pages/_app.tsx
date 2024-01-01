@@ -6,8 +6,23 @@ import "@fontsource/cinzel-decorative"; // Defaults to weight 400
 import "@fontsource/cinzel-decorative/400.css"; // Specify weight;
 import { store } from '../store/index'
 import "./globals.css";
+import { createContext, useState } from 'react';
+import { SideDrawer } from '@/organisms/Drawer';
+
+export interface DrawerContextProps {
+    isDrawerOpen: boolean;
+    toggleDrawerOpen: (isOpen: boolean) => void;
+}
+export const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const toggleDrawerOpen = (isOpen: boolean) => {
+        setIsDrawerOpen(isOpen);
+    };
+
     return (
         <>
             <Head>
@@ -134,7 +149,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
             <Provider store={store}>
                 {/* eslint-disable  */}
-                <Component {...pageProps} />
+                <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen }}>
+                    <Component {...pageProps} />
+                </DrawerContext.Provider>
+                <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} />
             </Provider>
             <Analytics />
         </>
