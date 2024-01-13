@@ -1,0 +1,68 @@
+@import '../../styles/breakpoint.module.scss';
+@import '../../styles/colors.module.scss';
+
+$tabColor: rgba(0, 0, 0, 0.842);
+$tabActiveColor: rgba(253, 242, 220, 0.267);
+
+.tabContainer {
+  width: 575px;
+  max-width: 100%;
+  margin: 0 0;
+  @media only screen and (max-width: $breakpoint_sm) {
+    margin: auto;
+  }
+}
+
+.tabs {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: lighten($tabColor, 20%);
+  }
+  color: white;
+
+}
+
+.activeTab {
+  background-color: $tabActiveColor;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+.tabIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: $tabActiveColor;
+  transition: left 0.3s;
+}
+
+.tabContent {
+  margin-top: 10px;
+}
+
+.tabPane {
+  display: none;
+  padding: 15px;
+  border: 1px solid rgba(255, 250, 223, 0.144);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.activeTabPane {
+  display: block;
+  opacity: 1;
+  color: white;
+}
