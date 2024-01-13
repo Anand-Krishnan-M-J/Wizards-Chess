@@ -119,6 +119,11 @@ export interface hoverPiecePayload {
 export type MovePieceSiceType = Slice<
     PieceReduxState,
     {
+        updateState: (
+            state: PieceReduxState,
+            action: PayloadAction<PieceReduxState>
+        ) => void
+
         selectPiece: (
             state: PieceReduxState,
             action: PayloadAction<selectPiecePayload>

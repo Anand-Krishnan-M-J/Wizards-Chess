@@ -2,6 +2,7 @@ import {
     type PieceState,
     pieceTypes,
     type pieceName,
+    pieceTypeColor,
 } from '../store/pieces/types'
 import { type ColName, type RowName } from '../types'
 import { getBishopMoves } from './pieceRules/bishop'
@@ -12,6 +13,7 @@ import { getQueenMoves } from './pieceRules/queen'
 import { getRookMoves } from './pieceRules/rook'
 
 export const isWhitePiece = (name: pieceName) => name.split('_')[1] === 'W'
+export const getPieceType = (name: pieceName) => isWhitePiece(name) ? pieceTypeColor.white : pieceTypeColor.black
 export interface position {
     col: ColName
     row: RowName

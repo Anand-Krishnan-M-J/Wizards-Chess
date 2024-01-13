@@ -7,10 +7,8 @@ import logo from '../../assets/logo.png'
 import styles from "./styles.module.scss"
 
 const navigationLinks = [
-    { name: "Home", url: "", icon: home },
-    { name: "Start Game", url: "", icon: start },
-    { name: "Instructions", url: "", icon: instructions },
-    { name: "Contact", url: "", icon: contact }
+    { name: "F A Q s", url: "#faq", icon: home },
+    { name: "Contact", url: "#contact", icon: contact }
 
 ]
 export const Navbar = () => {

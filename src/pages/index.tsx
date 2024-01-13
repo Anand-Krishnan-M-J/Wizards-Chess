@@ -1,13 +1,15 @@
+import { useContext } from "react"
+import "firebase/firestore";
+import { Button3D } from "@/atoms/3DButton"
 import { CustomHr } from "@/atoms"
 import { Navbar } from "@/organisms/NavBar"
-import { StartGame } from "@/organisms/main/StartGame"
+import { FAQ } from "@/organisms/main/FAQ"
 import { FadeInText } from "@/organisms/FadeText"
 import { messages } from "@/constants/messages"
 import { Contact } from "@/organisms/main/Contact"
-import { Instructions } from "@/organisms/main/Instructions"
 import firebase from "firebase/app";
+import { DrawerContext, DrawerContextProps } from "./_app"
 import styles from "./page.module.scss"
-import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.firebaseApiKey,
@@ -24,27 +26,30 @@ if (!firebase.apps.length) {
 }
 
 export default function Home() {
+  const context = useContext<DrawerContextProps | undefined>(DrawerContext);
+
   return (
     <>
       <section className={styles.parallax}>
         <Navbar />
         <div className={styles["parallax-inner"]}>
-          <FadeInText text={messages.mainHeading} />
+          <div className={styles.wrapper}>
+            <FadeInText variant="title" text={messages.mainHeading} />
+            <p className={styles.description}> <span>{messages.welcomeDescription1}</span>{" "}<span>{messages.welcomeDescription2}</span> </p>
+            <Button3D
+              onClick={() => {
+                context?.toggleDrawerOpen(true)
+              }}
+              mainText={messages.startGame}
+              toggleText={messages.alohomora} />
+          </div>
         </div>
       </section>
-      {/* start game section */}
       <CustomHr />
-      <StartGame />
-      <CustomHr />
-      {/* Instrtuctions section */}
-      <section className={styles["parallax-1"]}>
-        <div className={styles["parallax-inner"]}>
-          <Instructions />
-        </div>
+      <section id="faq">
+        <FAQ />
       </section>
-      {/* Contact section */}
-      <CustomHr />
-      <section className={styles["2"]}>
+      <section id="contact" className={styles["2"]}>
         <Contact />
       </section>
       <p>Copyright@AKMJ</p>

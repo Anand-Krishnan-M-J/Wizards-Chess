@@ -1,6 +1,7 @@
 export const messages = {
     welcomeTitle: "Welcome to Wizard Chess: A Magical Gaming Experience!",
-    welcomeDescription: "Step into the enchanting world of Harry Potter with our Wizard Chess game. Command animated chess pieces, cast mystical spells, and challenge your friends to a duel on the wizarding chessboard. Whether you're a cunning strategist or a newcomer to the magical arts, prepare for an immersive adventure where every move echoes with the spirit of Hogwarts. Join us and let the magic unfold!",
+    welcomeDescription1: "Step into the Chess Duel of Harry Potter and the Philosopher's Stone in 3D.",
+    welcomeDescription2: "Invite your friends for a magical chess challenge, and let the wizarding showdown begin!",
     chooseYourHouse: "CHOOSE YOUR HOUSE",
     chooseButton: "Choose",
     readInstructions: "READ INSTRUCTIONS",
@@ -28,5 +29,9 @@ export const messages = {
     nameEmptyError: "Enter name to continue",
     gameCodeEmptyError: "Enter game code to continue",
     somethingWentWrong:"Something went wrong, please try again later",
-    checkGameCode:"Please re-check game code"
+    checkGameCode:"Please re-check game code",
+    faqTitle: "Frequently Asked Questions",
+    shareGameCode: "Share game code with your opponent",
+    codeCopied:"Game code copied to clipboard!",
+    generatedCodeCannotBeUsed:"Cannot use generated code, share it with opponent"
 }

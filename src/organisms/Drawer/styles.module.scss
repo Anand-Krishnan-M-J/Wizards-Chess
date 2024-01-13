@@ -135,7 +135,7 @@
         &__generate {
             &__code {
                 color: $primary-font-color;
-                font-style: italic;
+                font-family: 'Courier New', Courier, monospace;      
 
                 &__wrapper {
                     cursor: pointer;
@@ -146,14 +146,16 @@
                     justify-content: space-around;
                     padding: 0.5rem 0rem;
                     box-shadow: 0rem 0rem 0.1rem $primary-font-color;
-                    margin-top: 2rem;
+                    &:hover{
+                        opacity: 0.5;
+                    }
                 }
 
                 &__container {
                     display: flex;
                     align-items: center;
                     flex-wrap: wrap;
-
+                    color: $primary-font-color;
                 }
 
                 &__button {
@@ -169,6 +171,11 @@
 
                 &__copy {
                     padding-left: 1rem;
+                }
+                &__copied__text{
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 0.8rem;
+                    height: 1.5rem;
                 }
             }
 

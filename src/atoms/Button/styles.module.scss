@@ -31,6 +31,7 @@
 
     &__wrapper {
         cursor: not-allowed;
+        margin: auto;
 
         &__disabled {
             pointer-events: none;

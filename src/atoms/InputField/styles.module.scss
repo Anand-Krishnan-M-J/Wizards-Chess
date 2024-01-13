@@ -21,6 +21,7 @@
         }
 
         &__wrapper {
+            overflow: hidden;
             width: 575px;
             max-width: 100%;
             display: flex;

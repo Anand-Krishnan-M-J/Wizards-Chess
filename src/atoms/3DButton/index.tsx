@@ -1,6 +1,4 @@
 import { joinClass } from "@/helpers/general"
-import Image from "next/image"
-import game from "../../assets/navigation/start.png"
 import styles from "./styles.module.scss"
 interface Button3DProps {
     mainText: string,

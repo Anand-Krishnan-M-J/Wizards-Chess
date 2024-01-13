@@ -1,10 +1,11 @@
 @import '../styles/colors.module.scss';
+@import '../styles/breakpoint.module.scss';
 
 .parallax {
     background: url('/images/lakeView.jpg') repeat fixed 100%;
     background-size: cover;
-    color: aliceblue;
-    height: 85vh;
+    color: $primary-font-color;
+    height: 95vh;
 }
 
 .parallax-1 {
@@ -14,6 +15,39 @@
 }
 
 .parallax-inner {
-    padding-top: 20%;
-    padding-bottom: 20%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+
+    @media only screen and (max-width: $breakpoint_sm) {
+        padding-top: 0%;
+
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 790px;
+    box-shadow: 0 0 1rem rgba(255, 250, 187, 0.11);
+    max-width: 90%;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.589);
+    padding: 1.5rem;
+    border-top-right-radius: 6rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 1rem;
+    @media only screen and (max-width: $breakpoint_sm) {
+        height: 85vh;
+        padding-top: 10%;
+    }
+}
+
+.description {
+    font-family: sans-serif;
+    font-weight: 500;
+    margin: 0rem auto;
+    color: #fffbe4;
+    margin-top: 2rem;
 }

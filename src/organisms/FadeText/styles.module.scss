@@ -2,7 +2,6 @@
 
 .fade-in-text {
     display: inline-block;
-    font-size: xx-large;
     font-weight: 600;
 
     .fade-in-char {
@@ -15,6 +14,16 @@
                 animation-delay: $i * 0.1s;
             }
         }
+    }
+
+    &--title {
+        font-size: x-large;
+        margin: 1rem;
+    }
+
+    &--description {
+        font-size: small;
+        margin: 1rem;
     }
 }
 

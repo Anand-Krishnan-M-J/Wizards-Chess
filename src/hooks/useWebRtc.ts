@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { pieceTypeColor } from "@/store/pieces/types";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/types";
+import { useRouter } from "next/router";
+import { updateState } from "@/store/pieces";
 
 const firebaseConfig = {
     apiKey: process.env.firebaseApiKey,
@@ -19,6 +23,9 @@ if (!firebase.apps.length) {
 }
 
 export function useWebRtc() {
+    const router = useRouter();
+    const dispatch = useDispatch()
+    const pieces = useSelector((state: RootState) => state.pieces);
     const localVideoRef = useRef<HTMLVideoElement>(null);
     const remoteVideoRef = useRef<HTMLVideoElement>(null);
     const userNameRef = useRef<HTMLInputElement>(null);
@@ -68,6 +75,33 @@ export function useWebRtc() {
         })
 
     }, [])
+        //Sync redux to firebase
+        useEffect(() => {
+            if (pieces && firestore && router.query.gameId) {
+                const callDoc = firestore.collection('calls').doc(router.query.gameId as string);
+                const pieceState = callDoc.collection('pieceState')
+    
+                const updateFireStore = async () => {
+                    await pieceState.add({ pieceState: JSON.stringify(pieces) })
+                }
+                updateFireStore().then(() => { console.log("Firestore updated!!!") })
+            }
+        }, [pieces.selectedPiece, pieces.hoveredPiece, pieces.currentMoveIsOf])
+        
+        //Sync firebase to redux
+        useEffect(() => {
+            if (firestore) {
+                const callDoc = firestore.collection('calls').doc(router.query.gameId as string);
+                const pieceState = callDoc.collection('pieceState');
+                pieceState.onSnapshot((snapshot) => {
+                    snapshot.docChanges().forEach((change) => {
+                        const fireStoreState = JSON.parse(change.doc.data().pieceState);
+                        dispatch(updateState(fireStoreState))
+                    });
+                });
+    
+            }
+        }, [router.query.gameId])
 
     const createOffer = async () => {
         if (firestore) {
@@ -97,6 +131,7 @@ export function useWebRtc() {
                 };
                 //By default, the player who wants to start a game will have white pieces
                 await callDoc.set({ offer, playerOne: { name: userNameRef.current?.value, pieceType: pieceTypeColor.white } });
+                sessionStorage.setItem("pieceType", pieceTypeColor.white)
 
                 // Listen for remote answer
                 callDoc.onSnapshot((snapshot) => {
@@ -157,7 +192,13 @@ export function useWebRtc() {
                         sdp: answerDescription.sdp,
                     };
 
-                    await callDoc.update({ answer, playerTwo: { name: userNameRef.current?.value, pieceType: pieceTypeColor.black } });
+                    await callDoc.update({
+                        answer,
+                        playerTwo: {
+                            name: userNameRef.current?.value, pieceType: pieceTypeColor.black,
+                        }
+                    });
+                    sessionStorage.setItem("pieceType", pieceTypeColor.black)
                     offerCandidates.onSnapshot((snapshot) => {
                         snapshot.docChanges().forEach((change) => {
                             if (change.type === 'added') {

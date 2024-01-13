@@ -1,7 +1,8 @@
 import React from 'react'
-import { updateGameStateFirebaseRequest } from '@/store/firebase'
-
 import { useDispatch, useSelector } from 'react-redux'
+import { updateGameStateFirebaseRequest } from '@/store/firebase'
+import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece'
+import { getPieceType } from '@/helpers'
 import { type RootState } from '../../store/types'
 import { type pieceName, type PieceState } from '../../store/pieces/types'
 import { config } from '../../config'
@@ -49,9 +50,12 @@ export const CheckerSquare: React.FC<props> = ({
     }
 
     const enableShader = isAllowedSquare || isSelectedPiece
+    const { playerPieceType } = usePieceColorFromSessionStorage();
+    const selectedPieceType = selectedPiece&&getPieceType(selectedPiece as pieceName);
 
     const handlePieceMove = () => {
-        if (allowedPositions.includes(squarePosition)) {
+        if (allowedPositions.includes(squarePosition) &&
+            playerPieceType === selectedPieceType) {
             dispatch(
                 movePiece({
                     col,
@@ -60,7 +64,7 @@ export const CheckerSquare: React.FC<props> = ({
                     pieces,
                 })
             )
-            dispatch(updateGameStateFirebaseRequest({gameState:state.pieces}))
+            dispatch(updateGameStateFirebaseRequest({ gameState: state.pieces }))
         }
     }
 

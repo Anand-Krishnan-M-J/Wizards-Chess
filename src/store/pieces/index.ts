@@ -39,6 +39,15 @@ export const pieceSlice: MovePieceSiceType = createSlice({
     name: 'Piece',
     initialState: intialState,
     reducers: {
+        updateState:(state: PieceReduxState, action) => {
+            state.allowedMovesForSelectedPiece = action.payload.allowedMovesForSelectedPiece
+            state.attackablePositions =  action.payload.attackablePositions
+            state.currentMoveIsOf = action.payload.currentMoveIsOf
+            state.hoveredPiece = action.payload.hoveredPiece
+            state.pieces = action.payload.pieces
+            state.selectedPiece = action.payload.selectedPiece
+        },
+
         hoverPiece: (state: PieceReduxState, action) => {
             state.hoveredPiece = action.payload.name
         },
@@ -101,4 +110,4 @@ export const pieceSlice: MovePieceSiceType = createSlice({
     },
 })
 
-export const { movePiece, selectPiece } = pieceSlice.actions
+export const { movePiece, selectPiece, updateState } = pieceSlice.actions

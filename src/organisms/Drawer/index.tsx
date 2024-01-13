@@ -5,16 +5,16 @@ import Image from 'next/image';
 import { messages } from '@/constants/messages';
 import { CustomInputField } from '@/atoms/InputField';
 import { CustomButton } from '@/atoms/Button';
-import { CheckboxComponent } from '@/atoms/Checkbox';
-import { CustomHr } from '@/atoms';
-import close from "../../assets/close.png"
-import copyImg from "../../assets/copy.png"
-import styles from './styles.module.scss';
 import { useWebRtc } from '@/hooks/useWebRtc';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { Loader } from '@/atoms/Icons/Loader';
 import { Tick } from '@/atoms/Icons/Tick';
 import { CustomEndLine } from '@/atoms/endLine';
+import { TabComponent } from '@/atoms/Tabs';
+import { CustomHr } from '@/atoms';
+import close from "../../assets/close.png"
+import copyImg from "../../assets/copy.png"
+import styles from './styles.module.scss';
 
 interface SideDrawerProps {
     isDrawerOpen: boolean,
@@ -22,7 +22,7 @@ interface SideDrawerProps {
 }
 export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) => {
     //states
-    const [isChecked, setChecked] = useState(true);
+    const [isCodeCopied, setIsCodeCopied] = useState(false);
     const { callId,
         createOffer,
         callIdRef,
@@ -34,7 +34,7 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
         connectionError
     } = useWebRtc();
     const [copy] = useCopyToClipboard()
-    const [error, setError] = useState<{ name?: boolean, gameCode?: boolean }>({})
+    const [error, setError] = useState<{ name?: boolean, gameCode?: boolean, sameGameCodeAsGenerated?: boolean }>({})
     //refs
     const drawerRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
@@ -63,10 +63,6 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
         }
     };
 
-    const handleCheckboxChange = () => {
-        setChecked(!isChecked);
-    };
-
     const handleConnect = () => {
 
         let error = {}
@@ -77,8 +73,11 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
         if (!callIdRef.current?.value) {
             error = { ...error, gameCode: true }
         }
+        if (callId === callIdRef.current?.value) {
+            error = { ...error, sameGameCodeAsGenerated: true }
+        }
         setError(error)
-        if (!!userNameRef.current?.value && !!callIdRef.current?.value) {
+        if (!!userNameRef.current?.value && !!callIdRef.current?.value && callId !== callIdRef.current?.value) {
             setError({ name: false, gameCode: false })
             onAnswer()
         }
@@ -97,6 +96,70 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
             setError({ name: true })
         }
     }
+    const tabs = [
+        {
+            id: 1, label: "Create", content: <>
+                {
+                    !callId &&
+                    <CustomButton
+                        onClick={handleGenerateGameCode}
+                        className={styles.drawer__generate__code__button}>
+                        {messages.generateCode}
+                    </CustomButton>
+                }
+                {
+                    callId && !isConnectionEstablished && <div className={styles.drawer__generate__code__container}>
+                        <p>{messages.shareGameCode}</p>
+                        <div className={styles.drawer__generate__code__wrapper}
+                            onClick={() => {
+                                copy(callId)
+                                setIsCodeCopied(true)
+                            }}
+                        >
+                            <span className={styles.drawer__generate__code}>
+                                {callId}
+                            </span>
+                            <Image
+                                src={copyImg}
+                                alt="close"
+                                width={30}
+                                className={styles.drawer__generate__code__copy} />
+                        </div>
+                        <p className={styles.drawer__generate__code__copied__text}>
+                            {isCodeCopied && <span>{messages.codeCopied}</span>}
+                        </p>
+                        {
+                            !isConnectionEstablished &&
+                            <div className={styles.drawer__establish__conn__wrapper}>
+                                <Loader />
+                                <p className={styles.drawer__establish__conn}>{messages.waitingToEstablishConnection}</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </>
+        },
+        {
+            id: 2, label: "Join", content: <>
+                <CustomInputField
+                    error={
+                        error.gameCode ? messages.gameCodeEmptyError : "" ||
+                            error.sameGameCodeAsGenerated ? messages.generatedCodeCannotBeUsed : "" ||
+                                connectionError ? messages.checkGameCode : ""
+                    }
+                    disabled={isConnectionEstablished}
+                    ref={callIdRef}
+                    label={messages.gameCode}
+                    placeholder={messages.gameCodePlaceholder}
+                    toolTipText={messages.gameCodeInfo} />
+                {!isConnectionEstablished && <CustomButton
+                    onClick={handleConnect}
+                    className={styles.drawer__generate__code__button}>
+                    {messages.connectWithOpponent}
+                </CustomButton>}
+            </>
+        }
+    ]
 
     return (
         <div ref={drawerRef} className={`${styles['side-drawer']} ${isDrawerOpen ? styles.open : ''}`}>
@@ -117,74 +180,16 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
                         placeholder={messages.namePlaceHolder}
                         toolTipText={messages.nameInfo}
                     />
-                    <CheckboxComponent
-                        label={messages.startNewGame}
-                        isChecked={isChecked}
-                        handleCheckboxChange={handleCheckboxChange}
-                        toolTipText={messages.startNewGameInfo}
-                    />
-                    {!isChecked && <>
-                        <CustomInputField
-                            error={
-                                error.gameCode ? messages.gameCodeEmptyError : "" ||
-                                    connectionError ? messages.checkGameCode : ""
-                            }
-                            disabled={isConnectionEstablished}
-                            ref={callIdRef}
-                            label={messages.gameCode}
-                            placeholder={messages.gameCodePlaceholder}
-                            toolTipText={messages.gameCodeInfo} />
-                        {!isConnectionEstablished && <CustomButton
-                            onClick={handleConnect}
-                            className={styles.drawer__generate__code__button}>
-                            {messages.connectWithOpponent}
-                        </CustomButton>}
-                    </>
-                    }
+                    <TabComponent tabs={tabs} />
                     <div className={styles.drawer__generate__code__container}>
-                        {
-                            isChecked &&
-                            <>
-                                {
-                                    !callId &&
-                                    <CustomButton
-                                        onClick={handleGenerateGameCode}
-                                        className={styles.drawer__generate__code__button}>
-                                        {messages.generateCode}
-                                    </CustomButton>
-                                }
-                                {
-                                    callId && !isConnectionEstablished && <>
-                                        <div className={styles.drawer__generate__code__wrapper}
-                                            onClick={() => copy(callId)}
-                                        >
-                                            <span className={styles.drawer__generate__code}>
-                                                {callId}
-                                            </span>
-                                            <Image
-                                                src={copyImg}
-                                                alt="close"
-                                                width={30}
-                                                className={styles.drawer__generate__code__copy} />
-                                        </div>
-                                        {
-                                            !isConnectionEstablished &&
-                                            <div className={styles.drawer__establish__conn__wrapper}>
-                                                <Loader />
-                                                <p className={styles.drawer__establish__conn}>{messages.waitingToEstablishConnection}</p>
-                                            </div>
-                                        }
-                                    </>
-                                }
-                            </>
-                        }
+
 
                         {isConnectionEstablished && <div className={styles.drawer__conn__established__wrapper}>
                             <p className={styles.drawer__conn__established}>{messages.connectionEstablishedSuccessfully}</p>
                             <Tick />
                         </div>
                         }
-                        <CustomEndLine/>
+                        <CustomEndLine />
                         <div className={styles.drawer__video__container}>
                             <div>
                                 <p className={styles.drawer__video__text}>You</p>
@@ -200,7 +205,7 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
 
                             </div>
                         </div>
-                        <CustomEndLine/>
+                        <CustomEndLine />
 
                     </div>
                 </div>

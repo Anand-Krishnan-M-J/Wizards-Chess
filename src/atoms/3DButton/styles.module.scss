@@ -8,6 +8,7 @@
         perspective: 500px;
         -webkit-perspective: 500px;
         margin: 3rem auto 5rem auto;
+        font-weight: 900;
     }
 
     &__content {
@@ -31,24 +32,20 @@
     height: 100%;
     position: absolute;
     box-sizing: border-box;
-    border: 2px solid $primary-font-color;
+    border: 5px solid $primary-font-color;
     line-height: 50px;
     font-size: 1.5;
     text-align: center;
     left: 0;
-
-    color: $primary-font-color;
-    font-weight: 600;
+    font-weight: 900;
+    color: rgb(255, 251, 218);
     text-shadow: 1px 1px #1f272b;
     border: 1px solid #1c252b;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    background: #232B30;
-    /* old browsers */
-    background: -moz-linear-gradient(top, #3D4850 3%, #313d45 4%, #232B30 100%);
-    /* firefox */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(3%, #3D4850), color-stop(4%, #313d45), color-stop(100%, #232B30));
+    background: #00000036;
+    border: solid 2px rgb(255, 251, 218);
     /* webkit */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D4850', endColorstr='#232B30', GradientType=0);
     /* ie */
