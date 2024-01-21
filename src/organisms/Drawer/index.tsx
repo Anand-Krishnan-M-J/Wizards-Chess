@@ -182,31 +182,30 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen }: SideDrawerProps) =
                     />
                     <TabComponent tabs={tabs} />
                     <div className={styles.drawer__generate__code__container}>
-
-
                         {isConnectionEstablished && <div className={styles.drawer__conn__established__wrapper}>
                             <p className={styles.drawer__conn__established}>{messages.connectionEstablishedSuccessfully}</p>
                             <Tick />
                         </div>
                         }
-                        <CustomEndLine />
-                        <div className={styles.drawer__video__container}>
-                            <div>
-                                <p className={styles.drawer__video__text}>You</p>
-                                <video
-                                    className={styles.drawer__video}
-                                    ref={localVideoRef} autoPlay playsInline muted />
-                            </div>
-                            <div>
-                                <p className={styles.drawer__video__text}>Opponent</p>
-                                <video
-                                    className={styles.drawer__video}
-                                    ref={remoteVideoRef} autoPlay playsInline />
+                        <div className={styles.drawer__video__outer}>
+                            <CustomEndLine />
+                            <div className={styles.drawer__video__container}>
+                                <div>
+                                    <p className={styles.drawer__video__text}>You</p>
+                                    <video
+                                        className={styles.drawer__video}
+                                        ref={localVideoRef} autoPlay playsInline muted />
+                                </div>
+                                <div>
+                                    <p className={styles.drawer__video__text}>Opponent</p>
+                                    <video
+                                        className={styles.drawer__video}
+                                        ref={remoteVideoRef} autoPlay playsInline />
 
+                                </div>
                             </div>
+                            <CustomEndLine />
                         </div>
-                        <CustomEndLine />
-
                     </div>
                 </div>
             </div>
