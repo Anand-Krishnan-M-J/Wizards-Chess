@@ -1,4 +1,6 @@
 import { Provider } from 'react-redux'
+import { createContext, useState } from 'react';
+import { SideDrawer } from '@/organisms/Drawer';
 import { Analytics } from '@vercel/analytics/react'
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -6,18 +8,19 @@ import "@fontsource/cinzel-decorative"; // Defaults to weight 400
 import "@fontsource/cinzel-decorative/400.css"; // Specify weight;
 import { store } from '../store/index'
 import "./globals.css";
-import { createContext, useState } from 'react';
-import { SideDrawer } from '@/organisms/Drawer';
 
 export interface DrawerContextProps {
     isDrawerOpen: boolean;
     toggleDrawerOpen: (isOpen: boolean) => void;
+    enableVideoDrawer: boolean;
+    setEnableVideoDrawer: (isOpen: boolean) => void;
 }
 export const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
 
 function MyApp({ Component, pageProps }: AppProps) {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [enableVideoDrawer, setEnableVideoDrawer] = useState(false);
 
     const toggleDrawerOpen = (isOpen: boolean) => {
         setIsDrawerOpen(isOpen);
@@ -149,10 +152,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
             <Provider store={store}>
                 {/* eslint-disable  */}
-                <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen }}>
+                <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen, enableVideoDrawer, setEnableVideoDrawer }}>
                     <Component {...pageProps} />
                 </DrawerContext.Provider>
-                <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} />
+                <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} enableVideoDrawer={enableVideoDrawer}/>
             </Provider>
             <Analytics />
         </>

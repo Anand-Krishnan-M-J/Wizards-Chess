@@ -6,6 +6,29 @@
     animation: slideInRightAnimation 0.3s ease-in-out;
 }
 
+.video__drawer {
+    &__item {
+        height: 6rem;
+        border-radius: 1rem;
+        border: solid 0.5rem rgb(34, 34, 34);
+        @media only screen and (max-width: $breakpoint_md) {
+            height: 2rem;
+          }
+    }
+
+    &__you {
+        position: fixed;
+        top: 0.5rem;
+        left: 0.5rem;
+    }
+
+    &__opponent {
+        position: fixed;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+}
+
 .side-drawer {
     position: fixed;
     top: 0;
@@ -52,17 +75,22 @@
                 display: flex;
                 justify-content: space-between;
             }
-            &__outer{
+            &__outer {
                 width: 575px;
                 max-width: 100%;
             }
 
             &__text {
                 color: $primary-font-color;
+                font-size: small;
+                margin-block-start: 0em;
+                margin-block-end: 0em;
+                margin-inline-start: 0px;
+                margin-inline-end: 0px;
             }
 
             margin: 1rem;
-            height: 120px;
+            height: 130px;
             width: 160px;
             border: solid 2px $secondary-font-color;
 
@@ -143,7 +171,7 @@
         &__generate {
             &__code {
                 color: $primary-font-color;
-                font-family: 'Courier New', Courier, monospace;      
+                font-family: 'Courier New', Courier, monospace;
 
                 &__wrapper {
                     cursor: pointer;
@@ -154,7 +182,7 @@
                     justify-content: space-around;
                     padding: 0.5rem 0rem;
                     box-shadow: 0rem 0rem 0.1rem $primary-font-color;
-                    &:hover{
+                    &:hover {
                         opacity: 0.5;
                     }
                 }
@@ -170,7 +198,7 @@
                     width: 580px;
                     margin: 1rem auto;
                     max-width: 100%;
-                    @media (max-width: 768px) {                 
+                    @media (max-width: 768px) {
                         width: 300px;
                     }
                 }
@@ -178,7 +206,7 @@
                 &__copy {
                     padding-left: 1rem;
                 }
-                &__copied__text{
+                &__copied__text {
                     font-family: 'Courier New', Courier, monospace;
                     font-size: 0.8rem;
                     height: 1.5rem;

@@ -1,3 +1,4 @@
+@import '../../styles/breakpoint.module.scss';
 .endLine {
     max-width: 90%;
     width: 600px;
@@ -5,4 +6,10 @@
     &__image{
         max-width: 100%;
     }
+}
+.small{
+    width: 200px;
+    @media only screen and (max-width: $breakpoint_md) {
+        width: 50px;
+      }
 }

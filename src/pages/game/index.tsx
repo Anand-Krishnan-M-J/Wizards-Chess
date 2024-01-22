@@ -14,7 +14,8 @@ const App: React.FC = () => {
     const {isBlackPieces} = usePieceColorFromSessionStorage();
 
     useEffect(() => {
-        context?.toggleDrawerOpen(false)
+        context?.setEnableVideoDrawer(true);
+        context?.toggleDrawerOpen(false);
     }, [])
 
     return (
