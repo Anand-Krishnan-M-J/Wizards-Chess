@@ -11,7 +11,7 @@
         height: 6rem;
         border-radius: 1rem;
         border: solid 0.5rem rgb(34, 34, 34);
-        @media only screen and (max-width: $breakpoint_md) {
+        @media only screen and (max-width: $breakpoint_lg) {
             height: 2rem;
           }
     }
