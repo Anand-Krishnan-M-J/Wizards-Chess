@@ -168,7 +168,6 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
             </>
         }
     ]
-console.log(playerPieceType, currentMoveIsOf,"ooooooo")
     return (
         <div ref={drawerRef} className={`${styles['side-drawer']} ${isDrawerOpen ? styles.open : ''}`}>
             <CustomHr />

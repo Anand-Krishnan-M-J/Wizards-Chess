@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { pieceTypeColor } from '@/store/pieces/types';
 
 export function usePieceColorFromSessionStorage() {
-    const [isBlackPieces, setIsBlackPieces] = useState(false);
+    const [isBlackPieces, setIsBlackPieces] = useState<Boolean | undefined>(undefined);
     useEffect(() => {
-        if (sessionStorage) {
+        if (sessionStorage && isBlackPieces === undefined) {
             setIsBlackPieces(sessionStorage.getItem("pieceType") === pieceTypeColor.black)
         }
-    }, [])
+    }, [isBlackPieces])
 
     return { isBlackPieces, playerPieceType: isBlackPieces ? pieceTypeColor.black : pieceTypeColor.white }
 }
