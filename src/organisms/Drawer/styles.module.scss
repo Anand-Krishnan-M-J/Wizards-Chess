@@ -13,7 +13,7 @@
         border: solid 0.5rem rgb(34, 34, 34);
         @media only screen and (max-width: $breakpoint_lg) {
             height: 2rem;
-          }
+        }
     }
 
     &__you {
@@ -231,3 +231,30 @@
         right: 0;
     }
 }
+
+.turn {
+    font-family: sans-serif;
+    font-weight: 500;
+    margin: 0rem auto;
+    color: #fffbe4;
+    margin-top: 0.5rem;
+    transform: translateX(-100%);
+    animation: slide-in-anim 0.5s ease-out forwards;
+}
+
+@keyframes slide-in-anim {
+    0%{
+		opacity: 0;
+		transform: translateX(-100%);
+
+    }
+	75% {
+		transform: translateX(15%);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0%);
+	}
+}
+
+

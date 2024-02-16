@@ -75,33 +75,33 @@ export function useWebRtc() {
         })
 
     }, [])
-        //Sync redux to firebase
-        useEffect(() => {
-            if (pieces && firestore && router.query.gameId) {
-                const callDoc = firestore.collection('calls').doc(router.query.gameId as string);
-                const pieceState = callDoc.collection('pieceState')
-    
-                const updateFireStore = async () => {
-                    await pieceState.add({ pieceState: JSON.stringify(pieces) })
-                }
-                updateFireStore().then(() => { console.log("Firestore updated!!!") })
+    //Sync redux to firebase
+    useEffect(() => {
+        if (pieces && firestore && router.query.gameId) {
+            const callDoc = firestore.collection('calls').doc(router.query.gameId as string);
+            const pieceState = callDoc.collection('pieceState')
+
+            const updateFireStore = async () => {
+                await pieceState.add({ pieceState: JSON.stringify(pieces) })
             }
-        }, [pieces.selectedPiece, pieces.hoveredPiece, pieces.currentMoveIsOf])
-        
-        //Sync firebase to redux
-        useEffect(() => {
-            if (firestore) {
-                const callDoc = firestore.collection('calls').doc(router.query.gameId as string);
-                const pieceState = callDoc.collection('pieceState');
-                pieceState.onSnapshot((snapshot) => {
-                    snapshot.docChanges().forEach((change) => {
-                        const fireStoreState = JSON.parse(change.doc.data().pieceState);
-                        dispatch(updateState(fireStoreState))
-                    });
+            updateFireStore().then(() => { console.log("Firestore updated!!!") })
+        }
+    }, [pieces.currentMoveIsOf])
+
+    //Sync firebase to redux
+    useEffect(() => {
+        if (firestore) {
+            const callDoc = firestore.collection('calls').doc(router.query.gameId as string);
+            const pieceState = callDoc.collection('pieceState');
+            pieceState.onSnapshot((snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    const fireStoreState = JSON.parse(change.doc.data().pieceState);
+                    dispatch(updateState(fireStoreState))
                 });
-    
-            }
-        }, [router.query.gameId])
+            });
+
+        }
+    }, [router.query.gameId])
 
     const createOffer = async () => {
         if (firestore) {
