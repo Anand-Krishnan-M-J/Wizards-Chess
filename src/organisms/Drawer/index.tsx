@@ -203,8 +203,8 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
                                         className={enableVideoDrawer && isGamePage ? styles.video__drawer__item : styles.drawer__video}
                                         ref={localVideoRef} autoPlay playsInline muted />
                                     <p className={styles.drawer__video__text}>You</p>
-                                    {playerPieceType === currentMoveIsOf ?
-                                        <p className={styles.turn}>{messages.turn}</p> : <></>}
+                                    {/* {playerPieceType === currentMoveIsOf ?
+                                        <p className={styles.turn}>{messages.turn}</p> : <></>} */}
                                     {enableVideoDrawer && <CustomEndLine isSmall />}
                                 </div>
                                 <div className={enableVideoDrawer && isGamePage ? styles.video__drawer__opponent : ""}>
@@ -213,8 +213,8 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
                                         className={enableVideoDrawer && isGamePage ? styles.video__drawer__item : styles.drawer__video}
                                         ref={remoteVideoRef} autoPlay playsInline />
                                     <p className={styles.drawer__video__text}>Opponent</p>
-                                    {playerPieceType !== currentMoveIsOf ?
-                                        <p className={styles.turn}>{messages.opponentTurn}</p> : <></>}
+                                    {/* {playerPieceType !== currentMoveIsOf ?
+                                        <p className={styles.turn}>{messages.opponentTurn}</p> : <></>} */}
                                     {enableVideoDrawer && <CustomEndLine isSmall />}
                                 </div>
                             </div>
