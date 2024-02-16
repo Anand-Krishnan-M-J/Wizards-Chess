@@ -9,5 +9,5 @@ export function usePieceColorFromSessionStorage() {
         }
     }, [isBlackPieces])
 
-    return { isBlackPieces, playerPieceType: isBlackPieces ? pieceTypeColor.black : pieceTypeColor.white }
+    return { isBlackPieces, playerPieceType: isBlackPieces === true ? pieceTypeColor.black : pieceTypeColor.white }
 }
