@@ -2,11 +2,11 @@ import React, { useContext, useEffect } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import { Provider } from 'react-redux'
 import { messages } from '@/constants/messages'
+import { BoardAndPieces } from '@/organisms/BoardAndPieces'
 import { Canvas } from '@react-three/fiber'
 import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece'
 import { store } from '../../store/index'
 import { DrawerContext, DrawerContextProps } from '../_app'
-import { BoardAndPieces } from './boardAndPieces'
 import styles from "./styles.module.scss"
 
 const App: React.FC = () => {
