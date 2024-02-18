@@ -2,8 +2,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece';
 import { useSelector } from 'react-redux';
+import { VideoDisable } from '@/atoms/Icons/Video';
+import { isServer } from '@/helpers/common';
 import { RootState } from '@/store/types';
 import { messages } from '@/constants/messages';
 import { CustomInputField } from '@/atoms/InputField';
@@ -37,11 +38,13 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
         localVideoRef,
         remoteVideoRef,
         isConnectionEstablished,
-        connectionError
+        connectionError,
+        isSharing,
+        stopSharing
     } = useWebRtc();
     const [copy] = useCopyToClipboard()
     const currentMoveIsOf = useSelector((state: RootState) => state.pieces.currentMoveIsOf);
-    const { playerPieceType } = usePieceColorFromSessionStorage();
+    const playerPieceType = !isServer && sessionStorage.getItem("pieceType");
     const [error, setError] = useState<{ name?: boolean, gameCode?: boolean, sameGameCodeAsGenerated?: boolean }>({})
     //refs
     const drawerRef = useRef<HTMLDivElement>(null);
@@ -201,10 +204,14 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
                                     {enableVideoDrawer && <CustomEndLine isSmall />}
                                     <video
                                         className={enableVideoDrawer && isGamePage ? styles.video__drawer__item : styles.drawer__video}
-                                        ref={localVideoRef} autoPlay playsInline muted />
-                                    <p className={styles.drawer__video__text}>You</p>
-                                    {/* {playerPieceType === currentMoveIsOf ?
-                                        <p className={styles.turn}>{messages.turn}</p> : <></>} */}
+                                        ref={isSharing ? localVideoRef : null} autoPlay playsInline muted />
+                                    <p className={styles.drawer__video__text}>You
+                                        {isSharing&&<span>
+                                            <button className={styles.video__disable} onClick={() => stopSharing()} ><VideoDisable /></button>
+                                        </span>}
+                                    </p>
+                                    {enableVideoDrawer && playerPieceType === currentMoveIsOf ?
+                                        <p className={styles.turn}>{messages.turn}</p> : <></>}
                                     {enableVideoDrawer && <CustomEndLine isSmall />}
                                 </div>
                                 <div className={enableVideoDrawer && isGamePage ? styles.video__drawer__opponent : ""}>
@@ -213,8 +220,8 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
                                         className={enableVideoDrawer && isGamePage ? styles.video__drawer__item : styles.drawer__video}
                                         ref={remoteVideoRef} autoPlay playsInline />
                                     <p className={styles.drawer__video__text}>Opponent</p>
-                                    {/* {playerPieceType !== currentMoveIsOf ?
-                                        <p className={styles.turn}>{messages.opponentTurn}</p> : <></>} */}
+                                    {enableVideoDrawer && playerPieceType !== currentMoveIsOf ?
+                                        <p className={styles.turn}>{messages.opponentTurn}</p> : <></>}
                                     {enableVideoDrawer && <CustomEndLine isSmall />}
                                 </div>
                             </div>
