@@ -72,3 +72,4 @@ export const allEnemies = (pieceType: pieceTypeColor, pieces: PieceState[]) => {
     }
 }
 export const isPositionIndexInRange = (index: number) => index >= 0 && index < 8
+export const isServer = typeof window === "undefined";

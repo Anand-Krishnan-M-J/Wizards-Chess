@@ -5,15 +5,28 @@
 @mixin slideInRight {
     animation: slideInRightAnimation 0.3s ease-in-out;
 }
-
+.video__disable{
+    background-color: rgba(0, 0, 0, 0);
+    width: 2.5rem;
+    border: none;
+    margin: 0;
+    height: 2.5rem;
+    cursor: pointer;
+}
 .video__drawer {
     &__item {
         height: 6rem;
+        width: 8rem;
         border-radius: 1rem;
         border: solid 0.5rem rgb(34, 34, 34);
         @media only screen and (max-width: $breakpoint_lg) {
             height: 2rem;
         }
+        background-image: url(../../assets/video.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #1d1d1dea;
     }
 
     &__you {
@@ -87,6 +100,10 @@
                 margin-block-end: 0em;
                 margin-inline-start: 0px;
                 margin-inline-end: 0px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
             }
 
             margin: 1rem;

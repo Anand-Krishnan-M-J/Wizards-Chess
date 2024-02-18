@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import { Provider } from 'react-redux'
+import { messages } from '@/constants/messages'
 import { Canvas } from '@react-three/fiber'
 import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece'
-import { CheckerBoard } from '../../organisms/CheckerBoard'
-import { Lights } from '../../organisms/Lights'
-import { PieceRenderer } from '../../organisms/PieceRenderer'
 import { store } from '../../store/index'
 import { DrawerContext, DrawerContextProps } from '../_app'
+import { BoardAndPieces } from './boardAndPieces'
+import styles from "./styles.module.scss"
 
 const App: React.FC = () => {
     const context = useContext<DrawerContextProps | undefined>(DrawerContext);
-    const {isBlackPieces} = usePieceColorFromSessionStorage();
+    const { isBlackPieces } = usePieceColorFromSessionStorage();
 
     useEffect(() => {
         context?.setEnableVideoDrawer(true);
@@ -21,6 +21,10 @@ const App: React.FC = () => {
     return (
         <Provider store={store}>
             <div className="App">
+                <div className={styles.begin__text__container}>
+                <p className={styles.beginText}>{messages.letTheGameBegin}</p>
+                <span className={styles.sparkle}/>
+                </div>
                 <Canvas
                     camera={{ fov: 40, position: [0, 330, isBlackPieces ? -380 : 380] }}
                     className="main_canvas"
@@ -30,11 +34,7 @@ const App: React.FC = () => {
                     }}
                 >
                     <OrbitControls />
-                    <group>
-                        <Lights />
-                        <PieceRenderer />
-                        <CheckerBoard />
-                    </group>
+                    <BoardAndPieces />
                 </Canvas>
             </div>
         </Provider>

@@ -35,5 +35,6 @@ export const messages = {
     codeCopied:"Game code copied to clipboard!",
     generatedCodeCannotBeUsed:"Cannot use generated code, share it with opponent",
     turn:"It's your turn !",
-    opponentTurn:"Opponent's turn !"
+    opponentTurn:"Opponent's turn !",
+    letTheGameBegin:"Let the Game Begin !"
 }
