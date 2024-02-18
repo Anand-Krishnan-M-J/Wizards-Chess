@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import firebase from "firebase/app";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import "firebase/firestore";
 import { pieceTypeColor } from "@/store/pieces/types";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/types";
-import { useRouter } from "next/router";
 import { updateState } from "@/store/pieces";
 
 const firebaseConfig = {
@@ -16,7 +16,6 @@ const firebaseConfig = {
     appId: process.env.firebaseAppId,
     measurementId: process.env.firebaseMeasurementId
 };
-
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -35,7 +34,8 @@ export function useWebRtc() {
     const [firestore, setFirestore] = useState<firebase.firestore.Firestore>();
     const [peerConnection, setPeerConnection] = useState<RTCPeerConnection>();
     const [callId, setCallId] = useState<string>("");
-    const [connectionError, setConnectionError] = useState(false)
+    const [connectionError, setConnectionError] = useState(false);
+    const [isSharing, setIsSharing] = useState(true);
 
     useEffect(() => {
         setFirestore(firebase.firestore());
@@ -56,7 +56,7 @@ export function useWebRtc() {
         const initializeVideoCall = async () => {
             try {
                 if (localVideoRef.current) {
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: isSharing, audio: isSharing });
                     localVideoRef.current.srcObject = stream;
                     stream.getTracks().forEach((track) => pc.addTrack(track, stream));
                     pc.ontrack = (event) => {
@@ -66,15 +66,13 @@ export function useWebRtc() {
                     };
                 }
             } catch {
-                console.log("camera unavailable")
+                console.log("Camera or microphone unavailable");
             }
-
         };
         initializeVideoCall().then(() => {
-            console.log("Camera initialized successfully")
-        })
-
-    }, [])
+            console.log("Camera and microphone initialized successfully");
+        });
+    }, [isSharing]);
     //Sync redux to firebase
     useEffect(() => {
         if (pieces && firestore && router.query.gameId) {
@@ -219,5 +217,24 @@ export function useWebRtc() {
         }
     }
 
-    return { localVideoRef, remoteVideoRef, callId, createOffer, onAnswer, userNameRef, callIdRef, isConnectionEstablished, connectionError }
+    const stopSharing = () => {
+        if (localVideoRef.current && localVideoRef.current.srcObject) {
+            const tracks = (localVideoRef.current.srcObject as MediaStream).getTracks();
+            tracks.forEach((track) => track.stop());
+            setIsSharing(false)
+        }
+    };
+    return {
+        localVideoRef,
+        remoteVideoRef,
+        callId,
+        createOffer,
+        onAnswer,
+        userNameRef,
+        callIdRef,
+        isConnectionEstablished,
+        connectionError,
+        stopSharing,
+        isSharing,
+    };
 }
