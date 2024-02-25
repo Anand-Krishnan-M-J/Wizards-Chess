@@ -49,10 +49,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="Immerse yourself in the wizarding world with Wizard's Chess, a multiplayer online game inspired by Harry Potter. Engage in magical chess battles with friends, featuring enchanting pieces and strategic gameplay."
                 />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://wizards-chess-67s3g28ha-anand-krishnan-m-j.vercel.app/" />
+                <meta property="og:url" content="https://www.chess.anandkris.com" />
                 <meta
                     property="og:image"
-                    content="https://your-game-image-url.jpg"
+                    content="https://www.chess.anandkris.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.2ce43850.png&w=128&q=75"
                 />
                 <meta
                     property="og:image:alt"
@@ -69,10 +69,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     name="twitter:image"
-                    content="https://your-game-image-url.jpg"
+                    content="https://www.chess.anandkris.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.2ce43850.png&w=128&q=75"
                 />
 
-                <link rel="canonical" href="https://wizards-chess-67s3g28ha-anand-krishnan-m-j.vercel.app/" />
+                <link rel="canonical" href="https://www.chess.anandkris.com" />
                 <link
                     rel="apple-touch-icon"
                     sizes="57x57"
