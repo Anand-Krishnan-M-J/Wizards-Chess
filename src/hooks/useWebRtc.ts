@@ -36,6 +36,20 @@ export function useWebRtc() {
     const [callId, setCallId] = useState<string>("");
     const [connectionError, setConnectionError] = useState(false);
     const [isSharing, setIsSharing] = useState(true);
+    const [isCameraBlocked, setIsCameraBlocked] = useState(false);
+    const checkCameraPermission = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            // Camera access granted
+            stream.getTracks().forEach((track) => track.stop());
+        } catch (error) {
+            // Camera access denied or blocked
+            setIsCameraBlocked(true);
+        }
+    };
+    useEffect(() => {
+        checkCameraPermission();
+    }, []);
 
     useEffect(() => {
         setFirestore(firebase.firestore());
@@ -152,8 +166,18 @@ export function useWebRtc() {
                         }
                     });
                 });
-
-
+                //If cam is blocked proceed to start game without camera
+                if (isCameraBlocked) {
+                    callDoc.onSnapshot(snapshot => {
+                        const data = snapshot.data();
+                        if (data && data.playerTwo) {
+                            const playerTwo = data.playerTwo;
+                            if (playerTwo.name) {
+                                setIsConnectionEstablished(true);
+                            }
+                        }
+                    });
+                }
             }
             else {
                 console.log("error: peer connection failed to establish")
@@ -207,6 +231,16 @@ export function useWebRtc() {
                                 }
                             }
                         });
+                    });
+                    //If camera is unavailable check if playerTwo has been set to start game and proceed to start game
+                    callDoc.onSnapshot(snapshot => {
+                        const data = snapshot.data();
+                        if (data && data.playerTwo && !isConnectionEstablished) {
+                            const playerTwo = data.playerTwo;
+                            if (playerTwo.name) {
+                                setIsConnectionEstablished(true);
+                            }
+                        }
                     });
                 }
             }
