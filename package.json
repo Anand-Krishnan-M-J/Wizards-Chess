@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix" :"next lint --fix"
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@react-spring/three": "^9.7.3",
@@ -20,9 +20,9 @@
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^8.1.2",
+    "redux-saga": "^1.2.3",
     "sass": "^1.69.5",
-    "three": "^0.155.0",
-    "redux-saga": "^1.2.3"
+    "three": "^0.155.0"
   },
   "devDependencies": {
     "@fontsource/cinzel-decorative": "^5.0.18",
@@ -32,6 +32,7 @@
     "eslint": "^8.9.0",
     "eslint-config-next": "14.0.4",
     "husky": "^8.0.3",
+    "next-pwa": "^5.6.0",
     "prettier": "^2.5.1",
     "typescript": "^5"
   }

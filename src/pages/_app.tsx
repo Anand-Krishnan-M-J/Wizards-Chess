@@ -31,6 +31,29 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Head>
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                 <title>Wizard's chess</title>
+                {/* PWA starts*/}
+                <meta name="application-name" content="Wizards's Chess" />
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+                <meta name="apple-mobile-web-app-title" content="Wizards's Chess" />
+                <meta name="format-detection" content="telephone=no" />
+                <meta name="mobile-web-app-capable" content="yes" />
+                <meta name="msapplication-config" content="/icons/browserconfig.xml" />
+                <meta name="msapplication-tap-highlight" content="no" />
+                <link rel="manifest" href="/manifest.json" />
+                <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5" />
+                <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:url" content="https://www.chess.anandkris.com" />
+                <meta name="twitter:title" content="Wizards's Chess" />
+                <meta name="twitter:image" content="https://www.chess.anandkris.com/logo/icon-192x192.png" />
+                {/* PWA ends*/}
+
+
+
+
                 <meta
                     name="description"
                     content="Embark on a magical journey with Wizard's Chess, a captivating online multiplayer chess game inspired by the wizarding world. Challenge friends to epic battles, strategize with enchanted pieces, and experience the thrill of wizardry on the virtual chessboard. Unleash your inner sorcerer and engage in a chess adventure like never before. Play Wizard's Chess today and immerse yourself in a spellbinding fusion of strategy and magic."
@@ -67,10 +90,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="Embark on a magical journey with Wizard's Chess, a multiplayer online chess game set in the enchanting world of Harry Potter. Play with friends and experience the excitement of wizardry on the virtual chessboard."
                 />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta
-                    name="twitter:image"
-                    content="https://www.chess.anandkris.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.2ce43850.png&w=128&q=75"
-                />
 
                 <link rel="canonical" href="https://www.chess.anandkris.com" />
                 <link
@@ -142,7 +161,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                     sizes="16x16"
                     href="/favicon-16x16.png"
                 />
-                <link rel="manifest" href="/manifest.json" />
                 <meta name="msapplication-TileColor" content="#ffffff" />
                 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
                 <meta name="theme-color" content="#ffffff" />
@@ -155,7 +173,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen, enableVideoDrawer, setEnableVideoDrawer }}>
                     <Component {...pageProps} />
                 </DrawerContext.Provider>
-                <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} enableVideoDrawer={enableVideoDrawer}/>
+                <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} enableVideoDrawer={enableVideoDrawer} />
             </Provider>
             <Analytics />
         </>
