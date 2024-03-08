@@ -2,7 +2,7 @@
 
 Welcome to Wizard's Chess, an online 3D Multiplayer chess application (PWA) with built-in video calling capabilities.
 
-<img src="https://github.com/Anand-Krishnan-M-J/Anand-Krishnan-M-J/assets/87609792/7a6b262a-d58a-4134-99b3-10c67e8b3cab" alt="postman" />
+<img src="https://github.com/Anand-Krishnan-M-J/Wizards-Chess/assets/87609792/dffe8ae9-3acc-467e-b714-e28198a077c0" alt="chess" />
 
 ## Table of Contents
 
