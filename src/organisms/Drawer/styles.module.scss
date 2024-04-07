@@ -2,9 +2,6 @@
 @import '../../styles/breakpoint.module.scss';
 
 /* Add slide animation */
-@mixin slideInRight {
-    animation: slideInRightAnimation 0.3s ease-in-out;
-}
 .video__disable {
     background-color: rgba(0, 0, 0, 0);
     width: 2.5rem;
@@ -62,7 +59,6 @@
 
     &.open {
         right: 0;
-        @include slideInRight;
     }
 
     .toggle-button {
@@ -240,15 +236,7 @@
     }
 }
 
-@keyframes slideInRightAnimation {
-    from {
-        right: -100%;
-    }
 
-    to {
-        right: 0;
-    }
-}
 
 .turn {
     font-family: sans-serif;

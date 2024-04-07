@@ -1,30 +1,31 @@
 import { Provider } from 'react-redux'
-import { createContext, useState } from 'react';
-import { SideDrawer } from '@/organisms/Drawer';
+import { createContext, useCallback, useMemo, useState } from 'react'
+import { SideDrawer } from '@/organisms/Drawer'
 import { Analytics } from '@vercel/analytics/react'
-import type { AppProps } from "next/app";
-import Head from "next/head";
-import "@fontsource/cinzel-decorative"; // Defaults to weight 400
-import "@fontsource/cinzel-decorative/400.css"; // Specify weight;
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
+import '@fontsource/cinzel-decorative' // Defaults to weight 400
+import '@fontsource/cinzel-decorative/400.css' // Specify weight;
 import { store } from '../store/index'
-import "./globals.css";
+import './globals.css'
 
 export interface DrawerContextProps {
-    isDrawerOpen: boolean;
-    toggleDrawerOpen: (isOpen: boolean) => void;
-    enableVideoDrawer: boolean;
-    setEnableVideoDrawer: (isOpen: boolean) => void;
+    isDrawerOpen: boolean
+    toggleDrawerOpen: (isOpen: boolean) => void
+    enableVideoDrawer: boolean
+    setEnableVideoDrawer: (isOpen: boolean) => void
 }
-export const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
+export const DrawerContext = createContext<DrawerContextProps | undefined>(
+    undefined
+)
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+    const [enableVideoDrawer, setEnableVideoDrawer] = useState(false)
 
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [enableVideoDrawer, setEnableVideoDrawer] = useState(false);
-
-    const toggleDrawerOpen = (isOpen: boolean) => {
-        setIsDrawerOpen(isOpen);
-    };
+    const toggleDrawerOpen = useCallback((isOpen: boolean) => {
+        setIsDrawerOpen(isOpen)
+    }, [])
 
     return (
         <>
@@ -34,25 +35,44 @@ function MyApp({ Component, pageProps }: AppProps) {
                 {/* PWA starts*/}
                 <meta name="application-name" content="Wizards's Chess" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
-                <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-                <meta name="apple-mobile-web-app-title" content="Wizards's Chess" />
+                <meta
+                    name="apple-mobile-web-app-status-bar-style"
+                    content="default"
+                />
+                <meta
+                    name="apple-mobile-web-app-title"
+                    content="Wizards's Chess"
+                />
                 <meta name="format-detection" content="telephone=no" />
                 <meta name="mobile-web-app-capable" content="yes" />
-                <meta name="msapplication-config" content="/icons/browserconfig.xml" />
+                <meta
+                    name="msapplication-config"
+                    content="/icons/browserconfig.xml"
+                />
                 <meta name="msapplication-tap-highlight" content="no" />
                 <link rel="manifest" href="/manifest.json" />
-                <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5" />
+                <link
+                    rel="mask-icon"
+                    href="/icons/safari-pinned-tab.svg"
+                    color="#5bbad5"
+                />
                 <link rel="shortcut icon" href="/favicon.ico" />
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+                />
 
                 <meta name="twitter:card" content="summary" />
-                <meta name="twitter:url" content="https://www.chess.anandkris.com" />
+                <meta
+                    name="twitter:url"
+                    content="https://www.chess.anandkris.com"
+                />
                 <meta name="twitter:title" content="Wizards's Chess" />
-                <meta name="twitter:image" content="https://www.chess.anandkris.com/logo/icon-192x192.png" />
+                <meta
+                    name="twitter:image"
+                    content="https://www.chess.anandkris.com/logo/icon-192x192.png"
+                />
                 {/* PWA ends*/}
-
-
-
 
                 <meta
                     name="description"
@@ -72,7 +92,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="Immerse yourself in the wizarding world with Wizard's Chess, a multiplayer online game inspired by Harry Potter. Engage in magical chess battles with friends, featuring enchanting pieces and strategic gameplay."
                 />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://www.chess.anandkris.com" />
+                <meta
+                    property="og:url"
+                    content="https://www.chess.anandkris.com"
+                />
                 <meta
                     property="og:image"
                     content="https://www.chess.anandkris.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.2ce43850.png&w=128&q=75"
@@ -162,22 +185,37 @@ function MyApp({ Component, pageProps }: AppProps) {
                     href="/favicon-16x16.png"
                 />
                 <meta name="msapplication-TileColor" content="#ffffff" />
-                <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+                <meta
+                    name="msapplication-TileImage"
+                    content="/ms-icon-144x144.png"
+                />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="theme-color" content="#ffffff" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
             </Head>
 
             <Provider store={store}>
                 {/* eslint-disable  */}
-                <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen, enableVideoDrawer, setEnableVideoDrawer }}>
+                <DrawerContext.Provider
+                    value={{
+                        isDrawerOpen,
+                        toggleDrawerOpen,
+                        enableVideoDrawer,
+                        setEnableVideoDrawer,
+                    }}
+                >
                     <Component {...pageProps} />
                 </DrawerContext.Provider>
-                <SideDrawer setIsDrawerOpen={toggleDrawerOpen} isDrawerOpen={isDrawerOpen} enableVideoDrawer={enableVideoDrawer} />
+                <SideDrawer
+                    setIsDrawerOpen={toggleDrawerOpen}
+                    isDrawerOpen={isDrawerOpen}
+                    enableVideoDrawer={enableVideoDrawer}
+                />
             </Provider>
             <Analytics />
         </>
-    );
+    )
 }
 
-export default MyApp;
+export default MyApp
