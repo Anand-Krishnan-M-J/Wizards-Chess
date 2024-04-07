@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux'
-import { createContext, useCallback, useMemo, useState } from 'react'
+import { createContext, useCallback, useState } from 'react'
 import { SideDrawer } from '@/organisms/Drawer'
+import Cursor from '@/organisms/Cursor'
 import { Analytics } from '@vercel/analytics/react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -212,6 +213,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     isDrawerOpen={isDrawerOpen}
                     enableVideoDrawer={enableVideoDrawer}
                 />
+                <Cursor/>
             </Provider>
             <Analytics />
         </>

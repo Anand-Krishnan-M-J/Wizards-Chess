@@ -1,21 +1,22 @@
 :root {
-  line-height: 1.5;
-  font-weight: 400;
-  margin: 0 auto;
-  text-align: center;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-
-  padding: 0 !important;
-  margin: 0 !important;
-
+    line-height: 1.5;
+    font-weight: 400;
+    margin: 0 auto;
+    text-align: center;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    cursor: none;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 body {
-  margin: 0px;
-  color: #383838;
-  font-size: 18px;
-  font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
-  font-weight: 300;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)), url(/_next/static/media/dark_wall.af1e4d83.png);
+    margin: 0px;
+    color: #383838;
+    font-size: 18px;
+    font-family: 'Cinzel Decorative', 'Palatino Light', Times, Times New Roman,
+        Georgia, serif;
+    font-weight: 300;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)),
+        url(/_next/static/media/dark_wall.af1e4d83.png);
 }
