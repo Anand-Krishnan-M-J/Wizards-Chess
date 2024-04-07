@@ -40,7 +40,9 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
         isConnectionEstablished,
         connectionError,
         isSharing,
-        stopSharing
+        stopSharing,
+        myName,
+        opponentName
     } = useWebRtc();
     const [copy] = useCopyToClipboard()
     const currentMoveIsOf = useSelector((state: RootState) => state.pieces.currentMoveIsOf);
@@ -205,7 +207,7 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
                                     <video
                                         className={enableVideoDrawer && isGamePage ? styles.video__drawer__item : styles.drawer__video}
                                         ref={isSharing ? localVideoRef : null} autoPlay playsInline muted />
-                                    <p className={styles.drawer__video__text}>You
+                                    <p className={styles.drawer__video__text}>{myName}
                                         {isSharing&&<span>
                                             <button className={styles.video__disable} onClick={() => stopSharing()} ><VideoDisable /></button>
                                         </span>}
@@ -219,7 +221,7 @@ export const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, enableVideoDrawer }:
                                     <video
                                         className={enableVideoDrawer && isGamePage ? styles.video__drawer__item : styles.drawer__video}
                                         ref={remoteVideoRef} autoPlay playsInline />
-                                    <p className={styles.drawer__video__text}>Opponent</p>
+                                    <p className={styles.drawer__video__text}>{opponentName}</p>
                                     {enableVideoDrawer && playerPieceType !== currentMoveIsOf ?
                                         <p className={styles.turn}>{messages.opponentTurn}</p> : <></>}
                                     {enableVideoDrawer && <CustomEndLine isSmall />}
