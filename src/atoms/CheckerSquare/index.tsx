@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import { updateGameStateFirebaseRequest } from '@/store/firebase'
 import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece'
 import { getPieceType } from '@/helpers'
@@ -19,6 +20,7 @@ export const CheckerSquare: React.FC<props> = ({
     row,
 }) => {
     const dispatch = useDispatch()
+    const router = useRouter()
     const color = isDarkSquare ? '#8B4513' : 'white'
     const { selectedPiece, pieces, allowedMovesForSelectedPiece } = useSelector(
         (state: RootState) => state.pieces
@@ -55,7 +57,7 @@ export const CheckerSquare: React.FC<props> = ({
 
     const handlePieceMove = () => {
         if (allowedPositions.includes(squarePosition) &&
-            playerPieceType === selectedPieceType) {
+            (playerPieceType === selectedPieceType||!router.query.gameId)) {
             dispatch(
                 movePiece({
                     col,

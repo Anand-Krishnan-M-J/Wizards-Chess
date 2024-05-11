@@ -2,12 +2,12 @@
 
 .button {
     &__container {
-        width: 250px;
+        width: 180px;
         height: 50px;
         cursor: pointer;
         perspective: 500px;
         -webkit-perspective: 500px;
-        margin: 3rem auto 5rem auto;
+        margin: 1rem;
         font-weight: 900;
     }
 
@@ -18,8 +18,8 @@
         height: 100%;
         transform-style: preserve-3d;
         -webkit-transform-style: preserve-3d;
-        transition: 0.25s;
-        -webkit-transition: 0.25s;
+        transition: 0.5s;
+        -webkit-transition: 0.5s;
     }
 }
 
@@ -32,7 +32,6 @@
     height: 100%;
     position: absolute;
     box-sizing: border-box;
-    border: 5px solid $primary-font-color;
     line-height: 50px;
     font-size: 1.5;
     text-align: center;
@@ -40,12 +39,11 @@
     font-weight: 900;
     color: rgb(255, 251, 218);
     text-shadow: 1px 1px #1f272b;
-    border: 1px solid #1c252b;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     background: #00000036;
-    border: solid 2px rgb(255, 251, 218);
+    border: solid 2px rgba(87, 87, 87, 0.863);
     /* webkit */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3D4850', endColorstr='#232B30', GradientType=0);
     /* ie */

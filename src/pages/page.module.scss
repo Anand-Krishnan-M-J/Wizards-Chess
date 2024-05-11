@@ -21,7 +21,6 @@
 
     @media only screen and (max-width: $breakpoint_sm) {
         padding-top: 0%;
-
     }
 }
 
@@ -51,4 +50,12 @@
     margin: 0rem auto;
     color: #fffbe4;
     margin-top: 2rem;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 2rem;
 }

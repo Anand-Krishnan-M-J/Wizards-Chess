@@ -7,6 +7,7 @@ export const messages = {
     readInstructions: "READ INSTRUCTIONS",
     howToPlay: "How to play?",
     startGame: "START GAME",
+    practiceMode: "PRACTICE MODE",
     openGamePortal: "OPEN GAME PORTAL",
     alohomora: "Alohomora !",
     mainHeading: "Wizard's Chess",

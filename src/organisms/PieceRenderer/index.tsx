@@ -1,5 +1,6 @@
 import React from 'react'
 import { type ThreeEvent } from '@react-three/fiber'
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece'
 import { type RootState } from '../../store/types'
@@ -15,6 +16,7 @@ export const PieceRenderer: React.FC = () => {
     )
     const { playerPieceType } = usePieceColorFromSessionStorage()
     const dispatch = useDispatch()
+    const router = useRouter()
     // select a piece
     const handleSelect = (name: pieceName) => {
         if (selectedPiece === name) {
@@ -35,14 +37,15 @@ export const PieceRenderer: React.FC = () => {
                                     e.stopPropagation()
                                     // Disable enemy move, when it's not their move
                                     const shouldEnableClick =
-                                        ((isWhitePiece(piece.name) &&
+                                        (((isWhitePiece(piece.name) &&
                                             currentMoveIsOf ===
-                                            pieceTypeColor.white) ||
+                                                pieceTypeColor.white) ||
                                             (!isWhitePiece(piece.name) &&
                                                 currentMoveIsOf ===
-                                                pieceTypeColor.black)) &&
-                                        getPieceType(piece.name) === playerPieceType
-
+                                                    pieceTypeColor.black)) &&
+                                            getPieceType(piece.name) ===
+                                                playerPieceType) ||
+                                        !router.query.gameId
 
                                     if (shouldEnableClick) {
                                         handleSelect(piece.name)
