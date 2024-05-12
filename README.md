@@ -101,9 +101,6 @@ If you'd like to contribute to the project, Connect with me on LinkedIn
 
 
 ## To do's
-1. Checkmate logic
+1. Integrate Chess Engine
 2. 2D view
-3. Promotion
-4. Special pawn move
-5. Castling
-6. Retry video connection option
+3. Retry video connection option
