@@ -1,6 +1,6 @@
 export const messages = {
     welcomeTitle: "Welcome to Wizard Chess: A Magical Gaming Experience!",
-    welcomeDescription1: "Step into the Chess Duel of Harry Potter and the Philosopher's Stone in 3D.",
+    welcomeDescription1: "Experience a magical 3D chess duel in a realm of enchantment.",
     welcomeDescription2: "Invite your friends for a magical chess challenge, and let the wizarding showdown begin!",
     chooseYourHouse: "CHOOSE YOUR HOUSE",
     chooseButton: "Choose",

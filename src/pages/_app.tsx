@@ -77,11 +77,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
                 <meta
                     name="description"
-                    content="Embark on a magical journey with Wizard's Chess, a captivating online multiplayer chess game inspired by the wizarding world. Challenge friends to epic battles, strategize with enchanted pieces, and experience the thrill of wizardry on the virtual chessboard. Unleash your inner sorcerer and engage in a chess adventure like never before. Play Wizard's Chess today and immerse yourself in a spellbinding fusion of strategy and magic."
+                    content="Experience a magical 3D chess game where fantasy and strategy collide. Challenge friends in a captivating multiplayer chess duel set in an enchanting world. Discover a unique gaming adventure today!"
                 />
+
+                {/* Keywords */}
                 <meta
                     name="keywords"
-                    content="Harry Potter Chess, Multiplayer Game, Wizard's Chess, Magical Chess, Online Board Game, React.js, Next.js, WebRTC, Socket.io"
+                    content="3D Chess Game, Magical Chess, Multiplayer Chess, Fantasy Strategy Game, Online Chess, Enchanted Chess , Wizard's Chess, Magical Chess, Online Board Game"
                 />
                 <meta name="author" content="Anand Krishnan M J" />
                 <meta
