@@ -10,11 +10,12 @@ import { store } from '../../store/index'
 import { DrawerContext, DrawerContextProps } from '../_app'
 import styles from './styles.module.scss'
 import { isMobileDevice } from '@/helpers/general'
+import RotatingSparkle from '@/organisms/Sparkle'
 
 const App: React.FC = () => {
     const context = useContext<DrawerContextProps | undefined>(DrawerContext)
     const { isBlackPieces } = usePieceColorFromSessionStorage()
-
+ 
     useEffect(() => {
         context?.setEnableVideoDrawer(true)
         context?.toggleDrawerOpen(false)
@@ -31,7 +32,7 @@ const App: React.FC = () => {
                 </div>
                 <Canvas
                     camera={{
-                        fov: 40,
+                        fov: 42,
                         position: isMobileDevice()
                             ? [0, 500, isBlackPieces ? -320 : 320]
                             : [0, 420, isBlackPieces ? -350 : 350],
@@ -42,6 +43,9 @@ const App: React.FC = () => {
                         height: '100vh',
                     }}
                 >
+                    <ambientLight intensity={-0.1} />
+                    <pointLight position={[1, 1, 1]} />
+                    <RotatingSparkle/>
                     <OrbitControls />
                     <BoardAndPieces />
                 </Canvas>

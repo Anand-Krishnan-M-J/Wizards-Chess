@@ -1,5 +1,8 @@
+/* eslint-disable react/no-unknown-property */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useLoader } from '@react-three/fiber'
+import { TextureLoader } from 'three'
 import { useRouter } from 'next/router'
 import { updateGameStateFirebaseRequest } from '@/store/firebase'
 import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece'
@@ -21,11 +24,12 @@ export const CheckerSquare: React.FC<props> = ({
 }) => {
     const dispatch = useDispatch()
     const router = useRouter()
-    const color = isDarkSquare ? '#8B4513' : 'white'
+
     const { selectedPiece, pieces, allowedMovesForSelectedPiece } = useSelector(
         (state: RootState) => state.pieces
     )
     const state = useSelector((state: RootState) => state)
+    const texture = useLoader(TextureLoader, isDarkSquare?'images/blue.jpeg':'images/white.png')
 
     // Highlight selected square
     let isSelectedPiece = false
@@ -75,7 +79,7 @@ export const CheckerSquare: React.FC<props> = ({
             <boxGeometry
                 args={[config.square.size, thickness, config.square.size]}
             />
-            <meshStandardMaterial color={color} />
+            <meshStandardMaterial map={texture} />
             {enableShader && (
                 <shaderMaterial
                     vertexShader={vertexShader}

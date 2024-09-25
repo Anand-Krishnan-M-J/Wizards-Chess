@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import 'firebase/firestore'
 import { Button3D } from '@/atoms/3DButton'
@@ -26,10 +26,41 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
 }
 
+type ThrottleFn = (func: Function, limit: number) => (...args: any[]) => void;
+
+export const throttle: ThrottleFn = (func, limit) => {
+  let lastFunc: ReturnType<typeof setTimeout>;
+  let lastRan: number;
+  let isRunning = false;
+
+  return function(...args: any[]) {
+    if (!isRunning) {
+      isRunning = true;
+      requestAnimationFrame(() => {
+        func(...args);
+        isRunning = false;
+      });
+    }
+  };
+};
+
 export default function Home() {
     const context = useContext<DrawerContextProps | undefined>(DrawerContext)
     const { push } = useRouter()
-
+    useEffect(() => {
+        // Define the scroll handler
+        const handleScroll = throttle((event: Event) => {
+          console.log('Scroll position:', window.scrollY); // Example action
+        }, 100); // Adjust the throttle delay (in milliseconds) as needed
+    
+        // Attach the scroll event listener
+        window.addEventListener('scroll', handleScroll);
+    
+        // Clean up the event listener on component unmount
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
     return (
         <>
             <section className={styles.parallax}>
