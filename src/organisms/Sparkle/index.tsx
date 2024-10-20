@@ -27,9 +27,9 @@ const RotatingSparkle: React.FC = () => {
                 <Sparkles
                     key={color}
                     color={color}
-                    count={70}
-                    scale={650}
-                    size={200} 
+                    count={100}
+                    scale={750}
+                    size={110} 
                     speed={5}
                     position={[0, 0, 0]}
                     noise={0}

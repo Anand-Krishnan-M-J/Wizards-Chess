@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Provider } from 'react-redux'
 import { createContext, useCallback, useState } from 'react'
 import { SideDrawer } from '@/organisms/Drawer'
@@ -31,171 +32,133 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                <title>Wizard's chess</title>
-                {/* PWA starts*/}
-                <meta name="application-name" content="Wizards's Chess" />
+                <title>Wizard's Chess - Play Magical Chess Online</title>
+
+                {/* PWA Settings */}
+                <meta name="application-name" content="Wizard's Chess" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta
                     name="apple-mobile-web-app-status-bar-style"
-                    content="default"
+                    content="black-translucent"
                 />
                 <meta
                     name="apple-mobile-web-app-title"
-                    content="Wizards's Chess"
+                    content="Wizard's Chess"
                 />
-                <meta name="format-detection" content="telephone=no" />
                 <meta name="mobile-web-app-capable" content="yes" />
-                <meta
-                    name="msapplication-config"
-                    content="/icons/browserconfig.xml"
-                />
                 <meta name="msapplication-tap-highlight" content="no" />
-                <link rel="manifest" href="/manifest.json" />
+
+                {/* Icons and Favicons */}
                 <link
-                    rel="mask-icon"
-                    href="/icons/safari-pinned-tab.svg"
-                    color="#5bbad5"
+                    rel="icon"
+                    type="image/png"
+                    href="/favicon-48x48.png"
+                    sizes="48x48"
                 />
-                <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
+                    href="/apple-touch-icon.png"
+                />
+                <link rel="manifest" href="/site.webmanifest" />
+
+                {/* Preloading fonts for performance */}
+                <link
+                    rel="preload"
+                    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+                    as="style"
+                />
                 <link
                     rel="stylesheet"
                     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
                 />
 
-                <meta name="twitter:card" content="summary" />
-                <meta
-                    name="twitter:url"
-                    content="https://www.chess.anandkris.com"
-                />
-                <meta name="twitter:title" content="Wizards's Chess" />
-                <meta
-                    name="twitter:image"
-                    content="https://www.chess.anandkris.com/logo/icon-192x192.png"
-                />
-                {/* PWA ends*/}
-
+                {/* SEO Optimization */}
                 <meta
                     name="description"
-                    content="Experience a magical 3D chess game where fantasy and strategy collide. Challenge friends in a captivating multiplayer chess duel set in an enchanting world. Discover a unique gaming adventure today!"
+                    content="Play Wizard's Chess - an immersive, magical 3D chess game. Challenge friends and players worldwide in an enchanting chess duel where strategy meets fantasy!"
                 />
-
-                {/* Keywords */}
                 <meta
                     name="keywords"
-                    content="3D Chess Game, Magical Chess, Multiplayer Chess, Fantasy Strategy Game, Online Chess, Enchanted Chess , Wizard's Chess, Magical Chess, Online Board Game"
+                    content="3D Chess, Magical Chess, Multiplayer Chess, Online Chess Game, Fantasy Strategy, Chess Tournaments, Wizard's Chess"
                 />
+                <meta name="robots" content="index, follow" />
                 <meta name="author" content="Anand Krishnan M J" />
+
+                {/* Open Graph Meta Tags for Social Sharing */}
+                <meta property="og:type" content="website" />
                 <meta
                     property="og:title"
-                    content="Wizard's Chess - Multiplayer Harry Potter Themed Chess Game"
+                    content="Wizard's Chess - Play Magical Chess Online"
                 />
                 <meta
                     property="og:description"
-                    content="Immerse yourself in the wizarding world with Wizard's Chess, a multiplayer online game inspired by Harry Potter. Engage in magical chess battles with friends, featuring enchanting pieces and strategic gameplay."
+                    content="Immerse yourself in Wizard's Chess - a multiplayer online chess game where fantasy and strategy collide. Join now to challenge players in magical chess battles."
                 />
-                <meta property="og:type" content="website" />
                 <meta
                     property="og:url"
                     content="https://www.chess.anandkris.com"
                 />
                 <meta
                     property="og:image"
-                    content="https://www.chess.anandkris.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.2ce43850.png&w=128&q=75"
+                    content="https://www.chess.anandkris.com/images/og-image.png"
                 />
                 <meta
                     property="og:image:alt"
-                    content="Wizard's Chess - Multiplayer Harry Potter Themed Chess Game"
+                    content="Wizard's Chess - Multiplayer Magical Chess Game"
                 />
+
+                {/* Twitter Card Meta Tags */}
+                <meta name="twitter:card" content="summary_large_image" />
                 <meta
                     name="twitter:title"
-                    content="Wizard's Chess - Multiplayer Harry Potter Themed Chess Game"
+                    content="Wizard's Chess - Play Magical Chess Online"
                 />
                 <meta
                     name="twitter:description"
-                    content="Embark on a magical journey with Wizard's Chess, a multiplayer online chess game set in the enchanting world of Harry Potter. Play with friends and experience the excitement of wizardry on the virtual chessboard."
+                    content="Experience the magical world of Wizard's Chess. Join players online in this enchanting 3D chess duel."
                 />
-                <meta name="twitter:card" content="summary_large_image" />
-
-                <link rel="canonical" href="https://www.chess.anandkris.com" />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="57x57"
-                    href="/apple-icon-57x57.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="60x60"
-                    href="/apple-icon-60x60.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="72x72"
-                    href="/apple-icon-72x72.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="76x76"
-                    href="/apple-icon-76x76.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="114x114"
-                    href="/apple-icon-114x114.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="120x120"
-                    href="/apple-icon-120x120.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="144x144"
-                    href="/apple-icon-144x144.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="152x152"
-                    href="/apple-icon-152x152.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="180x180"
-                    href="/apple-icon-180x180.png"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="192x192"
-                    href="/android-icon-192x192.png"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="32x32"
-                    href="/favicon-32x32.png"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="96x96"
-                    href="/favicon-96x96.png"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="16x16"
-                    href="/favicon-16x16.png"
-                />
-                <meta name="msapplication-TileColor" content="#ffffff" />
                 <meta
-                    name="msapplication-TileImage"
-                    content="/ms-icon-144x144.png"
+                    name="twitter:image"
+                    content="https://www.chess.anandkris.com/images/twitter-card.png"
+                />
+                <meta
+                    name="twitter:url"
+                    content="https://www.chess.anandkris.com"
+                />
+
+                {/* Canonical URL */}
+                <link rel="canonical" href="https://www.chess.anandkris.com" />
+
+                {/* JSON-LD Structured Data for Rich Snippets */}
+                <script type="application/ld+json">
+                    {`
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": "https://www.chess.anandkris.com",
+          "name": "Wizard's Chess",
+          "description": "Play Wizard's Chess - an immersive, magical 3D chess game. Challenge friends and players worldwide in an enchanting chess duel where strategy meets fantasy.",
+          "author": {
+            "@type": "Person",
+            "name": "Anand Krishnan M J"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.chess.anandkris.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+        `}
+                </script>
+
+                {/* Viewport and Theme Color */}
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
                 />
                 <meta name="theme-color" content="#ffffff" />
-                <meta name="theme-color" content="#ffffff" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
             </Head>
 
             <Provider store={store}>
@@ -215,7 +178,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     isDrawerOpen={isDrawerOpen}
                     enableVideoDrawer={enableVideoDrawer}
                 />
-                <Cursor/>
+                <Cursor />
             </Provider>
             <Analytics />
         </>

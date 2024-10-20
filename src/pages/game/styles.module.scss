@@ -1,28 +1,43 @@
-.begin__text{
-    &__container{
-        font-family: Arial, Helvetica, sans-serif;
-        opacity: 0; /* Start with opacity 0 to initiate the fade-in effect */
-        animation: fadeInOut 4s ease; /* Set the animation duration to 4 seconds for both fade-in and fade-out */
-        position: fixed;
-        z-index: 10;
-        color: white;
-        font-size: 3rem;
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(7, 7, 7, 0.664);
-        pointer-events: none;
-        
-    }
+.begin__text {
+  &__container {
+    font-family: Arial, Helvetica, sans-serif;
+    opacity: 0;
+    /* Start with opacity 0 to initiate the fade-in effect */
+    animation: fadeInOut 4s ease;
+    /* Set the animation duration to 4 seconds for both fade-in and fade-out */
+    position: fixed;
+    z-index: 10;
+    color: white;
+    font-size: 3rem;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(7, 7, 7, 0.664);
+    pointer-events: none;
+
+  }
 }
 
 @keyframes fadeInOut {
-    0%, 100% {
-      opacity: 0; /* Start and end with opacity 0 for fade-in and fade-out */
-    }
-    25% ,50% {
-      opacity: 1; /* Reach full opacity at the middle of the animation */
-    }
+
+  0%,
+  100% {
+    opacity: 0;
+    /* Start and end with opacity 0 for fade-in and fade-out */
   }
+
+  25%,
+  50% {
+    opacity: 1;
+    /* Reach full opacity at the middle of the animation */
+  }
+}
+
+.canvas__bg {
+  background-image: url(../../assets/lakeview.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

@@ -9,7 +9,7 @@ import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece'
 import { store } from '../../store/index'
 import { DrawerContext, DrawerContextProps } from '../_app'
 import styles from './styles.module.scss'
-import { isMobileDevice } from '@/helpers/general'
+import { isMobileDevice, joinClass } from '@/helpers/general'
 import RotatingSparkle from '@/organisms/Sparkle'
 
 const App: React.FC = () => {
@@ -37,10 +37,10 @@ const App: React.FC = () => {
                             ? [0, 500, isBlackPieces ? -320 : 320]
                             : [0, 420, isBlackPieces ? -350 : 350],
                     }}
-                    className="main_canvas"
+                    className={joinClass("main_canvas",styles.canvas__bg )}
                     style={{
                         width: '100vw',
-                        height: '100vh',
+                        height: '100vh', 
                     }}
                 >
                     <ambientLight intensity={-0.1} />
