@@ -12,6 +12,7 @@ import {
     isPositionIndexInRange,
     isSquareOccupied,
     isSquareOccupiedByEnemy,
+    isSquareOccupiedByKing,
     rowNamesInBoardOrder,
 } from '../common'
 
@@ -94,13 +95,19 @@ export const getKnightMoves = (
         // If either row or col is out of bound
         if (
             !(
-                isPositionIndexInRange(getRowArrayIndex(move.row)) ||
+                isPositionIndexInRange(getRowArrayIndex(move.row)) &&
                 isPositionIndexInRange(getColArrayIndex(move.col))
             )
         ) {
             return
         }
-        // The new position must be empty or occupied by enemy to be movable
+
+        // Skip if the position is occupied by the king
+        if (isSquareOccupiedByKing(move.col, move.row, pieces)) {
+            return // Ignore this move
+        }
+
+        // The new position must be empty or occupied by an enemy to be movable
         if (
             isSquareOccupiedByEnemy(
                 move.col,
@@ -121,7 +128,7 @@ export const getKnightMoves = (
         }
     })
 
-    // attackable positions are also allowed moves
+    // Attackable positions are also allowed moves
     allowedMoves = [...allowedMoves, ...attackablePositionOccupiedByEnemy]
 
     return { allowedMoves, attackablePositionOccupiedByEnemy }

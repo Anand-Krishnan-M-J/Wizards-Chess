@@ -6,12 +6,13 @@ import {
     type PieceState,
     pieceTypes,
 } from '../../store/pieces/types'
-import { type ColName, type RowName } from '../../types'
+import { ColName, RowName } from '../../types'
 import {
     allEnemies,
     getColArrayIndex,
     getRowArrayIndex,
     isPositionIndexInRange,
+    isSquareOccupied,
     isSquareOccupiedByEnemy,
     isSquareOccupiedByFriendly,
     rowNamesInBoardOrder,
@@ -23,7 +24,7 @@ export const getKingMoves = (
     currentRow: RowName,
     pieces: PieceState[]
 ) => {
-    const allowedMoves: Array<{ col: ColName; row: RowName }> = []
+    let allowedMoves: Array<{ col: ColName; row: RowName }> = []
     const attackablePositionOccupiedByEnemy: Array<{
         col: ColName
         row: RowName
@@ -67,7 +68,7 @@ export const getKingMoves = (
         const kingCol = (
             isEnemy ? enemyKing?.currentCol : currentCol
         ) as ColName
-        return [
+        const allowedRegularMoves = [
             {
                 row: rowNamesInBoardOrder[
                     rowNamesInBoardOrder.indexOf(kingRow) + 1
@@ -113,8 +114,8 @@ export const getKingMoves = (
                 col: kingCol,
             },
         ]
+        return allowedRegularMoves
     }
-    // To do --> castelling
 
     // For all enemies except pawns and king
     enemies.forEach((enemy) => {
@@ -241,5 +242,67 @@ export const getKingMoves = (
         }
     })
 
+    const getCastlingMoves = () => {
+        const castlingMoves = []
+
+        const kingState = pieces.find((piece) => piece.name === name)
+        const currentRow = isWhitePiece(name) ? RowName.one : RowName.eight
+
+        // Function to check if the path between king and rook is clear
+        const isPathClear = (rookCol: ColName) => {
+            const direction = rookCol === ColName.C ? -1 : 1 // -1 for queenside, 1 for kingside
+            const startColIndex = getColArrayIndex(currentCol)
+            const endColIndex = getColArrayIndex(rookCol)
+
+            for (
+                let i = startColIndex + direction;
+                i !== endColIndex;
+                i += direction
+            ) {
+                const col = colNames[i]
+                if (isSquareOccupied(col, currentRow, pieces)) {
+                    return false // Path is not clear
+                }
+            }
+            return true // Path is clear
+        }
+
+        // Function to check if a square is under attack
+        const isSquareUnderAttack = (col: ColName, row: RowName) => {
+            return underAttackPositions.some(
+                (position) => position.col === col && position.row === row
+            )
+        }
+
+        // Check for kingside castling
+        if (kingState?.isCastlingAllowed?.short && isPathClear(ColName.G)) {
+            // Check the square G1 is not under attack and the king is not in check
+            if (
+                !isSquareUnderAttack(ColName.G, currentRow) &&
+                !isSquareUnderAttack(currentCol, currentRow)
+            ) {
+                castlingMoves.push({
+                    row: currentRow,
+                    col: ColName.G, // Kingside castling
+                })
+            }
+        }
+
+        // Check for queenside castling
+        if (kingState?.isCastlingAllowed?.long && isPathClear(ColName.C)) {
+            // Check the square C1 is not under attack and the king is not in check
+            if (
+                !isSquareUnderAttack(ColName.C, currentRow) &&
+                !isSquareUnderAttack(currentCol, currentRow)
+            ) {
+                castlingMoves.push({
+                    row: currentRow,
+                    col: ColName.C, // Queenside castling
+                })
+            }
+        }
+        return castlingMoves
+    }
+    allowedMoves = [...allowedMoves, ...getCastlingMoves()]
     return { allowedMoves, attackablePositionOccupiedByEnemy }
 }

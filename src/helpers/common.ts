@@ -1,6 +1,6 @@
 import { isWhitePiece } from '.'
 import { colNames, rowNames } from '../constants/pieces'
-import { type PieceState, pieceTypeColor } from '../store/pieces/types'
+import { type PieceState, pieceTypeColor, pieceTypes } from '../store/pieces/types'
 import { type ColName, type RowName } from '../types'
 
 export const isSquareOccupied = (
@@ -34,6 +34,21 @@ export const isSquareOccupiedByEnemy = (
         ) !== undefined
     )
 }
+export const isSquareOccupiedByKing = (
+    col: ColName,
+    row: RowName,
+    pieces: PieceState[]
+) => {
+    return (
+        pieces.find(
+            (item) =>
+                item.currentCol === col &&
+                item.currentRow === row &&
+                item.type === pieceTypes.king // Check if the piece is a king
+        ) !== undefined
+    );
+};
+
 export const isSquareOccupiedByFriendly = (
     col: ColName,
     row: RowName,

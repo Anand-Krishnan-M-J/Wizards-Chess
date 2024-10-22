@@ -1,11 +1,10 @@
-import firebase from "firebase/app";
 import { createSlice } from '@reduxjs/toolkit'
 import {
     type PieceState,
     type PieceReduxState,
     type MovePieceSiceType,
     pieceTypeColor,
-    type pieceName,
+    pieceTypes,
 } from './types'
 import {
     getInitialBishopState,
@@ -16,7 +15,7 @@ import {
     getInitialRookState,
 } from './initial'
 import { getAllowedMoves, isWhitePiece } from '../../helpers'
-import { type ColName, type RowName } from '../../types'
+import { ColName, type RowName } from '../../types'
 
 export const intialState: PieceReduxState = {
     // Black and white pieces initial state
@@ -39,9 +38,10 @@ export const pieceSlice: MovePieceSiceType = createSlice({
     name: 'Piece',
     initialState: intialState,
     reducers: {
-        updateState:(state: PieceReduxState, action) => {
-            state.allowedMovesForSelectedPiece = action.payload.allowedMovesForSelectedPiece
-            state.attackablePositions =  action.payload.attackablePositions
+        updateState: (state: PieceReduxState, action) => {
+            state.allowedMovesForSelectedPiece =
+                action.payload.allowedMovesForSelectedPiece
+            state.attackablePositions = action.payload.attackablePositions
             state.currentMoveIsOf = action.payload.currentMoveIsOf
             state.hoveredPiece = action.payload.hoveredPiece
             state.pieces = action.payload.pieces
@@ -71,15 +71,10 @@ export const pieceSlice: MovePieceSiceType = createSlice({
         },
 
         movePiece: (state: PieceReduxState, action) => {
-            // When it's a killer move, remove the piece already present there
-            // logic  -> If a piece already exist in the to be moved square, kill it
             const { col, row, name } = action.payload
+            // When it's a killer move, remove the piece already present there
             const pieceToKill = state.pieces.find(
-                (piece: {
-                    currentCol: ColName
-                    currentRow: RowName
-                    kia: boolean
-                }) =>
+                (piece) =>
                     piece.currentCol === col &&
                     piece.currentRow === row &&
                     !piece.kia
@@ -91,16 +86,55 @@ export const pieceSlice: MovePieceSiceType = createSlice({
             }
             // Move the piece
             const pieceToMove = state.pieces.find(
-                (item: { name: pieceName }) => item.name === name
+                (item) => item.name === name
             ) as PieceState
             pieceToMove.currentCol = col
             pieceToMove.currentRow = row
 
-            // reset allowed pieces and selected piece once move is done
+            // Handle castling move
+            if (
+                pieceToMove.type === pieceTypes.king &&
+                pieceToMove.isCastlingAllowed
+            ) {
+                // Check for kingside castling
+                if (col === ColName.G) {
+                    // Move the rook to F (kingside)
+                    const rookToMove = state.pieces.find(
+                        (piece) =>
+                            piece.type === pieceTypes.rook &&
+                            piece.currentCol === ColName.H &&
+                            piece.currentRow === pieceToMove.currentRow
+                    ) as PieceState
+                    if (rookToMove) {
+                        rookToMove.currentCol = ColName.F
+                        rookToMove.currentRow = row // Ensure it's on the same row as the king
+                    }
+                }
+                // Check for queenside castling
+                else if (col === ColName.C) {
+                    // Move the rook to D (queenside)
+                    const rookToMove = state.pieces.find(
+                        (piece) =>
+                            piece.type === pieceTypes.rook &&
+                            piece.currentCol === ColName.A &&
+                            piece.currentRow === pieceToMove.currentRow
+                    ) as PieceState
+                    if (rookToMove) {
+                        rookToMove.currentCol = ColName.D
+                        rookToMove.currentRow = row // Ensure it's on the same row as the king
+                    }
+                }
+                //Can't castle again
+                pieceToMove.isCastlingAllowed.long = false
+                pieceToMove.isCastlingAllowed.short = false
+            }
+
+            // Reset allowed pieces and selected piece once the move is done
             state.allowedMovesForSelectedPiece = []
             state.selectedPiece = null
             state.attackablePositions = []
 
+            // Switch turns
             if (isWhitePiece(action.payload.name)) {
                 state.currentMoveIsOf = pieceTypeColor.black
             } else {

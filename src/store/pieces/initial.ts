@@ -54,6 +54,10 @@ export const getInitialKingState = (): PieceState[] => {
         // Current position
         currentCol: ColName.E,
         currentRow: RowName.one,
+        isCastlingAllowed: {
+            long: true,
+            short: true,
+        },
         // Common states
         ...commonStates,
     })
@@ -63,6 +67,10 @@ export const getInitialKingState = (): PieceState[] => {
         // Current position
         currentCol: ColName.E,
         currentRow: RowName.eight,
+        isCastlingAllowed: {
+            long: true,
+            short: true,
+        },
         // Common states
         ...commonStates,
     })

@@ -12,6 +12,7 @@ import {
     isPositionIndexInRange,
     isSquareOccupied,
     isSquareOccupiedByEnemy,
+    isSquareOccupiedByKing, // Import the function to check for the king
     rowNamesInBoardOrder,
 } from '../common'
 
@@ -38,7 +39,7 @@ export const getRookMoves = (
     const setAllowedMovesAndAttackablePositions = (
         movementType: MovementType
     ) => {
-        // initial positions of row and col to start checking for posible movable locations
+        // initial positions of row and col to start checking for possible movable locations
         if (movementType === MovementType.incRow) {
             row =
                 rowNamesInBoardOrder[
@@ -64,7 +65,12 @@ export const getRookMoves = (
                 isRowMovement ? getRowArrayIndex(row) : getColArrayIndex(col)
             )
         ) {
-            // if enemy is found add that to enemy list and break from loop and piece can't go any further
+            // Skip if the position is occupied by the king
+            if (isSquareOccupiedByKing(col, row, pieces)) {
+                return // Ignore this move
+            }
+
+            // if enemy is found, add that to the enemy list and break from loop
             if (
                 isSquareOccupiedByEnemy(
                     col,
@@ -78,7 +84,7 @@ export const getRookMoves = (
                 attackablePositionOccupiedByEnemy.push({ col, row })
                 break
             }
-            // if same type pawn is found break from loop
+            // if same type piece is found, break from loop
             if (isSquareOccupied(col, row, pieces)) {
                 break
             }
@@ -118,7 +124,7 @@ export const getRookMoves = (
         setAllowedMovesAndAttackablePositions(item.movementType)
     })
 
-    // attackable positions are also allowed moves
+    // Attackable positions are also allowed moves
     allowedMoves = [...allowedMoves, ...attackablePositionOccupiedByEnemy]
 
     return { allowedMoves, attackablePositionOccupiedByEnemy }

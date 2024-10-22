@@ -91,6 +91,10 @@ export interface PieceState {
     kia: boolean
     isPromoted?: boolean
     promotedTo?: PromotionType
+    isCastlingAllowed?: {
+        long: boolean
+        short: boolean
+    }
 }
 export interface PieceReduxState {
     pieces: PieceState[]

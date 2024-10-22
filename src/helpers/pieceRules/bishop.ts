@@ -12,6 +12,7 @@ import {
     isPositionIndexInRange,
     isSquareOccupied,
     isSquareOccupiedByEnemy,
+    isSquareOccupiedByKing,
     rowNamesInBoardOrder,
 } from '../common'
 
@@ -68,7 +69,8 @@ export const getBishopMoves = (
         // while the indexes are in range
         while (
             isPositionIndexInRange(getRowArrayIndex(row)) &&
-            isPositionIndexInRange(getColArrayIndex(col))
+            isPositionIndexInRange(getColArrayIndex(col)) &&
+            !isSquareOccupiedByKing(col, row, pieces)
         ) {
             // if enemy is found add that to enemy list and break from loop and piece can't go any further
             if (

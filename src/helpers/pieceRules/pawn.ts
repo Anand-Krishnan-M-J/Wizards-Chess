@@ -4,6 +4,7 @@ import {
     type PieceState,
     type pieceName,
     pieceTypeColor,
+    pieceTypes,
 } from '../../store/pieces/types'
 import { type ColName, RowName } from '../../types'
 import {
@@ -73,9 +74,12 @@ export const getPawnMoves = (
 ) => {
     let allowedMoves: Array<{ col: ColName; row: RowName }> = []
 
-    // White
-    if (isWhitePiece(name)) {
-        // if on row 2, allowed moves will be 2 rows up ahead with in same column
+    // Check if the piece is white
+    const isWhite = isWhitePiece(name)
+
+    // White Pawns Logic
+    if (isWhite) {
+        // If on row 2, allowed moves will be 2 rows up ahead within the same column
         if (currentRow === RowName.two) {
             if (!isSquareOccupied(currentCol, RowName.three, pieces)) {
                 allowedMoves.push({ col: currentCol, row: RowName.three })
@@ -84,7 +88,7 @@ export const getPawnMoves = (
                 allowedMoves.push({ col: currentCol, row: RowName.four })
             }
         }
-        // if on any other row, can move only 1 step ahead
+        // If on any other row, can move only 1 step ahead
         else {
             if (
                 !isSquareOccupied(
@@ -99,24 +103,17 @@ export const getPawnMoves = (
                 })
             }
         }
-    }
-
-    // Black
-    if (!isWhitePiece(name)) {
-        // if on row 2, allowed moves will be 2 rows up ahead with in same column
+    } else {
+        // Black Pawns Logic
+        // If on row 7, allowed moves will be 2 rows up ahead within the same column
         if (currentRow === RowName.seven) {
-            // Forward move is disabled when a pawn is at front
             if (!isSquareOccupied(currentCol, RowName.six, pieces)) {
                 allowedMoves.push({ col: currentCol, row: RowName.six })
             }
-            // Forward move is disabled when a pawn is at front
             if (!isSquareOccupied(currentCol, RowName.five, pieces)) {
                 allowedMoves.push({ col: currentCol, row: RowName.five })
             }
-        }
-        // For all other rows
-        else {
-            // Forward move is disabled when a pawn is at front
+        } else {
             if (
                 !isSquareOccupied(
                     currentCol,
@@ -132,26 +129,35 @@ export const getPawnMoves = (
         }
     }
 
-    // attackable positions
+    // Attackable positions
     const attackablePositions = getAttackablePositions(
         name,
         currentCol,
         currentRow
     ).map((item) => `${item.col}${item.row}`)
 
-    const pieceColor = isWhitePiece(name)
-        ? pieceTypeColor.black
-        : pieceTypeColor.white
+    // Determine piece color
+    const pieceColor = isWhite ? pieceTypeColor.white : pieceTypeColor.black
 
-    const attackablePositionOccupiedByEnemy = allEnemies(pieceColor, pieces)
-        .filter((item) =>
-            attackablePositions.includes(`${item.currentCol}${item.currentRow}`)
-        )
+    // Get all enemy pieces
+    const enemyPieces = allEnemies(pieceColor, pieces)
+
+    // Filter out enemy kings from attackable positions
+    const attackablePositionOccupiedByEnemy = enemyPieces
+        .filter((item) => {
+            const isKing = item.type === pieceTypes.king // Check if the piece type is king
+            return (
+                attackablePositions.includes(
+                    `${item.currentCol}${item.currentRow}`
+                ) && !isKing
+            )
+        })
         .map((item) => ({
             col: item.currentCol,
             row: item.currentRow,
         }))
 
+    // Combine allowed moves and attackable positions
     allowedMoves = [...allowedMoves, ...attackablePositionOccupiedByEnemy]
 
     return { allowedMoves, attackablePositionOccupiedByEnemy }
