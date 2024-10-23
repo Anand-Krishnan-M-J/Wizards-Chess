@@ -4,6 +4,8 @@ import { createContext, useCallback, useState } from 'react'
 import { SideDrawer } from '@/organisms/Drawer'
 import Cursor from '@/organisms/Cursor'
 import { Analytics } from '@vercel/analytics/react'
+import { useFirebaseInit } from '@/hooks/useFirebaseInit'
+import { FirestoreContext } from '@/contexts/firestoreContext'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import '@fontsource/cinzel-decorative' // Defaults to weight 400
@@ -24,7 +26,7 @@ export const DrawerContext = createContext<DrawerContextProps | undefined>(
 function MyApp({ Component, pageProps }: AppProps) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const [enableVideoDrawer, setEnableVideoDrawer] = useState(false)
-
+    const { firestore } = useFirebaseInit()
     const toggleDrawerOpen = useCallback((isOpen: boolean) => {
         setIsDrawerOpen(isOpen)
     }, [])
@@ -160,26 +162,27 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <meta name="theme-color" content="#ffffff" />
             </Head>
-
-            <Provider store={store}>
-                {/* eslint-disable  */}
-                <DrawerContext.Provider
-                    value={{
-                        isDrawerOpen,
-                        toggleDrawerOpen,
-                        enableVideoDrawer,
-                        setEnableVideoDrawer,
-                    }}
-                >
-                    <Component {...pageProps} />
-                </DrawerContext.Provider>
-                <SideDrawer
-                    setIsDrawerOpen={toggleDrawerOpen}
-                    isDrawerOpen={isDrawerOpen}
-                    enableVideoDrawer={enableVideoDrawer}
-                />
-                <Cursor />
-            </Provider>
+            <FirestoreContext.Provider value={{ firestore }}>
+                <Provider store={store}>
+                    {/* eslint-disable  */}
+                    <DrawerContext.Provider
+                        value={{
+                            isDrawerOpen,
+                            toggleDrawerOpen,
+                            enableVideoDrawer,
+                            setEnableVideoDrawer,
+                        }}
+                    >
+                        <Component {...pageProps} />
+                    </DrawerContext.Provider>
+                    <SideDrawer
+                        setIsDrawerOpen={toggleDrawerOpen}
+                        isDrawerOpen={isDrawerOpen}
+                        enableVideoDrawer={enableVideoDrawer}
+                    />
+                    <Cursor />
+                </Provider>
+            </FirestoreContext.Provider>
             <Analytics />
         </>
     )

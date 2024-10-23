@@ -1,30 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
-import firebase from 'firebase/app'
-import { useDispatch, useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
+import { useContext, useEffect, useRef, useState } from 'react'
 import 'firebase/firestore'
 import { pieceTypeColor } from '@/store/pieces/types'
-import { RootState } from '@/store/types'
-import { updateState } from '@/store/pieces'
-
-const firebaseConfig = {
-    apiKey: process.env.firebaseApiKey,
-    authDomain: process.env.firebaseAuthDomain,
-    projectId: process.env.firebaseProjectId,
-    storageBucket: process.env.firebaseStorageBucket,
-    messagingSenderId: process.env.firebaseMessagingSenderId,
-    appId: process.env.firebaseAppId,
-    measurementId: process.env.firebaseMeasurementId,
-}
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig)
-}
+import { FirestoreContext } from '@/contexts/firestoreContext'
+import { webRtcServers } from '@/config/webRTCServer'
 
 export function useWebRtc() {
-    const router = useRouter()
-    const dispatch = useDispatch()
-    const pieces = useSelector((state: RootState) => state.pieces)
     const localVideoRef = useRef<HTMLVideoElement>(null)
     const remoteVideoRef = useRef<HTMLVideoElement>(null)
     const userNameRef = useRef<HTMLInputElement>(null)
@@ -32,14 +12,12 @@ export function useWebRtc() {
 
     const [isConnectionEstablished, setIsConnectionEstablished] =
         useState(false)
-    const [firestore, setFirestore] = useState<firebase.firestore.Firestore>()
+    const { firestore } = useContext(FirestoreContext)
     const [peerConnection, setPeerConnection] = useState<RTCPeerConnection>()
     const [callId, setCallId] = useState<string>('')
     const [connectionError, setConnectionError] = useState(false)
     const [isSharing, setIsSharing] = useState(true)
     const [isCameraBlocked, setIsCameraBlocked] = useState(false)
-    const [myName, setMyName] = useState('')
-    const [opponentName, setOpponentName] = useState('')
     const checkCameraPermission = async () => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
@@ -52,27 +30,14 @@ export function useWebRtc() {
             setIsCameraBlocked(true)
         }
     }
-    useEffect(() => {
-        checkCameraPermission()
-    }, [])
 
     useEffect(() => {
-        setFirestore(firebase.firestore())
         // Initialize WebRTC
-        const servers = {
-            iceServers: [
-                {
-                    urls: process.env.iceServerUrl as string,
-                    username: process.env.iceUsername as string,
-                    credentials: process.env.iceCredentials as string,
-                },
-            ],
-            iceCandidatePoolSize: 10,
-        }
-        const pc = new RTCPeerConnection(servers)
+        checkCameraPermission()
+        const pc = new RTCPeerConnection(webRtcServers)
         setPeerConnection(pc)
 
-        const initializeVideoCall = async () => {
+        const initializeLocalVideoFeed = async () => {
             try {
                 if (localVideoRef.current) {
                     const stream = await navigator.mediaDevices.getUserMedia({
@@ -97,66 +62,10 @@ export function useWebRtc() {
                 console.log('Camera or microphone unavailable')
             }
         }
-        initializeVideoCall().then(() => {
+        initializeLocalVideoFeed().then(() => {
             console.log('Camera and microphone initialized successfully')
         })
     }, [isSharing])
-    //Sync redux to firebase
-    useEffect(() => {
-        if (pieces && firestore && router.query.gameId) {
-            const callDoc = firestore
-                .collection('calls')
-                .doc(router.query.gameId as string)
-            const pieceState = callDoc.collection('pieceState')
-
-            const updateFireStore = async () => {
-                await pieceState.add({ pieceState: JSON.stringify(pieces) })
-            }
-            updateFireStore().then(() => {
-                console.log('Firestore updated!!!')
-            })
-        }
-    }, [pieces.currentMoveIsOf])
-
-    //Sync firebase to redux
-    useEffect(() => {
-        if (firestore) {
-            const callDoc = firestore
-                .collection('calls')
-                .doc(router.query.gameId as string)
-            const pieceState = callDoc.collection('pieceState')
-
-            callDoc.onSnapshot((snapshot) => {
-                const data = snapshot.data()
-                if (data && data.playerTwo && data.playerOne) {
-                    const playerTwo = data.playerTwo
-                    const playerOne = data.playerOne
-                    const players = [playerOne, playerTwo]
-                    const currentPlayerType =
-                        sessionStorage.getItem('pieceType')
-                    setMyName(
-                        players.find(
-                            (item) => item.pieceType === currentPlayerType
-                        ).name
-                    )
-                    setOpponentName(
-                        players.find(
-                            (item) => item.pieceType !== currentPlayerType
-                        ).name
-                    )
-                }
-            })
-
-            pieceState.onSnapshot((snapshot) => {
-                snapshot.docChanges().forEach((change) => {
-                    const fireStoreState = JSON.parse(
-                        change.doc.data().pieceState
-                    )
-                    dispatch(updateState(fireStoreState))
-                })
-            })
-        }
-    }, [router.query.gameId])
 
     const createOffer = async () => {
         if (firestore) {
@@ -330,7 +239,5 @@ export function useWebRtc() {
         connectionError,
         stopSharing,
         isSharing,
-        myName,
-        opponentName,
     }
 }

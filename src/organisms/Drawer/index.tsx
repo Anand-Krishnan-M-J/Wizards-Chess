@@ -10,6 +10,7 @@ import { RootState } from '@/store/types'
 import { messages } from '@/constants/messages'
 import { CustomInputField } from '@/atoms/InputField'
 import { CustomButton } from '@/atoms/Button'
+import { useChessFirestore } from '@/hooks/useChessFirestore'
 import { useWebRtc } from '@/hooks/useWebRtc'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { Loader } from '@/atoms/Icons/Loader'
@@ -52,9 +53,9 @@ export const SideDrawer = ({
         connectionError,
         isSharing,
         stopSharing,
-        myName,
-        opponentName,
     } = useWebRtc()
+    //Sync redux and firestore
+    const { myName, opponentName } = useChessFirestore()
     const [copy] = useCopyToClipboard()
     const currentMoveIsOf = useSelector(
         (state: RootState) => state.pieces.currentMoveIsOf
@@ -211,10 +212,6 @@ export const SideDrawer = ({
                         error={
                             error.gameCode
                                 ? messages.gameCodeEmptyError
-                                : '' || error.sameGameCodeAsGenerated
-                                ? messages.generatedCodeCannotBeUsed
-                                : '' || connectionError
-                                ? messages.checkGameCode
                                 : ''
                         }
                         disabled={isConnectionEstablished}

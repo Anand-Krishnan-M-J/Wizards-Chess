@@ -29,8 +29,6 @@ if (!firebase.apps.length) {
 type ThrottleFn = (func: Function, limit: number) => (...args: any[]) => void;
 
 export const throttle: ThrottleFn = (func, limit) => {
-  let lastFunc: ReturnType<typeof setTimeout>;
-  let lastRan: number;
   let isRunning = false;
 
   return function(...args: any[]) {
@@ -47,20 +45,6 @@ export const throttle: ThrottleFn = (func, limit) => {
 export default function Home() {
     const context = useContext<DrawerContextProps | undefined>(DrawerContext)
     const { push } = useRouter()
-    useEffect(() => {
-        // Define the scroll handler
-        const handleScroll = throttle((event: Event) => {
-          console.log('Scroll position:', window.scrollY); // Example action
-        }, 100); // Adjust the throttle delay (in milliseconds) as needed
-    
-        // Attach the scroll event listener
-        window.addEventListener('scroll', handleScroll);
-    
-        // Clean up the event listener on component unmount
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-        };
-      }, []);
     return (
         <>
             <section className={styles.parallax}>
