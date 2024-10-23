@@ -88,8 +88,6 @@ export const pieceSlice: MovePieceSiceType = createSlice({
             const pieceToMove = state.pieces.find(
                 (item) => item.name === name
             ) as PieceState
-            pieceToMove.currentCol = col
-            pieceToMove.currentRow = row
 
             // Handle castling move
             if (
@@ -124,11 +122,33 @@ export const pieceSlice: MovePieceSiceType = createSlice({
                         rookToMove.currentRow = row // Ensure it's on the same row as the king
                     }
                 }
-                //Can't castle again
+                //Can't castle again & only king has this state
                 pieceToMove.isCastlingAllowed.long = false
                 pieceToMove.isCastlingAllowed.short = false
             }
+            //If rook is moved once-> no more castling
+            if (pieceToMove.type === pieceTypes.rook) {
+                //update kings castling state
+                const isKingSide = pieceToMove.currentCol === ColName.H
 
+                const king = state.pieces.find(
+                    (piece) =>
+                        piece.currentRow === pieceToMove.currentRow &&
+                        piece.type === pieceTypes.king
+                )
+                console.log(king?.isCastlingAllowed,"pppp")
+                if (king?.isCastlingAllowed) {
+                    if (isKingSide) {
+                        king.isCastlingAllowed.short = false
+                    } else {
+                        king.isCastlingAllowed.long = false
+                    }
+                }
+            }
+
+            //Move pieces
+            pieceToMove.currentCol = col
+            pieceToMove.currentRow = row
             // Reset allowed pieces and selected piece once the move is done
             state.allowedMovesForSelectedPiece = []
             state.selectedPiece = null
