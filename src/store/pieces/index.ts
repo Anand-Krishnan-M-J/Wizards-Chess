@@ -136,7 +136,6 @@ export const pieceSlice: MovePieceSiceType = createSlice({
                         piece.currentRow === pieceToMove.currentRow &&
                         piece.type === pieceTypes.king
                 )
-                console.log(king?.isCastlingAllowed,"pppp")
                 if (king?.isCastlingAllowed) {
                     if (isKingSide) {
                         king.isCastlingAllowed.short = false
