@@ -249,18 +249,37 @@ export const getKingMoves = (
         const currentRow = isWhitePiece(name) ? RowName.one : RowName.eight
 
         // Function to check if the path between king and rook is clear
-        const isPathClear = (rookCol: ColName) => {
-            const direction = rookCol === ColName.C ? -1 : 1 // -1 for queenside, 1 for kingside
+        const isPathClear = (isKingside: boolean) => {
+            // Set the rook's row and column based on the castling type
+            const isWhite = isWhitePiece(name)
+            let rookRow, rookCol
+            if (isWhite && isKingside) {
+                rookRow = RowName.one
+                rookCol = ColName.H // White kingside castling (Rook on H1)
+            } else if (isWhite && !isKingside) {
+                rookRow = RowName.one
+                rookCol = ColName.A // White queenside castling (Rook on A1)
+            } else if (!isWhite && isKingside) {
+                rookRow = RowName.eight
+                rookCol = ColName.H // Black kingside castling (Rook on H8)
+            } else {
+                rookRow = RowName.eight
+                rookCol = ColName.A // Black queenside castling (Rook on A8)
+            }
+
+            // Determine the direction for iteration: -1 for queenside, 1 for kingside
+            const direction = isKingside ? 1 : -1
             const startColIndex = getColArrayIndex(currentCol)
             const endColIndex = getColArrayIndex(rookCol)
 
+            // Iterate from the square next to the king to the square before the rook
             for (
                 let i = startColIndex + direction;
                 i !== endColIndex;
                 i += direction
             ) {
                 const col = colNames[i]
-                if (isSquareOccupied(col, currentRow, pieces)) {
+                if (isSquareOccupied(col, rookRow, pieces)) {
                     return false // Path is not clear
                 }
             }
@@ -275,7 +294,7 @@ export const getKingMoves = (
         }
 
         // Check for kingside castling
-        if (kingState?.isCastlingAllowed?.short && isPathClear(ColName.G)) {
+        if (kingState?.isCastlingAllowed?.short && isPathClear(true)) {
             // Check the square G1 is not under attack and the king is not in check
             if (
                 !isSquareUnderAttack(ColName.G, currentRow) &&
@@ -289,7 +308,7 @@ export const getKingMoves = (
         }
 
         // Check for queenside castling
-        if (kingState?.isCastlingAllowed?.long && isPathClear(ColName.C)) {
+        if (kingState?.isCastlingAllowed?.long && isPathClear(false)) {
             // Check the square C1 is not under attack and the king is not in check
             if (
                 !isSquareUnderAttack(ColName.C, currentRow) &&
