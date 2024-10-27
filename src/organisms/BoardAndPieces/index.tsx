@@ -13,48 +13,57 @@ export const BoardAndPieces: React.FC = () => {
         !isServer &&
         sessionStorage.getItem('pieceType') === pieceTypeColor.black
 
+    // Define initial and final rotations
+    const initialRotation = {
+        x: isBlackPieces ? Math.PI / 10 : -Math.PI / 10,
+        y: -Math.PI / 2,
+    }
+    const finalRotation = {
+        x: 0,
+        y: 0,
+    }
+
     useEffect(() => {
-        if (groupRef) {
-            groupRef.current.rotation.y = -Math.PI / 2
-            groupRef.current.rotation.x = isBlackPieces
-                ? Math.PI / 10
-                : -Math.PI / 10
+        if (groupRef.current) {
+            // Set initial rotation
+            groupRef.current.rotation.set(
+                initialRotation.x,
+                initialRotation.y,
+                0
+            )
+            groupRef.current.scale.set(1.05, 1.05, 1.05)
+
+            // Start animation after a delay
             setTimeout(() => {
                 setStartAnimation(true)
-            }, 2000)
-            groupRef.current.scale.x = 1.11
-            groupRef.current.scale.y = 1.11
-            groupRef.current.scale.z = 1.11
+            }, 2500)
         }
     }, [])
-    useFrame((_state, delta) => {
-        if (startAnimation) {
 
-            if (groupRef.current.rotation.y < 0) {
-                groupRef.current.rotation.y += delta * 0.85; 
-            }
-    
-            if (!isBlackPieces && groupRef.current.rotation.x < 0) {
-                groupRef.current.rotation.x += 0.3 * delta; 
-            }
-            if (isBlackPieces && groupRef.current.rotation.x > 0) {
-                groupRef.current.rotation.x -= 0.3 * delta; 
-            }
-    
-            if (groupRef.current.scale.x > 1) {
-                const scaleSpeed = 0.3 * delta; 
-                groupRef.current.scale.x -= scaleSpeed;
-                groupRef.current.scale.y -= scaleSpeed;
-                groupRef.current.scale.z -= scaleSpeed;
-            }
+    useFrame((state, delta) => {
+        if (startAnimation && groupRef.current) {
+            // Interpolate rotation
+            groupRef.current.rotation.x +=
+                (finalRotation.x - groupRef.current.rotation.x) * 0.03 // Adjust the multiplier for speed
+            groupRef.current.rotation.y +=
+                (finalRotation.y - groupRef.current.rotation.y) * 0.03
 
-            groupRef.current.scale.set(
-                Math.max(1, groupRef.current.scale.x),
-                Math.max(1, groupRef.current.scale.y),
-                Math.max(1, groupRef.current.scale.z)
-            );
+            // Scale down smoothly
+            const scaleSpeed = 0.02 * delta
+            groupRef.current.scale.x = Math.max(
+                1,
+                groupRef.current.scale.x - scaleSpeed
+            )
+            groupRef.current.scale.y = Math.max(
+                1,
+                groupRef.current.scale.y - scaleSpeed
+            )
+            groupRef.current.scale.z = Math.max(
+                1,
+                groupRef.current.scale.z - scaleSpeed
+            )
         }
-    });
+    })
 
     return (
         <group ref={groupRef}>

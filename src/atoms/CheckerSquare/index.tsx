@@ -29,7 +29,7 @@ export const CheckerSquare: React.FC<props> = ({
         (state: RootState) => state.pieces
     )
     const state = useSelector((state: RootState) => state)
-    const texture = useLoader(TextureLoader, isDarkSquare?'images/blue.jpeg':'images/white.png')
+    const texture = useLoader(TextureLoader, isDarkSquare?'images/black.jpg':'images/white.jpg')
 
     // Highlight selected square
     let isSelectedPiece = false
@@ -73,7 +73,7 @@ export const CheckerSquare: React.FC<props> = ({
             dispatch(updateGameStateFirebaseRequest({ gameState: state.pieces }))
         }
     }
-
+    
     return (
         <mesh position={position} onClick={handlePieceMove}>
             <boxGeometry

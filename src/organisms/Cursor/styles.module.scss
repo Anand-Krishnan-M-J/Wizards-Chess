@@ -8,7 +8,7 @@
     background-color: rgb(136, 136, 136);
     box-shadow: 0rem 0rem 10rem 3rem rgba(255, 255, 255, 0.76);
 
-    @media only screen and (max-width: 992px) {
+    @media only screen and (max-width: 992px) and (orientation: landscape) {
         display: none;
     }
 }

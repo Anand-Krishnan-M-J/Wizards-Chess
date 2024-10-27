@@ -33,10 +33,10 @@ const App: React.FC = () => {
             </div>
             <Canvas
                 camera={{
-                    fov: 42,
+                    fov: 38,
                     position: isMobileDevice()
-                        ? [0, 500, isBlackPieces ? -320 : 320]
-                        : [0, 420, isBlackPieces ? -350 : 350],
+                        ? [0, 330, isBlackPieces ? -380 : 380]
+                        : [0, 330, isBlackPieces ? -380 : 380],
                 }}
                 className={joinClass('main_canvas', styles.canvas__bg)}
                 style={{

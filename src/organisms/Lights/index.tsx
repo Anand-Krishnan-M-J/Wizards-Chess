@@ -7,6 +7,7 @@ export const Lights: React.FC = () => (
 
         {/* <directionalLight castShadow position={[0, -2, 2]} intensity={2} /> */}
         {/* <ambientLight intensity={0.5} /> */}
-        {/* <directionalLight castShadow position={[0, -2, -2]} intensity={2} /> */}
+        <directionalLight castShadow position={[0, 0, -2]} intensity={0.5} />
+        <directionalLight castShadow position={[0, 0, 2]} intensity={0.3} />
     </group>
 )
