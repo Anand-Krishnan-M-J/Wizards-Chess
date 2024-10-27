@@ -8,6 +8,7 @@ import { useFirebaseInit } from '@/hooks/useFirebaseInit'
 import { FirestoreContext } from '@/contexts/firestoreContext'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@fontsource/cinzel-decorative' // Defaults to weight 400
 import '@fontsource/cinzel-decorative/400.css' // Specify weight;
 import { store } from '../store/index'
@@ -184,6 +185,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Provider>
             </FirestoreContext.Provider>
             <Analytics />
+            <SpeedInsights />
         </>
     )
 }
