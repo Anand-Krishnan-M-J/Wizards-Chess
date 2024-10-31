@@ -67,7 +67,7 @@ export const Piece: React.FC<PieceProps> = ({
         ? [0, Math.PI, 0]
         : [0, 0, 0]
 
-    const rotation = ()=>{
+    const rotation = ():[number, number, number] =>{
         switch (type){
             case pieceTypes.rook:
                 return isWhitePiece(name)? [0, Math.PI/2, 0]:[0, -Math.PI/2, 0]
@@ -119,7 +119,7 @@ export const Piece: React.FC<PieceProps> = ({
         <animated.group
             {...animationProps}
             dispose={null}
-            rotation={rotation() as any}
+            rotation={rotation()}
             {...(!isAttackable && { onClick })}
         >
             <mesh
