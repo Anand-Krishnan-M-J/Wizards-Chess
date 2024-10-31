@@ -63,9 +63,19 @@ export const Piece: React.FC<PieceProps> = ({
         }
     }
 
-    const rotation: [x: number, y: number, z: number] = isWhitePiece(name)
+    const defaultRotation: [x: number, y: number, z: number] = isWhitePiece(name)
         ? [0, Math.PI, 0]
         : [0, 0, 0]
+
+    const rotation = ():[number, number, number] =>{
+        switch (type){
+            case pieceTypes.rook:
+                return isWhitePiece(name)? [0, Math.PI/2, 0]:[0, -Math.PI/2, 0]
+            default:
+            return defaultRotation
+        }
+
+    }
 
     const animationProps = useSpring({
         position,
@@ -109,7 +119,7 @@ export const Piece: React.FC<PieceProps> = ({
         <animated.group
             {...animationProps}
             dispose={null}
-            rotation={rotation}
+            rotation={rotation()}
             {...(!isAttackable && { onClick })}
         >
             <mesh
