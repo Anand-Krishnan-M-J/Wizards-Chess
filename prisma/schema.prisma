@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+model Puzzle {
+  id          Int    @id @default(autoincrement())
+  puzzleState Json   @map("puzzle_state")  // JSON object representing the puzzle state
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  userName    String   @map("user_name")
+  emailId     String   @unique @map("email_id")
+  password    String?
+  avatar      String?
+  puzzleLevel Int?
+  matchesWon  Int      @default(0) @map("matches_won")
+  eventsWon   Int      @default(0) @map("events_won")
+  score       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at") // Prisma automatically updates this on record modification
+
+  eventTeamUserRole  EventTeamUserRole[] // Relation to EventTeamUserRole
+
+  @@map("users")
+}
+
+model Event {
+  id              Int       @id @default(autoincrement())
+  eventName       String    @map("event_name")
+  eventDescription String?
+  gameType        String
+  startDate       DateTime  @default(now()) @map("start_date")
+  endDate         DateTime  @default(now()) @map("end_date")
+
+  teams           Team[]    // Relation to teams
+  eventTeamUserRole      EventTeamUserRole[] // Relation to EventTeamUserRole
+
+  @@map("events")
+}
+
+model Team {
+  id       Int       @id @default(autoincrement())
+  teamName String    @map("team_name")
+  eventId  Int
+  event    Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  eventTeamUserRole  EventTeamUserRole[] // Relation to EventTeamUserRole
+
+  @@map("teams")
+}
+
+model Role {
+  id       Int       @id @default(autoincrement())
+  roleName String    @map("role_name")
+
+  eventTeamUserRole EventTeamUserRole[] // Relation to EventTeamUserRole
+
+  @@map("roles")
+}
+
+model EventTeamUserRole {
+  id        Int     @id @default(autoincrement())
+  eventId   Int
+  userId    Int
+  roleId    Int
+  teamId    Int?
+  allowEdit Boolean @default(false)
+
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      Role    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  team      Team?   @relation(fields: [teamId], references: [id], onDelete: SetNull)
+
+  @@map("event_team_user_role")
+}

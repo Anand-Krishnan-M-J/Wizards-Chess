@@ -104,3 +104,9 @@ If you'd like to contribute to the project, Connect with me on LinkedIn
 1. Integrate Chess Engine
 2. 2D view
 3. Retry video connection option
+
+
+# DB 
+
+Define schema
+Run npx prisma migrate dev --name init //SQL will be created and applied automatically
