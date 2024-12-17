@@ -13,6 +13,8 @@ import '@fontsource/cinzel-decorative'; // Defaults to weight 400
 import '@fontsource/cinzel-decorative/400.css'; // Specify weight;
 import { store } from '../store/index';
 import './globals.css';
+import { ApolloProvider } from '@apollo/client';
+import apolloClient from '@/ApolloClient';
 
 export interface DrawerContextProps {
   isDrawerOpen: boolean;
@@ -122,27 +124,29 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <FirestoreContext.Provider value={{ firestore }}>
-        <Provider store={store}>
-          {/* eslint-disable  */}
-          <DrawerContext.Provider
-            value={{
-              isDrawerOpen,
-              toggleDrawerOpen,
-              enableVideoDrawer,
-              setEnableVideoDrawer,
-            }}
-          >
-            <Component {...pageProps} />
-          </DrawerContext.Provider>
-          <SideDrawer
-            setIsDrawerOpen={toggleDrawerOpen}
-            isDrawerOpen={isDrawerOpen}
-            enableVideoDrawer={enableVideoDrawer}
-          />
-          <Cursor />
-        </Provider>
-      </FirestoreContext.Provider>
+      <ApolloProvider client={apolloClient}>
+        <FirestoreContext.Provider value={{ firestore }}>
+          <Provider store={store}>
+            {/* eslint-disable  */}
+            <DrawerContext.Provider
+              value={{
+                isDrawerOpen,
+                toggleDrawerOpen,
+                enableVideoDrawer,
+                setEnableVideoDrawer,
+              }}
+            >
+              <Component {...pageProps} />
+            </DrawerContext.Provider>
+            <SideDrawer
+              setIsDrawerOpen={toggleDrawerOpen}
+              isDrawerOpen={isDrawerOpen}
+              enableVideoDrawer={enableVideoDrawer}
+            />
+            <Cursor />
+          </Provider>
+        </FirestoreContext.Provider>
+      </ApolloProvider>
       <Analytics />
       <SpeedInsights />
     </>
