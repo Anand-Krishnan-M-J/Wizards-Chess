@@ -1,14 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Provider } from 'react-redux';
-import { createContext, useCallback, useState } from 'react';
-import { SideDrawer } from '@/organisms/Drawer';
-import Cursor from '@/organisms/Cursor';
 import { Analytics } from '@vercel/analytics/react';
-import { useFirebaseInit } from '@/hooks/useFirebaseInit';
-import { FirestoreContext } from '@/contexts/firestoreContext';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { createContext, useCallback, useState } from 'react';
+import { Provider } from 'react-redux';
+import { FirestoreContext } from '@/contexts/firestoreContext';
+import { useFirebaseInit } from '@/hooks/useFirebaseInit';
+import Cursor from '@/organisms/Cursor';
+import { SideDrawer } from '@/organisms/Drawer';
 import '@fontsource/cinzel-decorative'; // Defaults to weight 400
 import '@fontsource/cinzel-decorative/400.css'; // Specify weight;
 import { store } from '../store/index';

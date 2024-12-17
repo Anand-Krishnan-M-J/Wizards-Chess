@@ -1,10 +1,8 @@
 import Image from 'next/image';
-import home from '../../assets/navigation/home.png';
-import instructions from '../../assets/navigation/instructions.png';
-import start from '../../assets/navigation/start.png';
-import contact from '../../assets/navigation/contact.png';
-import logo from '../../assets/logo.png';
 import styles from './styles.module.scss';
+import logo from '../../assets/logo.png';
+import contact from '../../assets/navigation/contact.png';
+import home from '../../assets/navigation/home.png';
 
 const navigationLinks = [
   { name: 'F A Q s', url: '#faq', icon: home },

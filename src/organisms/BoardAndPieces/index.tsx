@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import React, { useEffect, useRef } from 'react';
 import { isServer } from '@/helpers/common';
 import { pieceTypeColor } from '@/store/pieces/types';
 import { CheckerBoard } from '../../organisms/CheckerBoard';

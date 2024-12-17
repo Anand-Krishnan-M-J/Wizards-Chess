@@ -1,14 +1,14 @@
-import React from 'react';
 import { type ThreeEvent } from '@react-three/fiber';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece';
-import { type RootState } from '../../store/types';
-import { getCordinates } from '../../store/pieces/positionMapping';
-import { selectPiece } from '../../store/pieces';
-import { pieceTypeColor, type pieceName } from '../../store/pieces/types';
 import { Piece } from '../../atoms/Pieces';
 import { getPieceType, isWhitePiece } from '../../helpers';
+import { selectPiece } from '../../store/pieces';
+import { getCordinates } from '../../store/pieces/positionMapping';
+import { pieceTypeColor, type pieceName } from '../../store/pieces/types';
+import { type RootState } from '../../store/types';
 
 export const PieceRenderer: React.FC = () => {
   const { pieces, selectedPiece, currentMoveIsOf } = useSelector(

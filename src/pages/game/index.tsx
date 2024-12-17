@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from 'react';
 import { OrbitControls } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import React, { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { messages } from '@/constants/messages';
+import { isMobileDevice, joinClass } from '@/helpers/general';
+import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece';
 import { BoardAndPieces } from '@/organisms/BoardAndPieces';
 import LandscapeEnforcer from '@/organisms/Orientation';
-import { Canvas } from '@react-three/fiber';
-import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece';
-import { DrawerContext, DrawerContextProps } from '../_app';
-import styles from './styles.module.scss';
-import { isMobileDevice, joinClass } from '@/helpers/general';
 import RotatingSparkle from '@/organisms/Sparkle';
 import { intialState, updateState } from '@/store/pieces';
+import { DrawerContext, DrawerContextProps } from '../_app';
+import styles from './styles.module.scss';
 
 const App: React.FC = () => {
   const context = useContext<DrawerContextProps | undefined>(DrawerContext);

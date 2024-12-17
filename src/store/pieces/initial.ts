@@ -1,6 +1,6 @@
+import { type PieceState, blackPawns, pieceName, pieceTypes, whitePawns } from './types';
 import { colNames } from '../../constants/pieces';
 import { ColName, RowName } from '../../types';
-import { type PieceState, blackPawns, pieceName, pieceTypes, whitePawns } from './types';
 
 const commonStates = {
   kia: false, // Killed in action

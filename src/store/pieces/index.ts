@@ -1,12 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  type PieceState,
-  type PieceReduxState,
-  type MovePieceSiceType,
-  pieceTypeColor,
-  pieceTypes,
-} from './types';
-import {
   getInitialBishopState,
   getInitialKingState,
   getInitialKnightState,
@@ -14,6 +7,13 @@ import {
   getInitialQueenState,
   getInitialRookState,
 } from './initial';
+import {
+  type PieceState,
+  type PieceReduxState,
+  type MovePieceSiceType,
+  pieceTypeColor,
+  pieceTypes,
+} from './types';
 import { getAllowedMoves, isWhitePiece } from '../../helpers';
 import { ColName, type RowName } from '../../types';
 

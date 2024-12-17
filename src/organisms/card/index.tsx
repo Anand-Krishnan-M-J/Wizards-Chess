@@ -1,7 +1,7 @@
-import { messages } from '@/constants/messages';
 import Image, { StaticImageData } from 'next/image';
-import styles from './style.module.scss';
 import { CustomButton } from '@/atoms/Button';
+import { messages } from '@/constants/messages';
+import styles from './style.module.scss';
 
 interface ImageCardProps {
   src: StaticImageData;
@@ -10,7 +10,7 @@ interface ImageCardProps {
   isSelected: boolean;
 }
 
-export const ImageCard = ({ src, name, description, isSelected }: ImageCardProps) => {
+export const ImageCard = ({ src, name, description }: ImageCardProps) => {
   return (
     <div className={styles.image__card__container}>
       <div className={styles.image__card__content}>

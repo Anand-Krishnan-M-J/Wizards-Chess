@@ -1,5 +1,5 @@
-import { handleDBError } from '@/helpers/dbErrorHandler';
 import { Status } from '@/constants/api';
+import { handleDBError } from '@/helpers/dbErrorHandler';
 import { prisma } from '..';
 
 export async function getUserEvents(userId: string) {

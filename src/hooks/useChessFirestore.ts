@@ -1,10 +1,10 @@
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import 'firebase/firestore';
-import { RootState } from '@/store/types';
-import { updateState } from '@/store/pieces';
 import { FirestoreContext } from '@/contexts/firestoreContext';
+import { updateState } from '@/store/pieces';
+import { RootState } from '@/store/types';
 
 export function useChessFirestore() {
   const router = useRouter();

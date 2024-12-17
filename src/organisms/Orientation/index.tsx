@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import rotatePhone from '../../assets/rotate.gif';
-import Image from 'next/image';
 
 const LandscapeEnforcer: React.FC = () => {
   const [isPortrait, setIsPortrait] = useState(false);

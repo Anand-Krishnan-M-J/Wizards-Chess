@@ -1,7 +1,7 @@
-import { type pieceName, type PieceState } from '../../store/pieces/types';
-import { type ColName, type RowName } from '../../types';
 import { getBishopMoves } from './bishop';
 import { getRookMoves } from './rook';
+import { type pieceName, type PieceState } from '../../store/pieces/types';
+import { type ColName, type RowName } from '../../types';
 
 export const getQueenMoves = (
   name: pieceName,

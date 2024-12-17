@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import wand from '../../assets/wand.png';
+import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
+import wand from '../../assets/wand.png';
 
 const RoundCursor: React.FC = () => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });

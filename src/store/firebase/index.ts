@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { firebasePayloadType, firebaseSiceType, firebaseStateType } from './types';
+import { createSlice } from '@reduxjs/toolkit';
+import { firebaseSiceType, firebaseStateType } from './types';
 
 const intialState: firebaseStateType = {
   isLoading: false,
@@ -10,7 +10,7 @@ export const firebaseSlice: firebaseSiceType = createSlice({
   name: 'Firebase',
   initialState: intialState,
   reducers: {
-    updateGameStateFirebaseRequest: (state, action: PayloadAction<firebasePayloadType>) => {
+    updateGameStateFirebaseRequest: (state) => {
       state.isLoading = true;
     },
     updateGameStateFirebaseRequestSuccess: (state: firebaseStateType) => {

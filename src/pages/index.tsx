@@ -1,14 +1,14 @@
-import { useContext, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import 'firebase/firestore';
-import { Button3D } from '@/atoms/3DButton';
-import { CustomHr } from '@/atoms';
-import { Navbar } from '@/organisms/NavBar';
-import { FAQ } from '@/organisms/main/FAQ';
-import { FadeInText } from '@/organisms/FadeText';
-import { messages } from '@/constants/messages';
-import { Contact } from '@/organisms/main/Contact';
 import firebase from 'firebase/app';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { CustomHr } from '@/atoms';
+import { Button3D } from '@/atoms/3DButton';
+import { messages } from '@/constants/messages';
+import { FadeInText } from '@/organisms/FadeText';
+import { Contact } from '@/organisms/main/Contact';
+import { FAQ } from '@/organisms/main/FAQ';
+import { Navbar } from '@/organisms/NavBar';
 import { DrawerContext, DrawerContextProps } from './_app';
 import styles from './page.module.scss';
 
@@ -25,22 +25,6 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-
-type ThrottleFn = (func: Function, limit: number) => (...args: any[]) => void;
-
-export const throttle: ThrottleFn = (func, limit) => {
-  let isRunning = false;
-
-  return function (...args: any[]) {
-    if (!isRunning) {
-      isRunning = true;
-      requestAnimationFrame(() => {
-        func(...args);
-        isRunning = false;
-      });
-    }
-  };
-};
 
 export default function Home() {
   const context = useContext<DrawerContextProps | undefined>(DrawerContext);

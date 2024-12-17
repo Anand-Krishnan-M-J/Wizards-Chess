@@ -1,7 +1,7 @@
-import { isWhitePiece } from '.';
 import { colNames, rowNames } from '../constants/pieces';
 import { type PieceState, pieceTypeColor, pieceTypes } from '../store/pieces/types';
 import { type ColName, type RowName } from '../types';
+import { isWhitePiece } from '.';
 
 export const isSquareOccupied = (col: ColName, row: RowName, pieces: PieceState[]) => {
   return (

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Tooltip } from '../Tooltip';
 import Image from 'next/image';
+import React from 'react';
 import info from '../../assets/info.png';
+import { Tooltip } from '../Tooltip';
 import styles from './styles.module.scss';
 
 interface CheckboxComponentProps {

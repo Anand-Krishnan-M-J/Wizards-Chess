@@ -4,18 +4,18 @@ Command: npx gltfjsx@6.2.12 rook.glb --transform --types
 Files: rook.glb [1.88MB] > rook-transformed.glb [105.02KB] (94%)
 */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
-import type * as THREE from 'three';
-import { useGLTF } from '@react-three/drei';
-import { type GLTF } from 'three-stdlib';
 import { useSpring, animated } from '@react-spring/three';
-import { type PieceProps } from './type';
-import { usePieceHover } from './../../hooks/usePieceHover';
-import { pieceColor } from './../../config';
-import { pieceTypes } from '../../store/pieces/types';
-import { isWhitePiece } from '../../helpers';
-import { GetPieceProperties } from '../../config/pieceProperties';
+import { useGLTF } from '@react-three/drei';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import type * as THREE from 'three';
+import { type GLTF } from 'three-stdlib';
+import { pieceColor } from './../../config';
+import { usePieceHover } from './../../hooks/usePieceHover';
+import { type PieceProps } from './type';
+import { GetPieceProperties } from '../../config/pieceProperties';
+import { isWhitePiece } from '../../helpers';
+import { pieceTypes } from '../../store/pieces/types';
 import { type RootState } from '../../store/types';
 
 type GLTFResult = GLTF & {

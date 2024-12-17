@@ -1,11 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { messages } from '@/constants/messages';
+import styles from './styles.module.scss';
 import github from '../../../assets/socials/github.png';
 import instagram from '../../../assets/socials/insta.png';
 import linkedin from '../../../assets/socials/linkedin.png';
 import mail from '../../../assets/socials/mail.png';
-import styles from './styles.module.scss';
-import Link from 'next/link';
 
 const socials = [
   {

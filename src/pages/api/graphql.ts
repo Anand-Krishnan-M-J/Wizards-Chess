@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server';
-import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { ApolloServer } from '@apollo/server';
+import { startServerAndCreateNextHandler } from '@as-integrations/next';
+import { NextRequest } from 'next/server';
 import { typeDefs } from '@/ApolloServer/GraphQlSchema';
 import { resolvers } from '@/ApolloServer/resolvers';
 

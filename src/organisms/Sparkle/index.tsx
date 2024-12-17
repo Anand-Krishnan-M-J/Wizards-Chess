@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
 import { Sparkles } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
+import React, { useRef } from 'react';
 const magicalColors = [
   '#7E5A9B', // Lavender Purple
   '#5A9BD6', // Mystic Blue

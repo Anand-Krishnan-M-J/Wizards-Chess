@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { joinClass } from '@/helpers/general';
-import Image from 'next/image';
-import { Tooltip } from '../Tooltip';
 import info from '../../assets/info.png';
+import { Tooltip } from '../Tooltip';
 import styles from './styles.module.scss';
 
 interface CustomInputFieldProps {

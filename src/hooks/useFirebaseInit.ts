@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
+import { useEffect, useState } from 'react';
 import 'firebase/firestore';
 import { firebaseConfig } from '@/config/firebase';
 

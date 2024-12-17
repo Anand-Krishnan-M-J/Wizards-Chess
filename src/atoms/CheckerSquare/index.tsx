@@ -1,18 +1,18 @@
 /* eslint-disable react/no-unknown-property */
+import { useLoader } from '@react-three/fiber';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
-import { useRouter } from 'next/router';
-import { updateGameStateFirebaseRequest } from '@/store/firebase';
-import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece';
 import { getPieceType } from '@/helpers';
-import { type RootState } from '../../store/types';
-import { type pieceName, type PieceState } from '../../store/pieces/types';
+import { usePieceColorFromSessionStorage } from '@/hooks/useIsBlackPiece';
+import { updateGameStateFirebaseRequest } from '@/store/firebase';
+import { vertexShader, fragmentShader } from './shader';
+import { type props } from './types';
 import { config } from '../../config';
 import { movePiece } from '../../store/pieces';
-import { type props } from './types';
-import { vertexShader, fragmentShader } from './shader';
+import { type pieceName, type PieceState } from '../../store/pieces/types';
+import { type RootState } from '../../store/types';
 
 const thickness = 10;
 

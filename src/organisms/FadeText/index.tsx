@@ -1,8 +1,8 @@
 // FadeInText.tsx
 
 import React from 'react';
-import styles from './styles.module.scss'; // Import the SCSS file for styling
 import { joinClass } from '@/helpers/general';
+import styles from './styles.module.scss'; // Import the SCSS file for styling
 
 interface FadeInTextProps {
   text: string;

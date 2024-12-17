@@ -1,26 +1,26 @@
 // SideDrawer.tsx
-import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { useRouter as useRouterFromRouter } from 'next/router';
-import Image from 'next/image';
+import React, { useRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { VideoDisable } from '@/atoms/Icons/Video';
-import { isServer } from '@/helpers/common';
-import { RootState } from '@/store/types';
-import { messages } from '@/constants/messages';
-import { CustomInputField } from '@/atoms/InputField';
+import { CustomHr } from '@/atoms';
 import { CustomButton } from '@/atoms/Button';
-import { useChessFirestore } from '@/hooks/useChessFirestore';
-import { useWebRtc } from '@/hooks/useWebRtc';
-import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { CustomEndLine } from '@/atoms/endLine';
 import { Loader } from '@/atoms/Icons/Loader';
 import { Tick } from '@/atoms/Icons/Tick';
-import { CustomEndLine } from '@/atoms/endLine';
+import { VideoDisable } from '@/atoms/Icons/Video';
+import { CustomInputField } from '@/atoms/InputField';
 import { TabComponent } from '@/atoms/Tabs';
-import { CustomHr } from '@/atoms';
+import { messages } from '@/constants/messages';
+import { isServer } from '@/helpers/common';
+import { useChessFirestore } from '@/hooks/useChessFirestore';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { useWebRtc } from '@/hooks/useWebRtc';
+import { RootState } from '@/store/types';
+import styles from './styles.module.scss';
 import close from '../../assets/close.png';
 import copyImg from '../../assets/copy.png';
-import styles from './styles.module.scss';
 
 interface SideDrawerProps {
   isDrawerOpen: boolean;

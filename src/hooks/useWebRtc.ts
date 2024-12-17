@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import 'firebase/firestore';
-import { pieceTypeColor } from '@/store/pieces/types';
-import { FirestoreContext } from '@/contexts/firestoreContext';
 import { webRtcServers } from '@/config/webRTCServer';
+import { FirestoreContext } from '@/contexts/firestoreContext';
+import { pieceTypeColor } from '@/store/pieces/types';
 
 export function useWebRtc() {
   const localVideoRef = useRef<HTMLVideoElement>(null);
@@ -26,6 +26,7 @@ export function useWebRtc() {
       stream.getTracks().forEach((track) => track.stop());
     } catch (error) {
       // Camera access denied or blocked
+      console.log(error)
       setIsCameraBlocked(true);
     }
   };
