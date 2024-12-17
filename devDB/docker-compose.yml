@@ -28,6 +28,7 @@ services:
       - "8081:8081"
     environment:
       - PGWEB_DATABASE_URL=postgres://admin:adminPass@db:5432/chess_database?sslmode=disable
+      - DATABASE_URL=postgres://admin:adminPass@db:5432/chess_database?sslmode=disable
     depends_on:
       - db
     networks:

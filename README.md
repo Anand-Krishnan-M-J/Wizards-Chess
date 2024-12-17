@@ -110,3 +110,6 @@ If you'd like to contribute to the project, Connect with me on LinkedIn
 
 Define schema
 Run npx prisma migrate dev --name init //SQL will be created and applied automatically
+See DB PG-WEB at http://0.0.0.0:8081/
+GraphQL server: http://localhost:3000/api/graphql
+

@@ -1,4 +1,15 @@
-import { getUserEvents } from "@/server/model/events";
+import { NextRequest } from "next/server";
+import { startServerAndCreateNextHandler } from "@as-integrations/next";
+import { ApolloServer } from "@apollo/server";
+import { typeDefs } from "@/ApolloServer/GraphQlSchema";
+import { resolvers } from "@/ApolloServer/resolvers";
 
-// Example usage
-export default getUserEvents(1).then(events => console.log(events));
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+});
+
+const handler = startServerAndCreateNextHandler<NextRequest>(server, {
+    context: async req => ({ req }),
+});
+export default handler;

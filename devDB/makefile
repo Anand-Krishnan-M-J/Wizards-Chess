@@ -35,7 +35,6 @@ drop-tables:
 	docker-compose exec db psql -U $(DB_USER) -d $(DB_NAME) -c "\
 	DROP TABLE IF EXISTS event_team_user_role CASCADE; \
 	DROP TABLE IF EXISTS puzzles CASCADE; \
-	DROP TABLE IF EXISTS team CASCADE; \
 	DROP TABLE IF EXISTS events CASCADE; \
 	DROP TABLE IF EXISTS users CASCADE; \
 	DROP TABLE IF EXISTS roles CASCADE;"

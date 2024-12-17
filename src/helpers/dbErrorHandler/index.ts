@@ -1,3 +1,3 @@
 export function handleDBError(error: unknown) {
-    console.error("An error occurred:", error);
+    console.error("A DB error occurred:", error);
 }
