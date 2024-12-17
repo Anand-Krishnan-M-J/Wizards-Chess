@@ -2,60 +2,60 @@
 @import '../styles/breakpoint.module.scss';
 
 .parallax {
-    background: url('/images/lakeview.png') repeat fixed 100%;
-    background-size: cover;
-    color: $primary-font-color;
-    height: 95vh;
+  background: url('/images/lakeview.png') repeat fixed 100%;
+  background-size: cover;
+  color: $primary-font-color;
+  height: 95vh;
 }
 
 .parallax-1 {
-    background: url('/images/hogwards.png') repeat fixed 100%;
-    background-size: cover;
-    color: aliceblue;
+  background: url('/images/hogwards.png') repeat fixed 100%;
+  background-size: cover;
+  color: aliceblue;
 }
 
 .parallax-inner {
-    height: 80%;
-    display: flex;
-    align-items: center;
+  height: 80%;
+  display: flex;
+  align-items: center;
 
-    @media only screen and (max-width: $breakpoint_sm) {
-        padding-top: 0%;
-    }
+  @media only screen and (max-width: $breakpoint_sm) {
+    padding-top: 0%;
+  }
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 790px;
-    box-shadow: 0 0 1rem rgba(255, 250, 187, 0.11);
-    max-width: 90%;
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0.589);
-    padding: 1.5rem;
-    border-top-right-radius: 6rem;
-    border-top-left-radius: 1rem;
-    border-bottom-left-radius: 6rem;
-    border-bottom-right-radius: 1rem;
-    @media only screen and (max-width: $breakpoint_sm) {
-        height: 85vh;
-        padding-top: 10%;
-        border-radius: 0rem !important;
-    }
+  display: flex;
+  flex-direction: column;
+  width: 790px;
+  box-shadow: 0 0 1rem rgba(255, 250, 187, 0.11);
+  max-width: 90%;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.589);
+  padding: 1.5rem;
+  border-top-right-radius: 6rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 6rem;
+  border-bottom-right-radius: 1rem;
+  @media only screen and (max-width: $breakpoint_sm) {
+    height: 85vh;
+    padding-top: 10%;
+    border-radius: 0rem !important;
+  }
 }
 
 .description {
-    font-family: sans-serif;
-    font-weight: 500;
-    margin: 0rem auto;
-    color: #fffbe4;
-    margin-top: 2rem;
+  font-family: sans-serif;
+  font-weight: 500;
+  margin: 0rem auto;
+  color: #fffbe4;
+  margin-top: 2rem;
 }
 
 .buttonGroup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 2rem;
 }

@@ -4,143 +4,127 @@ Command: npx gltfjsx@6.2.12 rook.glb --transform --types
 Files: rook.glb [1.88MB] > rook-transformed.glb [105.02KB] (94%)
 */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
-import type * as THREE from 'three'
-import { useGLTF } from '@react-three/drei'
-import { type GLTF } from 'three-stdlib'
-import { useSpring, animated } from '@react-spring/three'
-import { type PieceProps } from './type'
-import { usePieceHover } from './../../hooks/usePieceHover'
-import { pieceColor } from './../../config'
-import { pieceTypes } from '../../store/pieces/types'
-import { isWhitePiece } from '../../helpers'
-import { GetPieceProperties } from '../../config/pieceProperties'
-import { useSelector } from 'react-redux'
-import { type RootState } from '../../store/types'
+import { useSpring, animated } from '@react-spring/three';
+import { useGLTF } from '@react-three/drei';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import type * as THREE from 'three';
+import { type GLTF } from 'three-stdlib';
+import { pieceColor } from './../../config';
+import { usePieceHover } from './../../hooks/usePieceHover';
+import { type PieceProps } from './type';
+import { GetPieceProperties } from '../../config/pieceProperties';
+import { isWhitePiece } from '../../helpers';
+import { pieceTypes } from '../../store/pieces/types';
+import { type RootState } from '../../store/types';
 
 type GLTFResult = GLTF & {
-    nodes: {
-        rook3: THREE.Mesh
-        bishop5: THREE.Mesh
-        king3: THREE.Mesh
-        knight2: THREE.Mesh
-        pawn2: THREE.Mesh
-        queen1: THREE.Mesh
-    }
-    materials: {
-        ['Material.001']: THREE.MeshStandardMaterial
-    }
-}
+  nodes: {
+    rook3: THREE.Mesh;
+    bishop5: THREE.Mesh;
+    king3: THREE.Mesh;
+    knight2: THREE.Mesh;
+    pawn2: THREE.Mesh;
+    queen1: THREE.Mesh;
+  };
+  materials: {
+    ['Material.001']: THREE.MeshStandardMaterial;
+  };
+};
 
 export const Piece: React.FC<PieceProps> = ({
-    name,
-    type,
-    position,
-    col,
-    row,
-    onClick,
+  name,
+  type,
+  position,
+  col,
+  row,
+  onClick,
 }: PieceProps) => {
-    const geometry = () => {
-        switch (type) {
-            case pieceTypes.bishop:
-                return (useGLTF('/bishop-transformed.glb') as GLTFResult).nodes
-                    .bishop5.geometry
-            case pieceTypes.king:
-                return (useGLTF('/king-transformed.glb') as GLTFResult).nodes
-                    .king3.geometry
-            case pieceTypes.knight:
-                return (useGLTF('/knight-transformed.glb') as GLTFResult).nodes
-                    .knight2.geometry
-            case pieceTypes.pawn:
-                return (useGLTF('/pawn-transformed.glb') as GLTFResult).nodes
-                    .pawn2.geometry
-            case pieceTypes.queen:
-                return (useGLTF('/queen-transformed.glb') as GLTFResult).nodes
-                    .queen1.geometry
-            case pieceTypes.rook:
-                return (useGLTF('/rook-transformed.glb') as GLTFResult).nodes
-                    .rook3.geometry
-        }
+  const geometry = () => {
+    switch (type) {
+      case pieceTypes.bishop:
+        return (useGLTF('/bishop-transformed.glb') as GLTFResult).nodes.bishop5.geometry;
+      case pieceTypes.king:
+        return (useGLTF('/king-transformed.glb') as GLTFResult).nodes.king3.geometry;
+      case pieceTypes.knight:
+        return (useGLTF('/knight-transformed.glb') as GLTFResult).nodes.knight2.geometry;
+      case pieceTypes.pawn:
+        return (useGLTF('/pawn-transformed.glb') as GLTFResult).nodes.pawn2.geometry;
+      case pieceTypes.queen:
+        return (useGLTF('/queen-transformed.glb') as GLTFResult).nodes.queen1.geometry;
+      case pieceTypes.rook:
+        return (useGLTF('/rook-transformed.glb') as GLTFResult).nodes.rook3.geometry;
     }
+  };
 
-    const defaultRotation: [x: number, y: number, z: number] = isWhitePiece(name)
-        ? [0, Math.PI, 0]
-        : [0, 0, 0]
+  const defaultRotation: [x: number, y: number, z: number] = isWhitePiece(name)
+    ? [0, Math.PI, 0]
+    : [0, 0, 0];
 
-    const rotation = ():[number, number, number] =>{
-        switch (type){
-            case pieceTypes.rook:
-                return isWhitePiece(name)? [0, Math.PI/2, 0]:[0, -Math.PI/2, 0]
-            default:
-            return defaultRotation
-        }
-
+  const rotation = (): [number, number, number] => {
+    switch (type) {
+      case pieceTypes.rook:
+        return isWhitePiece(name) ? [0, Math.PI / 2, 0] : [0, -Math.PI / 2, 0];
+      default:
+        return defaultRotation;
     }
+  };
 
-    const animationProps = useSpring({
-        position,
-        config: { duration: 300 }, // Animation duration in milliseconds
-    })
+  const animationProps = useSpring({
+    position,
+    config: { duration: 300 }, // Animation duration in milliseconds
+  });
 
-    const defaultColor = isWhitePiece(name) ? pieceColor.white : pieceColor.grey
-    const hoverColor = isWhitePiece(name)
-        ? pieceColor.whiteHover
-        : pieceColor.blackHover
-    const selectedColor = isWhitePiece(name)
-        ? pieceColor.whiteSelect
-        : pieceColor.blackSelect
+  const defaultColor = isWhitePiece(name) ? pieceColor.white : pieceColor.grey;
+  const hoverColor = isWhitePiece(name) ? pieceColor.whiteHover : pieceColor.blackHover;
+  const selectedColor = isWhitePiece(name) ? pieceColor.whiteSelect : pieceColor.blackSelect;
 
-    const { color, onPointerOut, onPointerOver } = usePieceHover(
-        defaultColor,
-        hoverColor
-    )
+  const { color, onPointerOut, onPointerOver } = usePieceHover(defaultColor, hoverColor);
 
-    const { selectedPiece, attackablePositions } = useSelector(
-        (state: RootState) => state.pieces
-    )
-    const currentPosition = `${col}${row}`
+  const { selectedPiece, attackablePositions } = useSelector((state: RootState) => state.pieces);
+  const currentPosition = `${col}${row}`;
 
-    const isAttackable = attackablePositions
-        .map((item) => `${item.col}${item.row}`)
-        .includes(currentPosition)
+  const isAttackable = attackablePositions
+    .map((item) => `${item.col}${item.row}`)
+    .includes(currentPosition);
 
-    let meshColor = color
+  let meshColor = color;
 
-    if (selectedPiece === name) {
-        meshColor = selectedColor
-    } else {
-        meshColor = color
-    }
-    if (isAttackable) {
-        meshColor = pieceColor.isAttackable
-    }
+  if (selectedPiece === name) {
+    meshColor = selectedColor;
+  } else {
+    meshColor = color;
+  }
+  if (isAttackable) {
+    meshColor = pieceColor.isAttackable;
+  }
 
-    return (
-        <animated.group
-            {...animationProps}
-            dispose={null}
-            rotation={rotation()}
-            {...(!isAttackable && { onClick })}
-        >
-            <mesh
-                geometry={geometry()}
-                position={GetPieceProperties(name).position}
-                onPointerOver={(e) => {
-                    onPointerOver(e)
-                }}
-                onPointerOut={(e) => {
-                    onPointerOut(e)
-                }}
-            >
-                <meshStandardMaterial
-                    attach="material"
-                    color={meshColor}
-                    transparent
-                    roughness={GetPieceProperties(name).roughness}
-                    metalness={GetPieceProperties(name).metalness}
-                />
-            </mesh>
-        </animated.group>
-    )
-}
+  return (
+    <animated.group
+      {...animationProps}
+      dispose={null}
+      rotation={rotation()}
+      {...(!isAttackable && { onClick })}
+    >
+      <mesh
+        geometry={geometry()}
+        position={GetPieceProperties(name).position}
+        onPointerOver={(e) => {
+          onPointerOver(e);
+        }}
+        onPointerOut={(e) => {
+          onPointerOut(e);
+        }}
+      >
+        <meshStandardMaterial
+          attach="material"
+          color={meshColor}
+          transparent
+          roughness={GetPieceProperties(name).roughness}
+          metalness={GetPieceProperties(name).metalness}
+        />
+      </mesh>
+    </animated.group>
+  );
+};
 // useGLTF.preload('/White/bishop-transformed.glb')

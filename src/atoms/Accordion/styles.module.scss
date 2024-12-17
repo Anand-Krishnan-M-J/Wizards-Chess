@@ -1,78 +1,78 @@
 @import '../../styles/colors.module.scss';
 
 .wrapper {
-    margin: 1.5rem 0rem;
-    color: $primary-font-color;
-    text-align: left;
-    text-decoration: none;
-    font-family: 'Courier New', Courier, monospace;
-    width: 800px;
-    max-width: 90%;
-    font-size: 0.9rem;
+  margin: 1.5rem 0rem;
+  color: $primary-font-color;
+  text-align: left;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  width: 800px;
+  max-width: 90%;
+  font-size: 0.9rem;
 }
 
 .accordion__wrapper {
-    &+* {
-        margin-top: 0.5em;
-    }
+  & + * {
+    margin-top: 0.5em;
+  }
 }
 
 .accordion__item {
-    overflow: hidden;
-    transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
 }
 
 .accordion__item--collapsed {
-    max-height: 0;
-    transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
-    display: none;
+  max-height: 0;
+  transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+  display: none;
 }
 
 .accordion__title {
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0.5em 1.5em;
-    border: solid 1px #ccc;
-    border-radius: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5em 1.5em;
+  border: solid 1px #ccc;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    &::after {
-        content: "";
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid currentColor;
-    }
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid currentColor;
+  }
+
+  &:hover {
+    color: white;
+  }
+
+  &--open {
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0.5rem 1.7rem;
 
     &:hover {
-        color: white;
+      color: white;
+      cursor: pointer;
     }
+  }
 
-    &--open {
-        font-weight: 600;
-        font-size: 1.2rem;
-        padding: 0.5rem 1.7rem;
-
-        &:hover {
-            color: white;
-            cursor: pointer;
-        }
+  &.open {
+    &::after {
+      content: '';
+      border-top: 0;
+      border-bottom: 5px solid;
     }
-
-    &.open {
-        &::after {
-            content: "";
-            border-top: 0;
-            border-bottom: 5px solid;
-        }
-    }
+  }
 }
 
 .accordion__content {
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    box-shadow: 0rem 0rem 1rem rgba(51, 51, 51, 0.548);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0rem 0rem 1rem rgba(51, 51, 51, 0.548);
 }

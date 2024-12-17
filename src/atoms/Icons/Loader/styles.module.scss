@@ -1,123 +1,120 @@
 @import '../../../styles/colors.module.scss';
 
 .main_wand {
-    position: absolute;
-    left: 0;
+  position: absolute;
+  left: 0;
 }
 
 .spinner__container {
-    position: relative;
-    width: 40px;
-    height: 40px;
+  position: relative;
+  width: 40px;
+  height: 40px;
 }
 
 .spinner {
-    border: 4px solid $primary-font-color;
-    /* Light grey */
-    border-top: 4px solid rgb(82, 82, 82);
-    /* Blue */
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    animation: spin 2s linear infinite;
-    position: absolute;
+  border: 4px solid $primary-font-color;
+  /* Light grey */
+  border-top: 4px solid rgb(82, 82, 82);
+  /* Blue */
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 2s linear infinite;
+  position: absolute;
 }
 
 .stars1 {
-    
-    fill: #dd7f36;
-    animation: flicker 1s linear infinite;
+  fill: #dd7f36;
+  animation: flicker 1s linear infinite;
 }
 
 .stars2 {
-    fill: #dd7f36;
-    animation: flicker 2s linear infinite;
+  fill: #dd7f36;
+  animation: flicker 2s linear infinite;
 }
 
 .stars3 {
-    fill: #dd7f36;
-    animation: flicker 3s linear infinite;
+  fill: #dd7f36;
+  animation: flicker 3s linear infinite;
 }
 
 .stars4 {
-    fill: #dd7f36;
-    animation: flicker 4s linear infinite;
+  fill: #dd7f36;
+  animation: flicker 4s linear infinite;
 }
 
 .wandfill {
-    fill: $primary-font-color;
+  fill: $primary-font-color;
 }
 
 .wand {
-    fill: $primary-font-color;
+  fill: $primary-font-color;
 }
 
-
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes flicker {
+  0% {
+    opacity: 0.99;
+  }
 
-    0% {
-        opacity: .99;
-    }
+  30% {
+    opacity: 0.99;
+  }
 
-    30% {
-        opacity: .99;
-    }
+  22% {
+    opacity: 0.99;
+  }
 
-    22% {
-        opacity: .99;
-    }
+  62% {
+    opacity: 0.99;
+  }
 
-    62% {
-        opacity: .99;
-    }
+  64% {
+    opacity: 0.99;
+  }
 
-    64% {
-        opacity: .99;
-    }
+  64.999% {
+    opacity: 0.99;
+  }
 
-    64.999% {
-        opacity: .99;
-    }
+  70% {
+    opacity: 0.99;
+  }
 
-    70% {
-        opacity: .99;
-    }
+  100% {
+    opacity: 0.99;
+  }
 
-    100% {
-        opacity: .99;
-    }
+  20% {
+    opacity: 0.5;
+  }
 
-    20% {
-        opacity: 0.50;
-    }
+  22% {
+    opacity: 0.5;
+  }
 
-    22% {
-        opacity: 0.50;
-    }
+  63% {
+    opacity: 0.5;
+  }
 
-    63% {
-        opacity: 0.50;
-    }
+  63.999% {
+    opacity: 0.5;
+  }
 
-    63.999% {
-        opacity: 0.50;
-    }
+  65% {
+    opacity: 0.5;
+  }
 
-    65% {
-        opacity: 0.50;
-    }
-
-    69.999% {
-        opacity: 0.50;
-    }
+  69.999% {
+    opacity: 0.5;
+  }
 }

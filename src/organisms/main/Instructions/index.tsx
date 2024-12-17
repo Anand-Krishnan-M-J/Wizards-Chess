@@ -1,7 +1,7 @@
-import { messages } from "@/constants/messages"
+import { messages } from '@/constants/messages';
 
 export const Instructions = () => (
-    <>
-        <h2>{messages.instructions}</h2>
-    </>
-)
+  <>
+    <h2>{messages.instructions}</h2>
+  </>
+);

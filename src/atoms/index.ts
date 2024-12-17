@@ -1,1 +1,1 @@
-export { CustomHr } from "./customHr"
+export { CustomHr } from './customHr';

@@ -3,12 +3,12 @@ module.exports = {
   generateRobotsTxt: true, // Automatically generate robots.txt
   sitemapSize: 7000,
   outDir: './public', // Output folder for the sitemap
-  changefreq: 'daily', 
-  priority: 0.7, 
+  changefreq: 'daily',
+  priority: 0.7,
   transform: async (config, path) => {
     if (path === '/game') {
       return {
-        loc: path, 
+        loc: path,
         changefreq: 'daily',
         priority: 0.8,
       };

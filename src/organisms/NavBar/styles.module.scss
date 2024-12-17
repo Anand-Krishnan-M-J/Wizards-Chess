@@ -2,63 +2,61 @@
 @import '../../styles/colors.module.scss';
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1400px;
+  max-width: 100%;
+  margin: auto;
+
+  &__container {
+    background-color: rgba(3, 3, 3, 0.452);
+    box-shadow: 0rem 0rem 2rem rgb(0, 0, 0);
+  }
+
+  &__content {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 1400px;
-    max-width: 100%;
-    margin: auto;
-
-    &__container {
-        background-color: rgba(3, 3, 3, 0.452);
-        box-shadow: 0rem 0rem 2rem rgb(0, 0, 0);
-    }
-
-    &__content {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+  }
 }
 
 .logo {
-    margin: 1rem 2rem;
+  margin: 1rem 2rem;
 }
-.icon--mobile{
-    display: none;
+.icon--mobile {
+  display: none;
 }
-
 
 .nav {
-    &--desk {
-        display: flex;
-        flex-direction: row;
-    }
+  &--desk {
+    display: flex;
+    flex-direction: row;
+  }
 
-    &__link {
-        text-decoration: none;
-        margin: 0rem 1.5rem;
-        color: white;
-        font-weight: 600;
-    }
+  &__link {
+    text-decoration: none;
+    margin: 0rem 1.5rem;
+    color: white;
+    font-weight: 600;
+  }
 }
 
 @media only screen and (max-width: $breakpoint_md) {
-    .nav {
-        &__name {
-            display: none;
-        }
+  .nav {
+    &__name {
+      display: none;
+    }
 
-        &__link {
-            margin: 0rem 0.5rem;
-
-        }
+    &__link {
+      margin: 0rem 0.5rem;
     }
-    .logo{
-        margin: 0.5rem 0.5rem;
-    }
-    .icon--mobile {
-        display: flex;
-    }
+  }
+  .logo {
+    margin: 0.5rem 0.5rem;
+  }
+  .icon--mobile {
+    display: flex;
+  }
 }

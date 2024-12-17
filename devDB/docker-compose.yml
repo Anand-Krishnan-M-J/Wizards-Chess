@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: chess-DB
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=adminPass
+      - POSTGRES_DB=chess_database
+    logging:
+      options:
+        max-size: 10m
+        max-file: '3'
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+    networks:
+      - pg_to_chess_db
+
+  pgweb:
+    container_name: pgweb_chess
+    image: sosedoff/pgweb
+    ports:
+      - '8081:8081'
+    environment:
+      - PGWEB_DATABASE_URL=postgres://admin:adminPass@db:5432/chess_database?sslmode=disable
+      - DATABASE_URL=postgres://admin:adminPass@db:5432/chess_database?sslmode=disable
+    depends_on:
+      - db
+    networks:
+      - pg_to_chess_db
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  pg_to_chess_db:
