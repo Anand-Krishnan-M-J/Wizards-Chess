@@ -1,10 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
+import { ApolloProvider } from '@apollo/client';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { createContext, useCallback, useState } from 'react';
 import { Provider } from 'react-redux';
+import apolloClient from '@/ApolloClient';
 import { FirestoreContext } from '@/contexts/firestoreContext';
 import { useFirebaseInit } from '@/hooks/useFirebaseInit';
 import Cursor from '@/organisms/Cursor';
@@ -13,8 +15,6 @@ import '@fontsource/cinzel-decorative'; // Defaults to weight 400
 import '@fontsource/cinzel-decorative/400.css'; // Specify weight;
 import { store } from '../store/index';
 import './globals.css';
-import { ApolloProvider } from '@apollo/client';
-import apolloClient from '@/ApolloClient';
 
 export interface DrawerContextProps {
   isDrawerOpen: boolean;
