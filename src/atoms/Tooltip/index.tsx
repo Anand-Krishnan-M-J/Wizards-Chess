@@ -18,7 +18,11 @@ export const Tooltip: React.FC<TooltipProps> = ({ text, children }) => {
   };
 
   return (
-    <div className={styles['tooltip-container']} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div
+      className={styles['tooltip-container']}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {children}
       <div className={`${styles.tooltip} ${isActive ? styles.active : ''}`}>{text}</div>
     </div>

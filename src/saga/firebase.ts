@@ -1,10 +1,10 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import firebase from "firebase/app";
-import "firebase/firestore";
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import { firebasePayloadType, firebaseStateType } from '@/store/firebase/types';
 import {
   updateGameStateFirebaseRequest,
-  updateGameStateFirebaseRequestFailed
+  updateGameStateFirebaseRequestFailed,
 } from '../store/firebase';
 
 const firebaseConfig = {
@@ -14,27 +14,20 @@ const firebaseConfig = {
   storageBucket: process.env.firebaseStorageBucket,
   messagingSenderId: process.env.firebaseMessagingSenderId,
   appId: process.env.firebaseAppId,
-  measurementId: process.env.firebaseMeasurementId
+  measurementId: process.env.firebaseMeasurementId,
 };
 
 const updateFirebase = async (payload: firebasePayloadType) => {
-
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
-  const firestore = firebase.firestore()
+  const firestore = firebase.firestore();
   const callDoc = firestore.collection('calls').doc();
-  await callDoc.update({ gameState: JSON.stringify(payload.gameState) })
-}
+  await callDoc.update({ gameState: JSON.stringify(payload.gameState) });
+};
 
-function* updateGameStateSaga(action: {
-  type: string;
-  payload: firebaseStateType;
-}) {
+function* updateGameStateSaga(action: { type: string; payload: firebaseStateType }) {
   try {
-
-
-
     //update firebase db
     // yield call(updateFirebase, action.payload);
     // if (isOk(response)) {

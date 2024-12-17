@@ -66,50 +66,59 @@ Ensure you have the following installed on your machine:
    ```bash
    npm install
    ```
+
 ## Configuration
+
 ### Firebase Setup, Ice server and Environment Variables
+
 1. Create a Firebase project.
 2. Obtain your Firebase configuration settings.
 3. Add the configuration settings to the .env.local file, refer sample.env file
 4. Obtain IceServer configuration settings and to env file
 
-
 ## Development
+
 Running the Application Locally:
-   ```bash
-   npm run dev
-   ```
-  Visit http://localhost:3000 in your browser.
+
+```bash
+npm run dev
+```
+
+Visit http://localhost:3000 in your browser.
 
 ## Building for Production
+
 Build the application:
-   ```bash
-   npm run build
-   ```
+
+```bash
+npm run build
+```
+
 Start the production server:
-   ```bash
-   npm start
-   ```
+
+```bash
+npm start
+```
 
 ## Additional Features
+
 ### PWA Integration
+
 The application is set up as a Progressive Web App (PWA) using next-pwa. Users can install it on their devices for an offline experience.
 
 ## Contributing
+
 If you'd like to contribute to the project, Connect with me on LinkedIn
 
-
-
 ## To do's
+
 1. Integrate Chess Engine
 2. 2D view
 3. Retry video connection option
 
-
-# DB 
+# DB
 
 Define schema
 Run npx prisma migrate dev --name init //SQL will be created and applied automatically
 See DB PG-WEB at http://0.0.0.0:8081/
 GraphQL server: http://localhost:3000/api/graphql
-

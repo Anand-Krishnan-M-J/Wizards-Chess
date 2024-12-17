@@ -4,7 +4,7 @@ export const vertexShader = `
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
-`
+`;
 
 export const fragmentShader = `
 uniform float time;
@@ -25,4 +25,4 @@ void main() {
 
     gl_FragColor = vec4(finalColor, 1.0); // Output the final color
   }
-`
+`;

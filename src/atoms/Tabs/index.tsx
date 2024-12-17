@@ -34,7 +34,10 @@ export const TabComponent: React.FC<AnimatedTabComponentProps> = ({ tabs }) => {
       </div>
       <div className={styles.tabContent}>
         {tabs.map((tab) => (
-          <div key={tab.id} className={`${styles.tabPane} ${activeTab === tab.id ? styles.activeTabPane : ''}`}>
+          <div
+            key={tab.id}
+            className={`${styles.tabPane} ${activeTab === tab.id ? styles.activeTabPane : ''}`}
+          >
             {tab.content}
           </div>
         ))}

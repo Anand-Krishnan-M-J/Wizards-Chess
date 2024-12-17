@@ -8,24 +8,24 @@
 // 1  x  o  x  o  x  o  x  o
 //    A  B  C  D  E  F  G  H
 
-import { ColName, RowName } from '../types'
+import { ColName, RowName } from '../types';
 export const rowNames = [
-    RowName.eight,
-    RowName.seven,
-    RowName.six,
-    RowName.five,
-    RowName.four,
-    RowName.three,
-    RowName.two,
-    RowName.one,
-]
+  RowName.eight,
+  RowName.seven,
+  RowName.six,
+  RowName.five,
+  RowName.four,
+  RowName.three,
+  RowName.two,
+  RowName.one,
+];
 export const colNames = [
-    ColName.A,
-    ColName.B,
-    ColName.C,
-    ColName.D,
-    ColName.E,
-    ColName.F,
-    ColName.G,
-    ColName.H,
-]
+  ColName.A,
+  ColName.B,
+  ColName.C,
+  ColName.D,
+  ColName.E,
+  ColName.F,
+  ColName.G,
+  ColName.H,
+];

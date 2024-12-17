@@ -1,38 +1,38 @@
 // FadeInText.scss
 
 .fade-in-text {
+  display: inline-block;
+  font-weight: 600;
+
+  .fade-in-char {
+    opacity: 0;
     display: inline-block;
-    font-weight: 600;
+    animation: fadeIn 0.5s ease-in-out forwards;
 
-    .fade-in-char {
-        opacity: 0;
-        display: inline-block;
-        animation: fadeIn 0.5s ease-in-out forwards;
-
-        @for $i from 1 through 100 {
-            &:nth-child(#{$i}) {
-                animation-delay: $i * 0.1s;
-            }
-        }
+    @for $i from 1 through 100 {
+      &:nth-child(#{$i}) {
+        animation-delay: $i * 0.1s;
+      }
     }
+  }
 
-    &--title {
-        font-size: x-large;
-        margin: 1rem;
-    }
+  &--title {
+    font-size: x-large;
+    margin: 1rem;
+  }
 
-    &--description {
-        font-size: small;
-        margin: 1rem;
-    }
+  &--description {
+    font-size: small;
+    margin: 1rem;
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
